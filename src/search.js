@@ -1,15 +1,18 @@
-const everybody = require('../assets/everybody.json')
-const axios = require('axios')
-import Game from './game'
+const everybody = require('../assets/everybody.json');
+const populars = require('../assets/most_popular.json');
+const axios = require('axios');
+import Game from './game';
 
 const searchables = Object.keys(everybody);
+const randomables = Object.keys(populars);
 
 
-const Search = () => {
+const addSearchListeners = () => {
   const input1 = document.getElementById('start-actor')
   const input2 = document.getElementById('end-actor')
   const dd1 = document.getElementById('dd1')
   const dd2 = document.getElementById('dd2')
+  const randomButton = document.getElementById('randomize')
 
   const suggest = (query) => {
     if (query.length < 3 || everybody.hasOwnProperty(query)) return null;
@@ -100,6 +103,18 @@ const Search = () => {
     buildResults(null, dd1)
     buildResults(null, dd2)
   })
-}
 
-export default Search
+  randomButton.addEventListener('click', () => {
+    let idx1 = Math.floor(Math.random() * randomables.length);
+    let idx2 = Math.floor(Math.random() * randomables.length);
+
+    while (idx1 === idx2) {
+      idx2 = Math.floor(Math.random() * randomables.length);
+    }
+
+    input1.value = randomables[idx1]
+    input2.value = randomables[idx2]
+  })
+};
+
+export default addSearchListeners;

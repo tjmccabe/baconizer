@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 // import {search} from './search'
-import Search from './search';
+import addSearchListeners from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("degree");
@@ -20,7 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
   
   watchWindow();
   
-  Search()
+  addSearchListeners()
 
   // let movieId = 550
   // axios.get(`/movies/${movieId}`)
