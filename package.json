@@ -21,20 +21,22 @@
   },
   "homepage": "https://github.com/tjmccabe/Baconizer#readme",
   "dependencies": {
+    "axios": "^0.19.2",
+    "body-parser": "^1.19.0",
+    "d3": "^5.16.0",
+    "express": "^4.17.1",
+    "ndjson": "^1.5.0",
+    "node-fetch": "^2.6.0",
+    "node-sass": "^4.14.1",
+    "sass-loader": "^8.0.2"
+  },
+  "devDependencies": {
     "@babel/core": "^7.9.6",
     "@babel/preset-env": "^7.9.6",
     "@babel/preset-react": "^7.9.4",
-    "axios": "^0.19.2",
     "babel-loader": "^8.1.0",
-    "body-parser": "^1.19.0",
-    "express": "^4.17.1",
-    "node-fetch": "^2.6.0",
-    "node-sass": "^4.14.1",
-    "sass-loader": "^8.0.2",
+    "nodemon": "^2.0.4",
     "webpack": "^4.43.0",
     "webpack-cli": "^3.3.11"
-  },
-  "devDependencies": {
-    "nodemon": "^2.0.4"
   }
 }

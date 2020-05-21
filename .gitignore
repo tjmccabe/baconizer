@@ -2,3 +2,11 @@ node_modules/
 bundle.js
 bundle.js.map
 keys_dev.js
+assets/movie_ids_05_19_2020.json
+assets/person_ids_05_19_2020.json
+assets/person_output.json
+assets/popular_actors.json
+assets/populars.json
+assets/parser.js
+assets/actor_filterer.js
+assets/README.txt

@@ -2,12 +2,86 @@
 <html lang="en">
 <head>
   <script type="text/javascript" src="./bundle.js"></script>
+  <link rel="stylesheet" href="./stylesheets/master.css">
+  <script src="https://kit.fontawesome.com/a076d05399.js"></script>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Baconizer</title>
 </head>
 <body>
-  <h1>Baconizer</h1>
-  <div id="root">Hello</div>
+  <nav>
+    <div id="title">
+      <h1 id="title-text">Baconizer</h1>
+      
+    </div>
+    <form id="form">
+      <div>Try to find a link from</div>
+      <div id="inputs">
+        <div id="start-input">
+          <input
+          type="text"
+          name="start-actor"
+          id="start-actor"
+          class="actor-input"
+          placeholder="Enter start actor"
+          spellcheck="false"
+          >
+          <ul class="input-dropdown" id="dd1"></ul>
+        </div>
+        to
+        <div id="start-input">
+          <input
+          type="text"
+            name="end-actor"
+            id="end-actor"
+            class="actor-input"
+            placeholder="Enter end actor"
+            spellcheck="false"
+          >
+          <ul class="input-dropdown" id="dd2"></ul>
+        </div>
+        <button class="go-time" type='submit'>
+          <div class="btn-filter">
+            GO
+          </div>
+        </button>
+      </div>
+    </form>
+    <button type="button" id="randomize">
+      <div class="btn-filter">
+        Click here for</br>random actors
+      </div>
+    </button>
+    <div id="links">
+      <div id="git">
+        <i class="fab fa-github"></i>
+      </div>
+      <div id="linkedin">
+        <i class="fab fa-linkedin"></i>
+      </div>
+      <div id="info">
+        <div id="info-icon">
+          <i class="fas fa-info-circle"></i>
+        </div>
+        <div id="info-text">
+          Welcome to Baconizer, a web game based on
+          <a target="_blank" href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
+           The Six Degrees of Kevin Bacon</a>! Enter a start actor and an end actor 
+          and try to find the shortest path between them by jumping between movies 
+          and actors. Try starting with Kevin Bacon as a nod to the original game 
+          or randomize the actors for an extra challenge!
+          </br>
+          </br>
+          There are 25,000 actors in our database, all of whom have a base level 
+          of popularity and at least 10 movie credits under their belt
+        </div>
+      </div>
+    </div>
+  </nav>
+
+
+  <canvas id="degree"></canvas>
+
+  <div id="branch">Current Branch</div>
 </body>
 </html>
