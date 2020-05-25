@@ -3,8 +3,6 @@ const movieInfo = require('./all_movies.json');
 const filtered = require('./filtered_movies_new2.json');
 const fs = require('fs');
 const fetch = require('node-fetch')
-const disposable_secret = "eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI2NjBmODhjMWMyMWIzMjVlNTRlZGRiZGU5Yzk5NTdiOSIsInN1YiI6IjVlYzg5MmJmOGUyZTAwM2RkNjEyYmE1YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.EOvh1HAccPvKuh3nd8LGxyIHZUwL8KS2pbAoQIniLF8"
-
 
 movieSet = new Set();
 Object.values(min5).forEach(val => {
@@ -73,7 +71,7 @@ const int = setInterval(() => {
   fetch(`https://api.themoviedb.org/3/movie/${movieId}?append_to_response=credits`, {
     headers: {
       // 'Authorization': 'Bearer ' + keys.TMDBReadAccessToken,
-      'Authorization': 'Bearer ' + disposable_secret,
+      // 'Authorization': 'Bearer ' + disposable_secret,
       'Content-Type': `application/json;charset=utf-8`,
     }
   })
