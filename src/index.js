@@ -1,4 +1,4 @@
-const axios = require('axios')
+// const axios = require('axios')
 
 // import {search} from './search'
 import addSearchListeners from './search';
@@ -32,15 +32,15 @@ document.addEventListener("DOMContentLoaded", () => {
   
   addSearchListeners()
 
-  let movieId = 550
-  axios.get(`/movies/${movieId}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+  // let movieId = 550
+  // axios.get(`/movies/${movieId}`)
+  //   .then(res => console.log(res))
+  //   .catch(err => console.log(err))
 
   // let actorId = 11157
-  let actorId = 287
+  // let actorId = 287
   // let actorId = 3405
-  axios.get(`/actors/${actorId}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+  // axios.get(`/actors/${actorId}`)
+  //   .then(res => console.log(res))
+  //   .catch(err => console.log(err))
 })

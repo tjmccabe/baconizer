@@ -7,7 +7,9 @@ class Game {
     this.startActor = startActor;
     this.endActor = endActor;
     this.center = startActor;
-    this.frame = new Frame(this.center);
+    this.path = [startActor];
+    
+    this.frame = new Frame(this.center, "actor");
 
     console.log(this.startActor.name)
     console.log(this.endActor.name)
@@ -24,8 +26,8 @@ class Game {
   watchWindow () {
     // maybe throttle or debounce this
     this.windowWatcher = window.addEventListener("resize", () => {
-      this.canvas.width = window.innerWidth - 20;
-      this.canvas.height = window.innerHeight - 200;
+      // this.canvas.width = window.innerWidth - 20;
+      // this.canvas.height = window.innerHeight - 200;
     }, false);
   }
 }

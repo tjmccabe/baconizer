@@ -12,7 +12,7 @@ app.use((req, res, next) => {
 })
 
 app.get('/', (request, res) => {
-  res.sendFile(path.join(__dirname, '/public/index.html'))
+  res.sendFile(path.join(__dirname, '/index.html'))
 })
 
 // // create route to get single movie by its TMDB id

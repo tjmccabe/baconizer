@@ -1,3 +1,5 @@
 #degree {
   background-color: rgba(0, 0, 0, 0.1);
+  width: 100vw;
+  min-height: calc(100vh - 200px);
 }
