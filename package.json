@@ -19,7 +19,7 @@
   "bugs": {
     "url": "https://github.com/tjmccabe/Baconizer/issues"
   },
-  "homepage": "https://github.com/tjmccabe/Baconizer#readme",
+  "homepage": "https://tjmccabe.github.io/Baconizer/",
   "dependencies": {
     "axios": "^0.19.2",
     "body-parser": "^1.19.0",
