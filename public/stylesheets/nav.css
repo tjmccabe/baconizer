@@ -4,7 +4,7 @@ nav {
   height: 70px;
   padding: 5px 10px;
   align-items: center;
-  background-color: rgb(176, 217, 233);
+  background-color: rgba(0, 0, 0, .05);
 }
 
 #title {
@@ -70,6 +70,10 @@ input:focus {
 
 .go-time:hover {
   cursor: pointer;
+}
+
+.go-time:focus {
+  outline: none;
 }
 
 #randomize {

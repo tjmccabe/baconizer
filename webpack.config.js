@@ -15,7 +15,7 @@ module.exports = {
         use: {
           loader: 'babel-loader',
           query: {
-            presets: ['@babel/env', '@babel/react']
+            presets: ['@babel/env']
           }
         },
       }
@@ -26,6 +26,6 @@ module.exports = {
   ],
   devtool: 'source-map',
   resolve: {
-    extensions: ['.js', '.jsx', '*']
+    extensions: ['.js', '*']
   }
 };

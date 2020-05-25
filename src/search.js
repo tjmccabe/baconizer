@@ -1,9 +1,10 @@
-const everybody = require('../assets/everybody.json');
+const everybody = require('../assets/min_10_movies.json');
 const populars = require('../assets/most_popular.json');
 const axios = require('axios');
 import Game from './game';
 
-const searchables = Object.keys(everybody);
+const searchables = Object.keys(everybody)
+const noAccents = searchables.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 const randomables = Object.keys(populars);
 
 
@@ -21,7 +22,7 @@ const addSearchListeners = () => {
 
     const results = [];
     for (let i = 0; i < searchables.length; i++) {
-      if (searchables[i].match(reg)) results.push(searchables[i])
+      if (noAccents[i].match(reg)) results.push(searchables[i])
     }
 
     if (results.length === 0) return [];
@@ -84,7 +85,7 @@ const addSearchListeners = () => {
       return
     }
 
-    if (id1 && id1=== id2) {
+    if (id1 && id1 === id2) {
       window.alert("We can't make it THAT easy")
       return
     }
@@ -109,11 +110,14 @@ const addSearchListeners = () => {
     let idx2 = Math.floor(Math.random() * randomables.length);
 
     while (idx1 === idx2) {
+      debugger
       idx2 = Math.floor(Math.random() * randomables.length);
+      debugger
     }
 
     input1.value = randomables[idx1]
     input2.value = randomables[idx2]
+    document.getElementById('go-time').focus()
   })
 };
 
