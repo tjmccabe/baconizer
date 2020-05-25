@@ -5,6 +5,9 @@ import addSearchListeners from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   const canvas = document.getElementById("degree");
+
+  canvas.width = window.innerWidth - 20;
+  canvas.height = window.innerHeight - 200;
   // const ctx = canvas.getContext('2d');
   
   // const render = () => {

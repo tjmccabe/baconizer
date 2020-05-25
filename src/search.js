@@ -1,12 +1,12 @@
-const everybody = require('../assets/min_10_movies.json');
+const actors = require('../assets/actor_test.json');
+const nameToId = require('../assets/name_to_id.json');
 const populars = require('../assets/most_popular.json');
 const axios = require('axios');
 import Game from './game';
 
-const searchables = Object.keys(everybody)
-const noAccents = searchables.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
-const randomables = Object.keys(populars);
-
+const allActorNames = Object.keys(nameToId)
+const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
+const popularNames = Object.keys(populars);
 
 const addSearchListeners = () => {
   const input1 = document.getElementById('start-actor')
@@ -16,23 +16,23 @@ const addSearchListeners = () => {
   const randomButton = document.getElementById('randomize')
 
   const suggest = (query) => {
-    if (query.length < 3 || everybody.hasOwnProperty(query)) return null;
+    if (query.length < 3 || nameToId.hasOwnProperty(query)) return null;
 
     const reg = new RegExp(query, 'i')
 
     const results = [];
-    for (let i = 0; i < searchables.length; i++) {
-      if (noAccents[i].match(reg)) results.push(searchables[i])
+    for (let i = 0; i < allActorNames.length; i++) {
+      if (noAccents[i].match(reg)) results.push(nameToId[allActorNames[i]])
     }
 
     if (results.length === 0) return [];
     
     const sorted = results.sort((a,b) => {
-      if (everybody[a].popularity > everybody[b].popularity) return -1;
+      if (actors[a].popularity > actors[b].popularity) return -1;
       return 1;
     })
 
-    return sorted.slice(0,10)
+    return sorted.slice(0,10).map(id => actors[id].name)
   }
 
   const enterVal = (val, dd, inp, e) => {
@@ -77,9 +77,9 @@ const addSearchListeners = () => {
     let endActor = e.target[1].value;
 
     let id1, id2;
-    if (everybody.hasOwnProperty(startActor) && everybody.hasOwnProperty(endActor)) {
-      id1 = everybody[startActor].id;
-      id2 = everybody[endActor].id;
+    if (nameToId.hasOwnProperty(startActor) && nameToId.hasOwnProperty(endActor)) {
+      id1 = nameToId[startActor];
+      id2 = nameToId[endActor];
     } else {
       window.alert("Please make sure both of your actors are on the list")
       return
@@ -90,11 +90,13 @@ const addSearchListeners = () => {
       return
     }
 
-    let res1
-    axios.get(`/actors/${id1}`)
-      .then(res => {res1 = res; return axios.get(`/actors/${id2}`)})
-      .then(res2 => new Game(res1.data, res2.data))
-      .catch(err => console.log(err))
+    // let res1
+    // axios.get(`/actors/${id1}`)
+    //   .then(res => {res1 = res; return axios.get(`/actors/${id2}`)})
+    //   .then(res2 => new Game(res1.data, res2.data))
+    //   .catch(err => console.log(err))
+
+    new Game(actors[id1], actors[id2])
 
     input1.blur()
     input2.blur()
@@ -106,17 +108,17 @@ const addSearchListeners = () => {
   })
 
   randomButton.addEventListener('click', () => {
-    let idx1 = Math.floor(Math.random() * randomables.length);
-    let idx2 = Math.floor(Math.random() * randomables.length);
+    let idx1 = Math.floor(Math.random() * popularNames.length);
+    let idx2 = Math.floor(Math.random() * popularNames.length);
 
     while (idx1 === idx2) {
       debugger
-      idx2 = Math.floor(Math.random() * randomables.length);
+      idx2 = Math.floor(Math.random() * popularNames.length);
       debugger
     }
 
-    input1.value = randomables[idx1]
-    input2.value = randomables[idx2]
+    input1.value = popularNames[idx1]
+    input2.value = popularNames[idx2]
     document.getElementById('go-time').focus()
   })
 };
