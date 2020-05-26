@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-// const actors = require('../assets/actorz.json');
+import MovieFrame from './movie_frame'
 const movies = require('../assets/moviez.json');
 
 class ActorFrame {
@@ -39,12 +39,14 @@ class ActorFrame {
     this.width = window.innerWidth - 20;
     this.height = window.innerHeight - 200;
 
-    this.render(true);
+    this.render();
 
     this.watchWindow();
   }
 
-  render(sizing = false) {
+  render() {
+    if (this.svg) this.svg.remove();
+
     this.nodes[0].fx = this.width/2;
     this.nodes[0].fy = this.height/2;
 
@@ -79,7 +81,8 @@ class ActorFrame {
       
     var images = node
       .append("image")
-      .attr("xlink:href", d => d.imgLink ? d.imgLink : "/assets/default.png")
+      .attr("xlink:href", d => d.imgLink)
+      .attr("class", d => d.frameId[0])
       .attr("x", -25)
       .attr("y", -38)
       .attr("height", 75)
@@ -101,13 +104,21 @@ class ActorFrame {
     this.sim.force("link")
       .links(this.links);
 
-    var setEvents = images
+    let bound = this.svg
+
+    var setEvents = images.filter((img, idx) => idx !== 0)
       // go to Movie Frame
-      .on('click', d => {
-        
+      .on('click', function (d) {
+        bound.remove()
+        window.removeEventListener("resize", () => {
+          this.width = window.innerWidth;
+          this.height = window.innerHeight - 200;
+          this.render();
+        }, false);
+        new MovieFrame(movies[d.id])
       })
 
-      .on('mouseenter', function() {
+      .on('mouseenter', function () {
         // select element in current context
         d3.select(this)
           .transition()
@@ -139,11 +150,11 @@ class ActorFrame {
 
   watchWindow() {
     // DEFINITELY throttle or debounce this
-    this.windowWatcher = window.addEventListener("resize", () => {
+    window.addEventListener("resize", () => {
       this.svg.remove()
       this.width = window.innerWidth;
       this.height = window.innerHeight - 200;
-      this.render(true);
+      this.render();
     }, false);
   }
 }

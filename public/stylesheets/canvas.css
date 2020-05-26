@@ -28,6 +28,10 @@ image:hover {
   cursor: pointer;
 }
 
+.c:hover {
+  cursor: inherit;
+}
+
 .node text {
   fill: rgb(122, 122, 122);
   font-size: 12;
