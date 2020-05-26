@@ -10,16 +10,10 @@ svg {
 }
 
 line {
-  stroke: aqua;
+  stroke: rgb(230, 230, 230);
   /* color: #98ff98; */
   /* z-index: 1; */
   /* background-color: #f5f; */
-}
-
-circle {
-  /* position: relative; */
-  /* fill: bisque; */
-  /* z-index: 2; */
 }
 
 image {
@@ -30,6 +24,11 @@ image {
   background-position: 50%; */
 }
 
-.nodetext {
-  background-color: rgba(255, 255, 255, 0.5);
+image:hover {
+  cursor: pointer;
+}
+
+.node text {
+  fill: rgb(122, 122, 122);
+  font-size: 12;
 }

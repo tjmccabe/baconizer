@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-const actors = require('../assets/actor_test.json');
+const actors = require('../assets/actorz.json');
 const nameToId = require('../assets/name_to_id.json');
 const populars = require('../assets/most_popular.json');
 // const axios = require('axios');

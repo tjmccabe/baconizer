@@ -1,21 +1,26 @@
 import * as d3 from 'd3';
-const actors = require('../assets/actor_test.json');
-const movies = require('../assets/movie_test.json');
+// const actors = require('../assets/actorz.json');
+const movies = require('../assets/moviez.json');
 
 class ActorFrame {
   constructor(center) {
     this.center = Object.assign({}, center, {
       text: center.name,
       frameId: `c${center.id}`,
-      imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w92${center.profile_path}` : null
+      imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w92${center.profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
     });
 
     this.nodes = [this.center]
-      .concat(this.center.movie_ids.map(id => Object.assign({}, movies[id], {
-        text: movies[id].title,
+      .concat(this.center.movie_ids.map(id => {
+        const text = movies[id].title.length > 20 ? (
+          movies[id].title.slice(0, 20) + '...'
+        ) : (movies[id].title);
+
+        return Object.assign({}, movies[id], {
+        text: text,
         frameId: id,
-        imgLink: movies[id].poster_path ? `https://image.tmdb.org/t/p/w92${movies[id].poster_path}` : null
-      }))
+        imgLink: movies[id].poster_path ? `https://image.tmdb.org/t/p/w92${movies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      })})
       .sort((a, b) => {
         return (a.popularity > b.popularity) ? -1 : 1
       }))
@@ -55,7 +60,7 @@ class ActorFrame {
       .force("charge", d3.forceManyBody().strength(-500))
       .force("link", d3.forceLink().id(d => d.frameId))
       // .force("center", d3.forceCenter(this.width / 2, this.height / 2))
-      .force("collide", d3.forceCollide().radius(50))
+      .force("collide", d3.forceCollide().radius(55))
 
     var link = this.svg.append("g")
       .attr("class", "links")
@@ -70,23 +75,14 @@ class ActorFrame {
       .enter()
       .append("g")
       .attr("class", "node")
-      // .attr("x", -25)
-      // .attr("y", -25)
-      
-    var circles = node
-      .append("circle")
-      .attr("x", -25)
-      .attr("y", -25)
-      .attr("r", 20)
-      .style("fill", "#98ff98")
+
       
     var images = node
       .append("image")
       .attr("xlink:href", d => d.imgLink ? d.imgLink : "/assets/default.png")
-      // .attr("xlink:href", d => d.imgLink ? d.imgLink : null)
       .attr("x", -25)
-      .attr("y", -40)
-      .attr("height", 80)
+      .attr("y", -38)
+      .attr("height", 75)
       .attr("width", 50)
 
     var text = node
@@ -94,33 +90,9 @@ class ActorFrame {
       .attr("class", "nodetext")
       .attr("text-anchor", "middle")
       .attr("y", 50)
-      .attr("color", "black")
       .attr("background-color", "rgba(255, 255, 255, 0.5)")
-      .attr("font-size", 14)
-      .attr("z-index", 4)
+      .attr("font-size", 12)
       .text(d => d.text)
-    
-    // var node = nodes.enter().append("g")
-
-    // node
-
-      // .append("title")
-      // .text(d => d.text);
-      // node
-      // .call(d3.drag()
-      //   .on("start", dragstarted)
-      //   .on("drag", dragged)
-      //   .on("end", dragended));
-
-    // node.append("title")
-    //   .text(d => d.text);
-
-    // var images = node.append("image")
-    //   .attr("xlink:href", d => d.imgLink ? d.imgLink : "/assets/default.png")
-    //   .attr("x", d => -25)
-    //   .attr("y", d => -25)
-    //   .attr("height", 50)
-    //   .attr("width", 50);
 
     this.sim
       .nodes(this.nodes)
@@ -128,6 +100,31 @@ class ActorFrame {
 
     this.sim.force("link")
       .links(this.links);
+
+    var setEvents = images
+      // go to Movie Frame
+      .on('click', d => {
+        
+      })
+
+      .on('mouseenter', function() {
+        // select element in current context
+        d3.select(this)
+          .transition()
+          .attr("x", function (d) { return -33; })
+          .attr("y", function (d) { return -60; })
+          .attr("height", 100)
+          .attr("width", 66);
+      })
+      // set back
+      .on('mouseleave', function () {
+        d3.select(this)
+          .transition()
+          .attr("x", function (d) { return -25; })
+          .attr("y", function (d) { return -38; })
+          .attr("height", 75)
+          .attr("width", 50);
+      });
 
     function ticked() {
       link
@@ -137,8 +134,6 @@ class ActorFrame {
         .attr("y2", d => d.target.y);
 
       node.attr("transform", d => "translate(" + d.x + "," + d.y + ")");
-
-      
     }
   }
 
