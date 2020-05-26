@@ -1,3 +1,4 @@
+import * as d3 from 'd3';
 const actors = require('../assets/actor_test.json');
 const nameToId = require('../assets/name_to_id.json');
 const populars = require('../assets/most_popular.json');
@@ -7,6 +8,7 @@ import Game from './game';
 const allActorNames = Object.keys(nameToId)
 const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 const popularNames = Object.keys(populars);
+let currentGame = null;
 
 const addSearchListeners = () => {
   const input1 = document.getElementById('start-actor')
@@ -90,13 +92,8 @@ const addSearchListeners = () => {
       return
     }
 
-    // let res1
-    // axios.get(`/actors/${id1}`)
-    //   .then(res => {res1 = res; return axios.get(`/actors/${id2}`)})
-    //   .then(res2 => new Game(res1.data, res2.data))
-    //   .catch(err => console.log(err))
-
-    new Game(actors[id1], actors[id2])
+    d3.select("svg").remove();
+    currentGame = new Game(actors[id1], actors[id2])
 
     input1.blur()
     input2.blur()

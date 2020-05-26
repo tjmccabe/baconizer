@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import Frame from './frame';
+import ActorFrame from './actor_frame';
 
 
 class Game {
@@ -9,26 +9,17 @@ class Game {
     this.center = startActor;
     this.path = [startActor];
     
-    this.frame = new Frame(this.center, "actor");
+    this.frame = new ActorFrame(this.center);
 
     console.log(this.startActor.name)
     console.log(this.endActor.name)
 
     this.canvas = document.getElementById('degree')
 
-    this.watchWindow()
   }
 
   gameOver() {
     // remove event listeners
-  }
-
-  watchWindow () {
-    // maybe throttle or debounce this
-    this.windowWatcher = window.addEventListener("resize", () => {
-      // this.canvas.width = window.innerWidth - 20;
-      // this.canvas.height = window.innerHeight - 200;
-    }, false);
   }
 }
 

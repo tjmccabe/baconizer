@@ -1,5 +1,35 @@
 #degree {
-  background-color: rgba(0, 0, 0, 0.1);
+  background-color: rgba(0, 0, 0, 0);
   width: 100vw;
   min-height: calc(100vh - 200px);
+  z-index: 0;
+}
+
+svg {
+  width: 100%;
+}
+
+line {
+  stroke: aqua;
+  /* color: #98ff98; */
+  /* z-index: 1; */
+  /* background-color: #f5f; */
+}
+
+circle {
+  /* position: relative; */
+  /* fill: bisque; */
+  /* z-index: 2; */
+}
+
+image {
+  z-index: 2;
+  /* width: 60;
+  height: 100;
+  background-size: cover;
+  background-position: 50%; */
+}
+
+.nodetext {
+  background-color: rgba(255, 255, 255, 0.5);
 }
