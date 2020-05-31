@@ -7,7 +7,7 @@ class MovieFrame {
     this.center = Object.assign({}, center, {
       text: center.title,
       frameId: `c${center.id}`,
-      imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w92${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w92${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
     });
 
     this.nodes = [this.center]
@@ -108,7 +108,7 @@ class MovieFrame {
     let bound = this.svg
 
     var setEvents = images.filter((img, idx) => idx !== 0)
-      // go to Movie Frame
+      // go to Actor Frame
       .on('click', function (d) {
         bound.remove()
         window.removeEventListener("resize", () => {
@@ -150,7 +150,7 @@ class MovieFrame {
   }
 
   watchWindow() {
-    // DEFINITELY throttle or debounce this
+    // DEFINITELY debounce this
     window.addEventListener("resize", () => {
       this.svg.remove()
       this.width = window.innerWidth;
