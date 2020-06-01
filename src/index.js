@@ -4,6 +4,9 @@
 import addSearchListeners from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
+  const modal = document.getElementById("modal")
+  modal.classList.add("loaded");
+
   const canvas = document.getElementById("degree");
 
   canvas.width = window.innerWidth - 20;
