@@ -2,10 +2,16 @@ const actors = require('./actorz.json');
 const movies = require('./moviez.json');
 const fs = require('fs');
 
-// let ids = Object.keys(movies)
+let ids = Object.keys(movies)
 
 console.log(Object.keys(actors).length)
-console.log(Object.keys(movies).length)
+console.log(ids.length)
+
+let unos = ids.filter(id => movies[id].actor_ids.length === 0)
+
+let movez = {}
+unos.forEach(uno => movez[uno] = movies[uno])
+console.log(movez)
 
 // let newMovies = {};
 // let newActors = {};
