@@ -5,6 +5,8 @@ const fetch = require('node-fetch')
 const keys = require('./config/keys')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 
+const actors = require('./assets/actorz.json');
+
 app.use(express.static('public'))
 app.use((req, res, next) => {
   req.header("Access-Control-Allow-Origin", "*");
