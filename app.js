@@ -17,6 +17,13 @@ app.get('/', (request, res) => {
   res.sendFile(path.join(__dirname, '/index.html'))
 })
 
+app.get('/actors/:actorId', (req, res) => {
+  let id = req.params.actorId
+  let actor = actors[id]
+  console.log(actor)
+  res.send(actor)
+});
+
 // // create route to get single movie by its TMDB id
 app.get('/movies/:movieId', (request, response) => {
   // make api call using fetch
@@ -35,21 +42,21 @@ app.get('/movies/:movieId', (request, response) => {
     })
 });
 
-app.get('/actors/:actorId', (request, response) => {
-  fetch(`https://api.themoviedb.org/3/person/${request.params.actorId}?append_to_response=movie_credits`, {
-    headers: {
-    'Authorization': 'Bearer ' + keys.TMDBReadAccessToken,
-    'Content-Type': `application/json;charset=utf-8`,
-  }})
-    .then((response) => {
-      return response.text();
-    }).then((body) => {
-      let results = JSON.parse(body)
-      response.send(results)
-    }).catch(err => {
-      console.log(err)
-    })
-});
+// app.get('/actors/:actorId', (request, response) => {
+//   fetch(`https://api.themoviedb.org/3/person/${request.params.actorId}?append_to_response=movie_credits`, {
+//     headers: {
+//     'Authorization': 'Bearer ' + keys.TMDBReadAccessToken,
+//     'Content-Type': `application/json;charset=utf-8`,
+//   }})
+//     .then((response) => {
+//       return response.text();
+//     }).then((body) => {
+//       let results = JSON.parse(body)
+//       response.send(results)
+//     }).catch(err => {
+//       console.log(err)
+//     })
+// });
 
 
 app.listen(PORT, () => {
