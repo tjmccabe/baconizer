@@ -9,7 +9,8 @@ const actors = require('./assets/actorz.json');
 
 app.use(express.static('public'))
 app.use((req, res, next) => {
-  req.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();
 })
 
@@ -18,6 +19,7 @@ app.get('/', (request, res) => {
 })
 
 app.get('/actors/:actorId', (req, res) => {
+  res.header("Access-Control-Allow-Origin", "*")
   let id = req.params.actorId
   let actor = actors[id]
   console.log(actor)
@@ -26,6 +28,8 @@ app.get('/actors/:actorId', (req, res) => {
 
 // // create route to get single movie by its TMDB id
 app.get('/movies/:movieId', (request, response) => {
+  res.header("Access-Control-Allow-Origin", "*")
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   // make api call using fetch
   fetch(`https://api.themoviedb.org/3/movie/${request.params.movieId}?append_to_response=credits`, {
     headers: {

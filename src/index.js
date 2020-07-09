@@ -4,8 +4,8 @@ const axios = require('axios')
 import addSearchListeners from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
-  const modal = document.getElementById("modal")
-  modal.classList.add("loaded");
+  // const modal = document.getElementById("modal")
+  // modal.classList.add("loaded");
 
   const canvas = document.getElementById("degree");
 
@@ -32,14 +32,14 @@ document.addEventListener("DOMContentLoaded", () => {
   // }
   
   // watchWindow();
-  
-  addSearchListeners()
 
+  addSearchListeners()
+  
   let movieId = 550
   axios.get(`/movies/${movieId}`)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
-
+  .then(res => console.log(res))
+  .catch(err => console.log(err))
+  
   // let actorId = 11157
   // let actorId = 287
   let actorId = 3405
