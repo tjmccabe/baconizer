@@ -19,11 +19,12 @@ app.get('/', (request, res) => {
 })
 
 app.get('/actors/:actorId', (req, res) => {
-  res.header("Access-Control-Allow-Origin", "*")
-  let id = req.params.actorId
-  let actor = actors[id]
-  console.log(actor)
-  res.send(actor)
+  res.status(200).send("hey now");
+  // res.header("Access-Control-Allow-Origin", "*")
+  // let id = req.params.actorId
+  // let actor = actors[id]
+  // console.log(actor)
+  // res.send(actor)
 });
 
 // // create route to get single movie by its TMDB id
