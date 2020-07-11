@@ -40,9 +40,8 @@ document.addEventListener("DOMContentLoaded", () => {
   .then(res => console.log(res))
   .catch(err => console.log(err))
   
-  // let actorId = 11157
+  let actorId = 11157
   // let actorId = 287
-  let actorId = 3405
   axios.get(`/actors/${actorId}`)
     .then(res => console.log(res))
     .catch(err => console.log(err))

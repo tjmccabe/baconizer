@@ -1,8 +1,9 @@
 import * as d3 from 'd3';
-const actors = require('../assets/actorz.json');
+const axios = require('axios')
+
+// const actors = require('../assets/actorz.json');
 const nameToId = require('../assets/name_to_id.json');
 const populars = require('../assets/most_popular.json');
-// const axios = require('axios');
 import Game from './game';
 
 const allActorNames = Object.keys(nameToId)
@@ -92,8 +93,10 @@ const addSearchListeners = () => {
       return
     }
 
+    axios.get(`/newgame/${id1}/${id2}`)
+      .then(res => { currentGame = new Game(res.data[0], res.data[1]) })
+
     d3.select("svg").remove();
-    currentGame = new Game(actors[id1], actors[id2])
 
     input1.blur()
     input2.blur()

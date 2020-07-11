@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+const axios = require('axios')
 import MovieFrame from './movie_frame'
 const movies = require('../assets/moviez.json');
 
@@ -32,9 +33,9 @@ class ActorFrame {
       this.links.push({source: this.center.frameId, target: node.frameId})
     })
     
-    console.log(this.center)
-    console.log(this.nodes)
-    console.log(this.links)
+    // console.log(this.center)
+    // console.log(this.nodes)
+    // console.log(this.links)
     
     this.width = window.innerWidth - 20;
     this.height = window.innerHeight - 200;
