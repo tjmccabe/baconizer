@@ -48,12 +48,14 @@ class ActorFrame {
     
         this.render();
     
-        this.watchWindow();
+        // this.watchWindow();
       })
 
   }
 
   render() {
+    let lms = this.localMovies;
+
     if (this.svg) this.svg.remove();
 
     this.nodes[0].fx = this.width/2;
@@ -124,7 +126,7 @@ class ActorFrame {
           this.height = window.innerHeight - 200;
           this.render();
         }, false);
-        new MovieFrame(this.localMovies[d.id])
+        new MovieFrame(lms[d.id])
       })
 
       .on('mouseenter', function () {
@@ -157,15 +159,15 @@ class ActorFrame {
     }
   }
 
-  watchWindow() {
-    // DEFINITELY debounce this
-    window.addEventListener("resize", () => {
-      this.svg.remove()
-      this.width = window.innerWidth;
-      this.height = window.innerHeight - 200;
-      this.render();
-    }, false);
-  }
+  // watchWindow() {
+  //   // DEFINITELY debounce this
+  //   window.addEventListener("resize", () => {
+  //     this.svg.remove()
+  //     this.width = window.innerWidth;
+  //     this.height = window.innerHeight - 200;
+  //     this.render();
+  //   }, false);
+  // }
 }
 
 export default ActorFrame;

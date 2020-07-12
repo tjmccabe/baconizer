@@ -1,6 +1,7 @@
 import * as d3 from 'd3';
+const axios = require('axios')
 import ActorFrame from './actor_frame'
-const actors = require('../assets/actorz.json');
+// const actors = require('../assets/actorz.json');
 
 class MovieFrame {
   constructor(center) {
@@ -10,42 +11,51 @@ class MovieFrame {
       imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w92${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
     });
 
-    this.nodes = [this.center]
-      .concat(this.center.actor_ids.map(id => {
-        const text = actors[id].name.length > 20 ? (
-          actors[id].name.slice(0, 20) + '...'
-        ) : (actors[id].name);
+    this.localActors = null
 
-        return Object.assign({}, actors[id], {
-          text: text,
-          frameId: id,
-          imgLink: actors[id].profile_path ? `https://image.tmdb.org/t/p/w92${actors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+    axios.get(`/actorsbymovie/${center.id}`)
+      .then(res => {
+        this.localActors = res.data
+
+        this.nodes = [this.center]
+          .concat(Object.keys(this.localActors).map(id => {
+            const text = this.localActors[id].name.length > 20 ? (
+              this.localActors[id].name.slice(0, 20) + '...'
+            ) : (this.localActors[id].name);
+    
+            return Object.assign({}, this.localActors[id], {
+              text: text,
+              frameId: id,
+              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w92${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+            })
+          })
+          .sort((a, b) => {
+            return (a.popularity > b.popularity) ? -1 : 1
+          }))
+    
+        this.links = [];
+    
+        this.nodes.forEach((node, idx) => {
+          if (idx === 0) return;
+          this.links.push({ source: this.center.frameId, target: node.frameId })
         })
+    
+        // console.log(this.center)
+        // console.log(this.nodes)
+        // console.log(this.links)
+    
+        this.width = window.innerWidth - 20;
+        this.height = window.innerHeight - 200;
+    
+        this.render();
+    
+        // this.watchWindow();
       })
-      .sort((a, b) => {
-        return (a.popularity > b.popularity) ? -1 : 1
-      }))
-
-    this.links = [];
-
-    this.nodes.forEach((node, idx) => {
-      if (idx === 0) return;
-      this.links.push({ source: this.center.frameId, target: node.frameId })
-    })
-
-    console.log(this.center)
-    console.log(this.nodes)
-    console.log(this.links)
-
-    this.width = window.innerWidth - 20;
-    this.height = window.innerHeight - 200;
-
-    this.render();
-
-    this.watchWindow();
   }
 
   render() {
+    let las = this.localActors
+
     if (this.svg) this.svg.remove();
 
     this.nodes[0].fx = this.width / 2;
@@ -116,7 +126,7 @@ class MovieFrame {
           this.height = window.innerHeight - 200;
           this.render();
         }, false);
-        new ActorFrame(actors[d.id])
+        new ActorFrame(las[d.id])
       })
 
       .on('mouseenter', function () {
@@ -149,15 +159,15 @@ class MovieFrame {
     }
   }
 
-  watchWindow() {
-    // DEFINITELY debounce this
-    window.addEventListener("resize", () => {
-      this.svg.remove()
-      this.width = window.innerWidth;
-      this.height = window.innerHeight - 200;
-      this.render();
-    }, false);
-  }
+  // watchWindow() {
+  //   // DEFINITELY debounce this
+  //   window.addEventListener("resize", () => {
+  //     this.svg.remove()
+  //     this.width = window.innerWidth;
+  //     this.height = window.innerHeight - 200;
+  //     this.render();
+  //   }, false);
+  // }
 }
 
 export default MovieFrame;
