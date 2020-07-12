@@ -19,7 +19,6 @@ class ActorFrame {
 
         this.nodes = [this.center]
           .concat(Object.keys(this.localMovies).map(id => {
-            console.log(this.localMovies)
             const text = this.localMovies[id].title.length > 20 ? (
               this.localMovies[id].title.slice(0, 20) + '...'
             ) : (this.localMovies[id].title);

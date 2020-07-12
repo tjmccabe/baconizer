@@ -22,6 +22,15 @@ app.get('/actors/:actorId', (req, res) => {
   res.send(actor)
 });
 
+app.get('/actorsbymovie/:movieId', (req, res) => {
+  let movId = req.params.movieId
+  let movie = movies[movId]
+  let ids = movie.actor_ids
+  let actorsByMovie = {}
+  ids.forEach(id => actorsByMovie[id] = actors[id])
+  res.send(actorsByMovie)
+});
+
 app.get('/newgame/:act1/:act2', (req, res) => {
   let id1 = req.params.act1
   let id2 = req.params.act2
