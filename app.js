@@ -1,7 +1,7 @@
 const express = require('express')
 const app = express()
 const path = require('path')
-const fetch = require('node-fetch')
+// const fetch = require('node-fetch')
 const keys = require('./config/keys')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 
