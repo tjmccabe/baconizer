@@ -1,7 +1,7 @@
 import * as d3 from 'd3';
 const axios = require('axios')
 import MovieFrame from './movie_frame'
-const movies = require('../assets/moviez.json');
+// const movies = require('../assets/moviez.json');
 
 class ActorFrame {
   constructor(center) {
@@ -11,38 +11,47 @@ class ActorFrame {
       imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w92${center.profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
     });
 
-    this.nodes = [this.center]
-      .concat(this.center.movie_ids.map(id => {
-        const text = movies[id].title.length > 20 ? (
-          movies[id].title.slice(0, 20) + '...'
-        ) : (movies[id].title);
+    this.localMovies = null;
 
-        return Object.assign({}, movies[id], {
-        text: text,
-        frameId: id,
-        imgLink: movies[id].poster_path ? `https://image.tmdb.org/t/p/w92${movies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
-      })})
-      .sort((a, b) => {
-        return (a.popularity > b.popularity) ? -1 : 1
-      }))
+    axios.get(`/moviesbyactor/${center.id}`)
+      .then(res => {
+        this.localMovies = res.data
 
-    this.links = [];
+        this.nodes = [this.center]
+          .concat(Object.keys(this.localMovies).map(id => {
+            console.log(this.localMovies)
+            const text = this.localMovies[id].title.length > 20 ? (
+              this.localMovies[id].title.slice(0, 20) + '...'
+            ) : (this.localMovies[id].title);
     
-    this.nodes.forEach((node, idx) => {
-      if (idx === 0) return;
-      this.links.push({source: this.center.frameId, target: node.frameId})
-    })
+            return Object.assign({}, this.localMovies[id], {
+            text: text,
+            frameId: id,
+            imgLink: this.localMovies[id].poster_path ? `https://image.tmdb.org/t/p/w92${this.localMovies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+          })})
+          .sort((a, b) => {
+            return (a.popularity > b.popularity) ? -1 : 1
+          }))
     
-    // console.log(this.center)
-    // console.log(this.nodes)
-    // console.log(this.links)
+        this.links = [];
+        
+        this.nodes.forEach((node, idx) => {
+          if (idx === 0) return;
+          this.links.push({source: this.center.frameId, target: node.frameId})
+        })
+        
+        // console.log(this.center)
+        // console.log(this.nodes)
+        // console.log(this.links)
+        
+        this.width = window.innerWidth - 20;
+        this.height = window.innerHeight - 200;
     
-    this.width = window.innerWidth - 20;
-    this.height = window.innerHeight - 200;
+        this.render();
+    
+        this.watchWindow();
+      })
 
-    this.render();
-
-    this.watchWindow();
   }
 
   render() {
@@ -116,7 +125,7 @@ class ActorFrame {
           this.height = window.innerHeight - 200;
           this.render();
         }, false);
-        new MovieFrame(movies[d.id])
+        new MovieFrame(this.localMovies[d.id])
       })
 
       .on('mouseenter', function () {

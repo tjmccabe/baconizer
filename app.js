@@ -36,6 +36,15 @@ app.get('/movies/:movieId', (req, res) => {
   res.send(movie)
 });
 
+app.get('/moviesbyactor/:actorId', (req, res) => {
+  let actId = req.params.actorId
+  let actor = actors[actId]
+  let ids = actor.movie_ids
+  let moviesByActor = {}
+  ids.forEach(id => moviesByActor[id] = movies[id])
+  res.send(moviesByActor)
+});
+
 // EXAMPLE OF FULL API REQ:
 
 // app.get('/actors/:actorId', (request, response) => {
