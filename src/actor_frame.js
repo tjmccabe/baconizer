@@ -49,8 +49,8 @@ class ActorFrame {
         // this.watchWindow();
       })
       
-      this.width = window.innerWidth - 20;
-      this.height = window.innerHeight - 70;
+    this.width = window.innerWidth - 20;
+    this.height = window.innerHeight - 70;
   }
 
   render() {
@@ -69,8 +69,8 @@ class ActorFrame {
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
-      // .force("y", d3.forceY(this.height / 2).strength(1.5))
-      .force("charge", d3.forceManyBody().strength(-100))
+      .force("y", d3.forceY(this.height / 2).strength(.1))
+      .force("charge", d3.forceManyBody().strength(-3000))
       .force("link", d3.forceLink().id(d => d.frameId))
       // .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide().radius(55))
