@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+// import { throttle, debounce } from "throttle-debounce"
 const axios = require('axios')
 import MovieFrame from './movie_frame'
 // const movies = require('../assets/moviez.json');
@@ -24,10 +25,11 @@ class ActorFrame {
             ) : (this.localMovies[id].title);
     
             return Object.assign({}, this.localMovies[id], {
-            text: text,
-            frameId: id,
-            imgLink: this.localMovies[id].poster_path ? `https://image.tmdb.org/t/p/w92${this.localMovies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
-          })})
+              text: text,
+              frameId: id,
+              imgLink: this.localMovies[id].poster_path ? `https://image.tmdb.org/t/p/w154${this.localMovies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+            })
+          })
           .sort((a, b) => {
             return (a.popularity > b.popularity) ? -1 : 1
           }))
@@ -42,29 +44,38 @@ class ActorFrame {
         // console.log(this.center)
         // console.log(this.nodes)
         // console.log(this.links)
-
+        this.currCenterX = this.width / 2;
+        this.currCenterY = this.height / 2;
+        this.nodes[0].fx = this.currCenterX;
+        this.nodes[0].fy = this.currCenterY;
         
         this.render();
         
-        // this.watchWindow();
       })
       
-      this.width = window.innerWidth;
-      this.height = window.innerHeight - 70;
+    this.width = window.innerWidth;
+    this.height = window.innerHeight - 70;
       
-      this.g = d3.select("svg")
-        .append("g")
-        .attr("width", this.width)
-        .attr("height", this.height)
+    let g
+
+    this.g = g = d3.select("svg")
+      .append("g")
+      .attr("id", "thisg")
+      .attr("width", this.width)
+      .attr("height", this.height)
+
+    this.zoom = d3.zoom()
+      .scaleExtent([0.5, 4])
+      .on("zoom", function () {
+        g.attr("transform", d3.event.transform)
+      })
+
+    d3.select("svg").call(this.zoom)
+    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
   
   render() {
     let lms = this.localMovies;
-    
-    // if (this.g) this.g.remove();
-
-    this.nodes[0].fx = this.width/2;
-    this.nodes[0].fy = this.height/2;
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -88,7 +99,6 @@ class ActorFrame {
       .append("g")
       .attr("class", "node")
 
-      
     var images = node
       .append("image")
       .attr("xlink:href", d => d.imgLink)
@@ -123,17 +133,21 @@ class ActorFrame {
     this.sim.force("link")
       .links(this.links);
 
-    let bound = this.g
+    const bound = this.g
+    // const zoom = this.zoom
 
-    var setEvents = images.filter((img, idx) => idx !== 0)
+    var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Movie Frame
       .on('click', function (d) {
+        // bound.transition()
+          // .duration(750)
+          // .call(zoom.transform, d3.zoomIdentity);
         bound.remove()
-        window.removeEventListener("resize", () => {
-          this.width = window.innerWidth;
-          this.height = window.innerHeight - 200;
-          this.render();
-        }, false);
+        // window.removeEventListener("resize", () => {
+        //   this.width = window.innerWidth;
+        //   this.height = window.innerHeight - 200;
+        //   this.render();
+        // }, false);
         new MovieFrame(lms[d.id])
       })
 

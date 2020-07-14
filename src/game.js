@@ -20,9 +20,9 @@ class Game {
     this.svg = d3.select("section").append("svg")
       .attr("width", this.width)
       .attr("height", this.height)
-      .call(d3.zoom().on("zoom", function () {
-        d3.select("#thisg").attr("transform", d3.event.transform)
-      }))
+      // .call(d3.zoom().on("zoom", function () {
+      //   d3.select("#thisg").attr("transform", d3.event.transform)
+      // }))
 
     this.frame = new ActorFrame(this.center);
   }

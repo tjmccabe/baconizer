@@ -1,5 +1,5 @@
 import * as d3 from 'd3';
-import { throttle, debounce } from "throttle-debounce"
+// import { throttle, debounce } from "throttle-debounce"
 const axios = require('axios')
 import ActorFrame from './actor_frame'
 // const actors = require('../assets/actorz.json');
@@ -27,7 +27,7 @@ class MovieFrame {
             return Object.assign({}, this.localActors[id], {
               text: text,
               frameId: id,
-              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w92${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w154${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
             })
           })
           .sort((a, b) => {
@@ -51,31 +51,31 @@ class MovieFrame {
         
         this.render();
         
-        // this.watchWindow();
-        // this.watchRecenter();
-        
       })
       
     this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
 
-    this.g = d3.select("svg")
-      .append("g")
-      .attr("id", "thisg")
-      .attr("width", this.width)
-      .attr("height", this.height)
-      
-    // this.g.call(d3.zoom()
-    //   .on("zoom", () => this.g.attr("transform", d3.event.transform)));
+    let g
+    
+    this.g = g = d3.select("svg")
+    .append("g")
+    .attr("id", "thisg")
+    .attr("width", this.width)
+    .attr("height", this.height)
+
+    this.zoom = d3.zoom()
+      .scaleExtent([0.5, 4])
+      .on("zoom", function () {
+        g.attr("transform", d3.event.transform)
+      })
+    
+    d3.select("svg").call(this.zoom)
+    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
   
   render() {
     let las = this.localActors
-    
-    // if (this.g) this.g.remove();
-    
-
-    // console.log(this.currCenterX)
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -113,7 +113,6 @@ class MovieFrame {
       .attr("class", "nodetext")
       .attr("text-anchor", "middle")
       .attr("y", 50)
-      .attr("background-color", "rgba(255, 255, 255, 0.5)")
       .attr("font-size", 12)
       .text(d => d.text)
 
@@ -134,17 +133,21 @@ class MovieFrame {
     this.sim.force("link")
       .links(this.links);
 
-    let bound = this.g
+    const bound = this.g
+    const zoom = this.zoom
 
     var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Actor Frame
       .on('click', function (d) {
+        // bound.transition()
+          // .duration(750)
+          // .call(zoom.transform, d3.zoomIdentity);
         bound.remove()
-        window.removeEventListener("resize", () => {
-          this.width = window.innerWidth;
-          this.height = window.innerHeight - 200;
-          this.render();
-        }, false);
+        // window.removeEventListener("resize", () => {
+        //   this.width = window.innerWidth;
+        //   this.height = window.innerHeight - 200;
+        //   this.render();
+        // }, false);
         new ActorFrame(las[d.id])
       })
 
