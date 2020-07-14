@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import { throttle, debounce } from "throttle-debounce"
 const axios = require('axios')
 import ActorFrame from './actor_frame'
 // const actors = require('../assets/actorz.json');
@@ -43,29 +44,38 @@ class MovieFrame {
         // console.log(this.center)
         // console.log(this.nodes)
         // console.log(this.links)
+        this.currCenterX = this.width / 2;
+        this.currCenterY = this.height / 2;
+        this.nodes[0].fx = this.currCenterX;
+        this.nodes[0].fy = this.currCenterY;
         
         this.render();
         
         // this.watchWindow();
+        // this.watchRecenter();
+        
       })
       
-    this.width = window.innerWidth - 20;
+    this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
-  }
 
-  render() {
-    let las = this.localActors
-
-    if (this.svg) this.svg.remove();
-
-    this.nodes[0].fx = this.width / 2;
-    this.nodes[0].fy = this.height / 2;
-
-    d3.select("section").append("svg")
-
-    this.svg = d3.select("svg")
+    this.g = d3.select("svg")
+      .append("g")
+      .attr("id", "thisg")
       .attr("width", this.width)
       .attr("height", this.height)
+      
+    // this.g.call(d3.zoom()
+    //   .on("zoom", () => this.g.attr("transform", d3.event.transform)));
+  }
+  
+  render() {
+    let las = this.localActors
+    
+    // if (this.g) this.g.remove();
+    
+
+    // console.log(this.currCenterX)
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -75,14 +85,14 @@ class MovieFrame {
       // .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide().radius(55))
 
-    var link = this.svg.append("g")
+    var link = this.g.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(this.links)
       .enter()
       .append("line")
 
-    var node = this.svg
+    var node = this.g
       .selectAll("g.node")
       .data(this.nodes)
       .enter()
@@ -124,9 +134,9 @@ class MovieFrame {
     this.sim.force("link")
       .links(this.links);
 
-    let bound = this.svg
+    let bound = this.g
 
-    var setEvents = images.filter((img, idx) => idx !== 0)
+    var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Actor Frame
       .on('click', function (d) {
         bound.remove()
@@ -171,7 +181,7 @@ class MovieFrame {
   // watchWindow() {
   //   // DEFINITELY debounce this
   //   window.addEventListener("resize", () => {
-  //     this.svg.remove()
+  //     this.g.remove()
   //     this.width = window.innerWidth;
   //     this.height = window.innerHeight - 200;
   //     this.render();

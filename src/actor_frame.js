@@ -42,30 +42,29 @@ class ActorFrame {
         // console.log(this.center)
         // console.log(this.nodes)
         // console.log(this.links)
-        
+
         
         this.render();
         
         // this.watchWindow();
       })
       
-    this.width = window.innerWidth - 20;
-    this.height = window.innerHeight - 70;
+      this.width = window.innerWidth;
+      this.height = window.innerHeight - 70;
+      
+      this.g = d3.select("svg")
+        .append("g")
+        .attr("width", this.width)
+        .attr("height", this.height)
   }
-
+  
   render() {
     let lms = this.localMovies;
-
-    if (this.svg) this.svg.remove();
+    
+    // if (this.g) this.g.remove();
 
     this.nodes[0].fx = this.width/2;
     this.nodes[0].fy = this.height/2;
-
-    d3.select("section").append("svg")
-
-    this.svg = d3.select("svg")
-      .attr("width", this.width)
-      .attr("height", this.height)
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -75,14 +74,14 @@ class ActorFrame {
       // .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide().radius(55))
 
-    var link = this.svg.append("g")
+    var link = this.g.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(this.links)
       .enter()
       .append("line")
 
-    var node = this.svg
+    var node = this.g
       .selectAll("g.node")
       .data(this.nodes)
       .enter()
@@ -124,7 +123,7 @@ class ActorFrame {
     this.sim.force("link")
       .links(this.links);
 
-    let bound = this.svg
+    let bound = this.g
 
     var setEvents = images.filter((img, idx) => idx !== 0)
       // go to Movie Frame
@@ -171,7 +170,7 @@ class ActorFrame {
   // watchWindow() {
   //   // DEFINITELY debounce this
   //   window.addEventListener("resize", () => {
-  //     this.svg.remove()
+  //     this.g.remove()
   //     this.width = window.innerWidth;
   //     this.height = window.innerHeight - 200;
   //     this.render();
