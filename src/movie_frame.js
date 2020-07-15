@@ -9,7 +9,7 @@ class MovieFrame {
     this.center = Object.assign({}, center, {
       text: center.title,
       frameId: `c${center.id}`,
-      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w154${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w185${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
     });
 
     this.localActors = null
@@ -27,7 +27,7 @@ class MovieFrame {
             return Object.assign({}, this.localActors[id], {
               text: text,
               frameId: id,
-              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w154${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w185${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
             })
           })
           .sort((a, b) => {
@@ -73,6 +73,7 @@ class MovieFrame {
     d3.select("svg").call(this.zoom)
 
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
+    // window.zoomy = () => this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
   
   render() {
@@ -117,15 +118,15 @@ class MovieFrame {
       .attr("font-size", 12)
       .text(d => d.text)
 
-    // var cImage = images.filter((img, idx) => idx === 0)
-    //   .attr("x", -30)
-    //   .attr("y", -45)
-    //   .attr("width", 60)
-    //   .attr("height", 90)
+    var cImage = images.filter((img, idx) => idx === 0)
+      .attr("x", -30)
+      .attr("y", -45)
+      .attr("width", 60)
+      .attr("height", 90)
 
-    // var cText = text.filter((txt, idx) => idx === 0)
-    //   .attr("y", 58)
-    //   .attr("font-size", 13)
+    var cText = text.filter((txt, idx) => idx === 0)
+      .attr("y", 58)
+      .attr("font-size", 13)
 
     this.sim
       .nodes(this.nodes)
@@ -139,10 +140,7 @@ class MovieFrame {
 
     var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Actor Frame
-      .on("mousedown", function () { d3.event.stopPropagation()})
-      .on("mouseup", function () { d3.event.stopPropagation()})
       .on('click', function (d) {
-        d3.event.stopPropagation()
         // bound.transition()
           // .duration(750)
           // .call(zoom.transform, d3.zoomIdentity);

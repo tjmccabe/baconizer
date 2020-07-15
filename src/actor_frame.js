@@ -9,7 +9,7 @@ class ActorFrame {
     this.center = Object.assign({}, center, {
       text: center.name,
       frameId: `c${center.id}`,
-      imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w154${center.profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+      imgLink: center.profile_path ? `https://image.tmdb.org/t/p/w185${center.profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
     });
 
     this.localMovies = null;
@@ -27,7 +27,7 @@ class ActorFrame {
             return Object.assign({}, this.localMovies[id], {
               text: text,
               frameId: id,
-              imgLink: this.localMovies[id].poster_path ? `https://image.tmdb.org/t/p/w154${this.localMovies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+              imgLink: this.localMovies[id].poster_path ? `https://image.tmdb.org/t/p/w185${this.localMovies[id].poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
             })
           })
           .sort((a, b) => {
@@ -116,15 +116,15 @@ class ActorFrame {
       .attr("font-size", 12)
       .text(d => d.text)
 
-    // var cImage = images.filter((img, idx) => idx === 0)
-    //   .attr("x", -30)
-    //   .attr("y", -45)
-    //   .attr("width", 60)
-    //   .attr("height", 90)
+    var cImage = images.filter((img, idx) => idx === 0)
+      .attr("x", -30)
+      .attr("y", -45)
+      .attr("width", 60)
+      .attr("height", 90)
 
-    // var cText = text.filter((txt, idx) => idx === 0)
-    //   .attr("y", 58)
-    //   .attr("font-size", 13)
+    var cText = text.filter((txt, idx) => idx === 0)
+      .attr("y", 58)
+      .attr("font-size", 13)
 
     this.sim
       .nodes(this.nodes)
