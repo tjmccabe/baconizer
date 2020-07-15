@@ -101,10 +101,12 @@ class MovieFrame {
       .append("g")
       .attr("class", "node")
 
+    var tt = d3.select("#tooltip")
+      
     var images = node
       .append("image")
       .attr("xlink:href", d => d.imgLink)
-      .attr("class", d => d.frameId[0])
+      .attr("class", d => d.frameId[0] + " nodeimage")
       .attr("x", -25)
       .attr("y", -38)
       .attr("height", 75)
@@ -136,7 +138,26 @@ class MovieFrame {
       .links(this.links);
 
     const bound = this.g
-    const zoom = this.zoom
+    // const nodes = this.nodes
+
+    node
+      .on('mouseenter', function (d) {
+        tt.transition()
+          .duration(200)
+          .style("opacity", .95);
+        tt.html(d.name ? d.name : d.title)
+          .style("left", (d3.event.pageX + 15) + "px")
+          .style("top", (d3.event.pageY + 15) + "px");
+      })
+      .on('mousemove', function () {
+        tt.style('left', (d3.event.pageX + 15) + 'px')
+          .style('top', (d3.event.pageY + 15) + 'px')
+      })
+      .on("mouseleave", function (d) {
+        tt.transition()
+          .duration(300)
+          .style("opacity", 0);
+      });
 
     var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Actor Frame
@@ -145,11 +166,6 @@ class MovieFrame {
           // .duration(750)
           // .call(zoom.transform, d3.zoomIdentity);
         bound.remove()
-        // window.removeEventListener("resize", () => {
-        //   this.width = window.innerWidth;
-        //   this.height = window.innerHeight - 200;
-        //   this.render();
-        // }, false);
         new ActorFrame(las[d.id])
       })
 
@@ -182,16 +198,6 @@ class MovieFrame {
       node.attr("transform", d => "translate(" + d.x + "," + d.y + ")");
     }
   }
-
-  // watchWindow() {
-  //   // DEFINITELY debounce this
-  //   window.addEventListener("resize", () => {
-  //     this.g.remove()
-  //     this.width = window.innerWidth;
-  //     this.height = window.innerHeight - 200;
-  //     this.render();
-  //   }, false);
-  // }
 }
 
 export default MovieFrame;
