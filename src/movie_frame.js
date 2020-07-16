@@ -2,7 +2,6 @@ import * as d3 from 'd3';
 // import { throttle, debounce } from "throttle-debounce"
 const axios = require('axios')
 import ActorFrame from './actor_frame'
-// const actors = require('../assets/actorz.json');
 
 class MovieFrame {
   constructor(center) {
@@ -65,7 +64,7 @@ class MovieFrame {
     .attr("height", this.height)
 
     this.zoom = d3.zoom()
-      .scaleExtent([0.5, 4])
+      .scaleExtent([0.6, 4])
       .on("zoom", function () {
         g.attr("transform", d3.event.transform)
       })
@@ -157,6 +156,9 @@ class MovieFrame {
         tt.transition()
           .duration(300)
           .style("opacity", 0);
+      })
+      .on("mousedown", function (d) {
+        tt.style("opacity", 0);
       });
 
     var setNodeEvents = images.filter((img, idx) => idx !== 0)

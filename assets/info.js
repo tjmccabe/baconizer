@@ -1,33 +1,17 @@
-const actors = require('./actorz.json');
-const movies = require('./moviez.json');
+const actors = require('./new_actors.json');
+const movies = require('./new_movies.json');
 const fs = require('fs');
 
-let ids = Object.keys(movies)
+// let ids = Object.keys(movies)
 
 console.log(Object.keys(actors).length)
-console.log(ids.length)
+console.log(Object.keys(movies).length)
 
-let ct = 0;
+// let ct = 0;
 
-let minMovies = 20
-for (let actorId in actors) {
-  let numMovies = actors[actorId].movie_ids.length
-  if (numMovies === 0) ct++
-  if (numMovies < minMovies) minMovies = numMovies
-}
-console.log("num zeroes: " + ct)
-
-// let unos = ids.filter(id => movies[id].actor_ids.length === 1)
-
-// let movez = {}
-// unos.forEach(uno => movez[uno] = movies[uno])
-// console.log(movez)
-let count = 0
-// let doubles = 0
-
+let fewActors = []
 for (let movieId in movies) {
   let ids = new Set();
-  let double = false
   let newIds = [];
   let oldIds = movies[movieId].actor_ids
   for (let i = 0; i < oldIds.length; i++) {
@@ -35,18 +19,84 @@ for (let movieId in movies) {
     if (!ids.has(id)) {
       newIds.push(id)
       ids.add(id)
-    } else {
-      double = true
-      // doubles++
-      // console.log(movieId)
     }
   }
-  if (double) count++
   movies[movieId].actor_ids = newIds
+  
+  let numActors = movies[movieId].actor_ids.length
+  if (numActors < 2) {
+    fewActors.push(movieId)
+  }
 }
 
-console.log("movies changed: " + count)
-// console.log("doubles: " + doubles)
+let noMovies = []
+for (let actorId in actors) {
+  let ids = new Set();
+  let newIds = [];
+  let oldIds = actors[actorId].movie_ids
+  for (let i = 0; i < oldIds.length; i++) {
+    let id = oldIds[i]
+    if (!ids.has(id)) {
+      newIds.push(id)
+      ids.add(id)
+    }
+  }
+  actors[actorId].movie_ids = newIds
+
+  fewActors.forEach(movieId => {
+    if (actors[actorId].movie_ids.indexOf(movieId) > -1) {
+      actors[actorId].movie_ids = actors[actorId].movie_ids.filter(id => id !== movieId)
+    }
+  })
+
+  let numMovies = actors[actorId].movie_ids.length
+  if (numMovies === 0) {
+    noMovies.push(actorId)
+  }
+}
+
+// let fas = new Set()
+// let nms = new Set()
+
+fewActors.forEach(id => {
+  delete movies[id]
+  // fas.add(id)
+})
+
+noMovies.forEach(id => {
+  delete actors[id]
+  // nms.add(id)
+})
+
+// let straggleMs = 0
+// let straggleAs = 0
+// let npm = 0
+// let npa = 0
+
+// Object.keys(actors).forEach(aId => {
+//   let arr = actors[aId].movie_ids
+//   if (actors[aId].movie_ids.length < 1) straggleAs++
+//   arr.forEach(ele => { if (fas.has(ele)) npm++ })
+// })
+
+// Object.keys(movies).forEach(mId => {
+//   let arr = movies[mId].actor_ids
+//   if (arr.length < 2) straggleMs++
+//   arr.forEach(ele => {if (nms.has(ele)) npa++})
+// })
+
+console.log(Object.keys(actors).length)
+console.log(Object.keys(movies).length)
+// console.log("straggle actors: " + straggleAs)
+// console.log("straggle movies: " + straggleMs)
+// console.log("no partner actors: " + npa)
+// console.log("no partner movies: " + npm)
+
+// let unos = ids.filter(id => movies[id].actor_ids.length === 1)
+
+// let movez = {}
+// unos.forEach(uno => movez[uno] = movies[uno])
+// console.log(movez)
 
 // let newMovies = {};
 // let newActors = {};
@@ -65,11 +115,20 @@ console.log("movies changed: " + count)
 
 // console.log(Object.keys(newActors).length)
 
-// fs.writeFile("actorz.json", JSON.stringify(newActors, null, "\t"), 'utf8', function (err) {
-//   if (err) {
-//     console.log("An error occured while writing JSON Object to File.");
-//     return console.log(err);
-//   }
+fs.writeFile("new_actors.json", JSON.stringify(actors, null, "\t"), 'utf8', function (err) {
+  if (err) {
+    console.log("An error occured while writing JSON Object to File.");
+    return console.log(err);
+  }
 
-//   console.log("JSON file has been saved.");
-// });
+  console.log("JSON file has been saved.");
+});
+
+fs.writeFile("new_movies.json", JSON.stringify(movies, null, "\t"), 'utf8', function (err) {
+  if (err) {
+    console.log("An error occured while writing JSON Object to File.");
+    return console.log(err);
+  }
+
+  console.log("JSON file has been saved.");
+});

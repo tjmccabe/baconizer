@@ -1,7 +1,6 @@
 import * as d3 from 'd3';
 const axios = require('axios')
 
-// const actors = require('../assets/actorz.json');
 const nameToId = require('../assets/name_to_id.json');
 const populars = require('../assets/most_popular.json');
 import Game from './game';

@@ -5,8 +5,8 @@ const path = require('path')
 const keys = require('./config/keys')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 
-const actors = require('./assets/actorz.json');
-const movies = require('./assets/moviez.json');
+const actors = require('./assets/new_actors.json');
+const movies = require('./assets/new_movies.json');
 console.log(Object.keys(actors).length + " actors")
 console.log(Object.keys(movies).length + " movies")
 
