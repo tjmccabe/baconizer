@@ -1,5 +1,5 @@
-const actors = require('./new_actors.json');
-const movies = require('./new_movies.json');
+const actors = require('./smol_actors.json');
+const movies = require('./smol_movies.json');
 const fs = require('fs');
 
 // let ids = Object.keys(movies)

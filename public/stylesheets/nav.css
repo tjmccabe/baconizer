@@ -113,13 +113,27 @@ input:focus {
 #links i {
   font-size: 28px;
   color: rgba(0, 0, 0, .6);
-  margin: 0 5px;
   box-sizing: border-box;
+  margin: 0;
+}
+
+#links a {
+  margin: 0 5px;
+  width: 100%;
+  height: 100%;
 }
 
 #links i:hover {
   color: rgba(0, 0, 0, .85);
   cursor: pointer;
+}
+
+#info-icon i {
+  margin: 0 5px;
+}
+
+#info-icon i:hover {
+  cursor: initial;
 }
 
 #info {
@@ -131,7 +145,7 @@ input:focus {
 }
 
 #info-text {
-  width: 300px;
+  width: 350px;
   position: absolute;
   right: 0;
   top: 28px;

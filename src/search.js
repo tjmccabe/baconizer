@@ -1,7 +1,8 @@
 import * as d3 from 'd3';
 const axios = require('axios')
 
-const nameToId = require('../assets/name_to_id.json');
+// const actors = require('../assets/actorz.json');
+const nameToId = require('../assets/new_name_to_id.json');
 const populars = require('../assets/most_popular.json');
 import Game from './game';
 
@@ -24,17 +25,20 @@ const addSearchListeners = () => {
 
     const results = [];
     for (let i = 0; i < allActorNames.length; i++) {
-      if (noAccents[i].match(reg)) results.push(nameToId[allActorNames[i]])
+      // if (noAccents[i].match(reg)) results.push(nameToId[allActorNames[i]])
+      if (noAccents[i].match(reg)) results.push(allActorNames[i])
     }
 
     if (results.length === 0) return [];
     
     const sorted = results.sort((a,b) => {
-      if (actors[a].popularity > actors[b].popularity) return -1;
+      // if (actors[a].popularity > actors[b].popularity) return -1;
+      if (nameToId[a][1] > nameToId[b][1]) return -1;
       return 1;
     })
 
-    return sorted.slice(0,10).map(id => actors[id].name)
+    // return sorted.slice(0,10).map(id => actors[id].name)
+    return sorted.slice(0,10)
   }
 
   const enterVal = (val, dd, inp, e) => {
@@ -80,8 +84,8 @@ const addSearchListeners = () => {
 
     let id1, id2;
     if (nameToId.hasOwnProperty(startActor) && nameToId.hasOwnProperty(endActor)) {
-      id1 = nameToId[startActor];
-      id2 = nameToId[endActor];
+      id1 = nameToId[startActor][0];
+      id2 = nameToId[endActor][0];
     } else {
       window.alert("Please make sure both of your actors are on the list")
       return
