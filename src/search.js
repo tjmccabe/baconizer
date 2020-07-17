@@ -3,7 +3,7 @@ const axios = require('axios')
 
 // const actors = require('../assets/actorz.json');
 const nameToId = require('../assets/new_name_to_id.json');
-const populars = require('../assets/most_popular.json');
+const populars = require('../assets/populars.json');
 import Game from './game';
 
 const allActorNames = Object.keys(nameToId)
