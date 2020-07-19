@@ -96,10 +96,10 @@ const addSearchListeners = () => {
       return
     }
 
+    d3.select("svg").remove();
+
     axios.get(`/newgame/${id1}/${id2}`)
       .then(res => { currentGame = new Game(res.data[0], res.data[1]) })
-
-    d3.select("svg").remove();
 
     input1.blur()
     input2.blur()
@@ -115,9 +115,7 @@ const addSearchListeners = () => {
     let idx2 = Math.floor(Math.random() * popularNames.length);
 
     while (idx1 === idx2) {
-      debugger
       idx2 = Math.floor(Math.random() * popularNames.length);
-      debugger
     }
 
     input1.value = popularNames[idx1]

@@ -123,6 +123,10 @@ input:focus {
   height: 100%;
 }
 
+#info-text a {
+  margin: 0;
+}
+
 #links i:hover {
   color: rgba(0, 0, 0, .85);
   cursor: pointer;

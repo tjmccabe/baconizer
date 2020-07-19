@@ -1,10 +1,11 @@
 import * as d3 from 'd3';
-// import { throttle, debounce } from "throttle-debounce"
 const axios = require('axios')
 import MovieFrame from './movie_frame'
 
 class ActorFrame {
-  constructor(center) {
+  constructor(center, zoom) {
+    this.zoom = zoom;
+
     this.center = Object.assign({}, center, {
       text: center.name,
       frameId: `c${center.id}`,
@@ -19,7 +20,7 @@ class ActorFrame {
 
         this.nodes = [this.center]
           .concat(Object.keys(this.localMovies).map(id => {
-            const text = this.localMovies[id].title.length > 20 ? (
+            const text = this.localMovies[id].title.length > 22 ? (
               this.localMovies[id].title.slice(0, 20) + '...'
             ) : (this.localMovies[id].title);
     
@@ -54,29 +55,14 @@ class ActorFrame {
       
     this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
-      
-    let g
-
-    this.g = g = d3.select("svg")
-      .append("g")
-      .attr("id", "thisg")
-      .attr("width", this.width)
-      .attr("height", this.height)
-
-    this.zoom = d3.zoom()
-      .scaleExtent([0.6, 4])
-      .on("zoom", function () {
-        g.attr("transform", d3.event.transform)
-      })
-
-    d3.select("svg").call(this.zoom)
 
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
-
   }
   
   render() {
     let lms = this.localMovies;
+    const bound = d3.select("#thisg")
+    const zoom = this.zoom
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -86,14 +72,14 @@ class ActorFrame {
       // .force("center", d3.forceCenter(this.width / 2, this.height / 2))
       .force("collide", d3.forceCollide().radius(55))
 
-    var link = this.g.append("g")
+    var link = bound.append("g")
       .attr("class", "links")
       .selectAll("line")
       .data(this.links)
       .enter()
       .append("line")
 
-    var node = this.g
+    var node = bound
       .selectAll("g.node")
       .data(this.nodes)
       .enter()
@@ -136,9 +122,6 @@ class ActorFrame {
     this.sim.force("link")
       .links(this.links);
 
-    const bound = this.g
-    // const zoom = this.zoom
-
     node
       .on('mouseenter', function (d) {
         tt.transition()
@@ -167,8 +150,8 @@ class ActorFrame {
         // bound.transition()
           // .duration(750)
           // .call(zoom.transform, d3.zoomIdentity);
-        bound.remove()
-        new MovieFrame(lms[d.id])
+        bound.selectAll("*").remove()
+        new MovieFrame(lms[d.id], zoom)
       })
 
       .on('mouseenter', function () {
