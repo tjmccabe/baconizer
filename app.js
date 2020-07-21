@@ -54,6 +54,33 @@ app.get('/moviesbyactor/:actorId', (req, res) => {
   res.send(moviesByActor)
 });
 
+app.get('/bestscore/:act1/:act2', (req, res) => {
+  let [startId, endId] = [req.params.act1, req.params.act2]
+
+  let q1 = [startId]
+  let q2 = [endId]
+  let path1 = [startId];
+  let path2 = [endId];
+  let bestScore = 1;
+  let seenActors1 = new Set(q1)
+  let seenActors2 = new Set(q2)
+  let seenMovies1 = new Set()
+  let seenMovies2 = new Set()
+
+  while (bestScore < 8) {
+    let id1 = q1.pop()
+    let allMovies1 = actors[id1].movie_ids
+    for (let i = 0; i < allMovies1.length; i++) {
+      
+    }
+  }
+  
+  if (visited2.has(id1)) {
+    res.send([bestScore, path1.concat(path2.reverse())])
+  }
+  res.send([bestScore, path])
+});
+
 // EXAMPLE OF FULL API REQ:
 
 // app.get('/actors/:actorId', (request, response) => {

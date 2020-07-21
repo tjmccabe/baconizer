@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+const axios = require('axios')
 import ActorFrame from './actor_frame';
 import MovieFrame from './movie_frame'
 
@@ -9,6 +10,7 @@ class Game {
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
+    [this.bestScore, this.bestPath] = this.getBest()
     this.score = 0;
     
     this.width = window.innerWidth;
@@ -37,7 +39,13 @@ class Game {
     this.frame = new ActorFrame(this.center, this.zoom);
   }
 
-  getScore() { return this.score }
+  getBest() {
+    axios.get(`/bestscore/${this.startActor.id}/${this.endActor.id}`)
+      .then(res => { 
+        return res.data
+      })
+    
+  }
 
   gameOver() {
     // remove event listeners

@@ -135,12 +135,12 @@ class ActorFrame {
         tt.style('left', (d3.event.pageX + 15) + 'px')
           .style('top', (d3.event.pageY + 15) + 'px')
       })
-      .on("mouseleave", function (d) {
+      .on("mouseleave", function () {
         tt.transition()
           .duration(300)
           .style("opacity", 0);
       })
-      .on("mousedown", function (d) {
+      .on("mousedown", function () {
         tt.style("opacity", 0);
       });
 
