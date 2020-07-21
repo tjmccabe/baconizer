@@ -9,6 +9,7 @@ class Game {
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
+    this.score = 0;
     
     this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
@@ -35,6 +36,8 @@ class Game {
 
     this.frame = new ActorFrame(this.center, this.zoom);
   }
+
+  getScore() { return this.score }
 
   gameOver() {
     // remove event listeners
