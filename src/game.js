@@ -10,7 +10,7 @@ class Game {
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
-    [this.bestScore, this.bestPath] = this.getBest()
+    this.getBest()
     this.score = 0;
     
     this.width = window.innerWidth;
@@ -42,6 +42,9 @@ class Game {
   getBest() {
     axios.get(`/bestscore/${this.startActor.id}/${this.endActor.id}`)
       .then(res => { 
+        console.log(res.data)
+        // this.bestPath = res.data[1]
+        // this.bestScore = res.data[0]
         return res.data
       })
     

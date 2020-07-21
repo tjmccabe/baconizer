@@ -55,30 +55,80 @@ app.get('/moviesbyactor/:actorId', (req, res) => {
 });
 
 app.get('/bestscore/:act1/:act2', (req, res) => {
-  let [startId, endId] = [req.params.act1, req.params.act2]
+  let [startId, endId] = [parseInt(req.params.act1), parseInt(req.params.act2)]
 
   let q1 = [startId]
   let q2 = [endId]
-  let path1 = [startId];
-  let path2 = [endId];
+  // paths ALWAYS start and end with an actor
+  let paths1 = {[startId]: [startId]};
+  let paths2 = {[endId]: []};
   let bestScore = 1;
-  let seenActors1 = new Set(q1)
-  let seenActors2 = new Set(q2)
   let seenMovies1 = new Set()
   let seenMovies2 = new Set()
 
   while (bestScore < 8) {
-    let id1 = q1.pop()
-    let allMovies1 = actors[id1].movie_ids
-    for (let i = 0; i < allMovies1.length; i++) {
-      
+    let newQ1 = [];
+    for (let i = 0; i < q1.length; i++) {
+      let origActorId = q1[i]
+      let mIds = actors[origActorId].movie_ids
+      for (let j = 0; j < mIds.length; j++) {
+        let movieId = mIds[j]
+        if (seenMovies1.has(movieId)) continue
+        seenMovies1.add(movieId)
+        if (!movies[movieId]) continue
+        let actorIds = movies[movieId].actor_ids
+        for (let k = 0; k < actorIds.length; k++) {
+          let newActorId = actorIds[k]
+          if (paths1.hasOwnProperty(newActorId)) continue
+          let path = paths1[origActorId].concat([movieId, newActorId])
+          if (paths2.hasOwnProperty(newActorId)) {
+            // SOLVE CONDITION
+            let revved = paths2[newActorId].reverse()
+            let ans = path.concat(revved)
+            let full = ans.map((id, idx) => idx % 2 === 0 ? actors[id] : movies[id])
+            res.send([bestScore, full, "one"])
+            return
+          }
+          paths1[newActorId] = path
+          newQ1.push(newActorId)
+        }
+      }
     }
+    q1 = newQ1
+    bestScore++
+
+    let newQ2 = [];
+    for (let i = 0; i < q2.length; i++) {
+      let origActorId = q2[i]
+      let mIds = actors[origActorId].movie_ids
+      for (let j = 0; j < mIds.length; j++) {
+        let movieId = mIds[j]
+        if (seenMovies2.has(movieId)) continue
+        seenMovies2.add(movieId)
+        if (!movies[movieId]) continue
+        let actorIds = movies[movieId].actor_ids
+        for (let k = 0; k < actorIds.length; k++) {
+          let newActorId = actorIds[k]
+          if (paths2.hasOwnProperty(newActorId)) continue
+          let path = paths2[origActorId].concat([origActorId, movieId])
+          if (paths1.hasOwnProperty(newActorId)) {
+            // SOLVE CONDITION
+            let revved = path.reverse()
+            let ans = paths1[newActorId].concat(revved)
+            let full = ans.map((id, idx) => idx % 2 === 0 ? actors[id] : movies[id])
+            res.send([bestScore, full, "two"])
+            return
+          }
+          paths2[newActorId] = path
+          newQ2.push(newActorId)
+        }
+      }
+    }
+    q2 = newQ2
+    bestScore++
   }
-  
-  if (visited2.has(id1)) {
-    res.send([bestScore, path1.concat(path2.reverse())])
-  }
-  res.send([bestScore, path])
+
+  res.send([0, [], "none"])
 });
 
 // EXAMPLE OF FULL API REQ:

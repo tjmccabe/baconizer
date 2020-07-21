@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addSearchListeners()
   
   let movieId = 550
+  // let movieId = 252406
   axios.get(`/movies/${movieId}`)
   .then(res => console.log(res))
   .catch(err => console.log(err))
