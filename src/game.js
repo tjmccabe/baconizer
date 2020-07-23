@@ -10,8 +10,9 @@ class Game {
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
-    this.getBest()
     this.score = 0;
+    
+    this.getBest(this.center.id)
     
     this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
@@ -36,21 +37,50 @@ class Game {
 
     d3.select("svg").call(this.zoom)
 
-    this.frame = new ActorFrame(this.center, this.zoom, this.endActor.id);
+    // this.gameOver = this.gameOver.bind(this)
+    this.makeMove = this.makeMove.bind(this)
+    this.frame = new ActorFrame(this.center, this.makeMove, this.zoom, this.endActor.id);
   }
 
-  getBest() {
-    axios.get(`/bestpath/${this.startActor.id}/${this.endActor.id}`)
+  makeMove(center, type) {
+    if (this.gameOver()) {
+      // RETURN WIN CONDITION
+      // SEPARATE FUNCTION?
+    }
+    d3.select("#thisg").selectAll("*").remove()
+    this.center = center
+    if (type === "actorToMovie") {
+      this.frame = new MovieFrame(center, this.makeMove);
+      this.getBestFromMovie(center.id)
+    } else {
+      this.frame = new ActorFrame(center, this.makeMove);
+      this.getBest(center.id)
+    }
+    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
+  }
+
+  getBest(id) {
+    axios.get(`/bestpath/${id}/${this.endActor.id}`)
       .then(res => { 
         console.log(res.data)
         // this.bestPath = res.data[1]
         // this.bestScore = res.data[0]
         return res.data
       })
-    
+  }
+
+  getBestFromMovie(id) {
+    axios.get(`/moviepath/${id}/${this.endActor.id}`)
+      .then(res => {
+        console.log(res.data)
+        // this.bestPath = res.data[1]
+        // this.bestScore = res.data[0]
+        return res.data
+      })
   }
 
   gameOver() {
+    return false
     // remove event listeners
   }
 }

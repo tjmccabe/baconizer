@@ -68,6 +68,10 @@ const actorToactors = (q, seenMovies, thisPaths, thatPaths, firstPass) => {
   let newQ = [];
   for (let i = 0; i < q.length; i++) {
     let origActorId = q[i]
+    // if (!actors[origActorId]) {
+    //   console.log(origActorId)
+    //   console.log(q)
+    // }
     let mIds = actors[origActorId].movie_ids
     shuffle(mIds)
     for (let j = 0; j < mIds.length; j++) {
@@ -139,6 +143,8 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
       res.send([bestScore, secondPass[1]]);
       return
     } else q2 = secondPass[1]
+
+    console.log("yeet")
 
     bestScore++
   }

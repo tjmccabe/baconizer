@@ -3,9 +3,8 @@ const axios = require('axios')
 import MovieFrame from './movie_frame'
 
 class ActorFrame {
-  constructor(center, zoom, endActorId) {
-    this.endActorId = endActorId
-    this.zoom = zoom;
+  constructor(center, makeMove) {
+    this.makeMove = makeMove
 
     this.center = Object.assign({}, center, {
       text: center.name,
@@ -41,38 +40,23 @@ class ActorFrame {
           if (idx === 0) return;
           this.links.push({source: this.center.frameId, target: node.frameId})
         })
-        
-        // console.log(this.center)
-        // console.log(this.nodes)
-        // console.log(this.links)
+
         this.currCenterX = this.width / 2;
         this.currCenterY = this.height / 2;
         this.nodes[0].fx = this.currCenterX;
         this.nodes[0].fy = this.currCenterY;
         
         this.render();
-        
       })
       
     this.width = window.innerWidth;
     this.height = window.innerHeight - 70;
-
-    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
-
-    axios.get(`/bestpath/${center.id}/${this.endActorId}`)
-      .then(res => {
-        console.log(res.data)
-        // this.bestPath = res.data[1]
-        // this.bestScore = res.data[0]
-        return res.data
-      })
   }
   
   render() {
     let lms = this.localMovies;
     const bound = d3.select("#thisg")
-    const zoom = this.zoom
-    const endActorId = this.endActorId
+    const makeMove = this.makeMove
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -157,15 +141,10 @@ class ActorFrame {
     var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Movie Frame
       .on('click', function (d) {
-        // bound.transition()
-          // .duration(750)
-          // .call(zoom.transform, d3.zoomIdentity);
-        bound.selectAll("*").remove()
-        new MovieFrame(lms[d.id], zoom, endActorId)
+        makeMove(lms[d.id], "actorToMovie")
       })
 
       .on('mouseenter', function () {
-        // select element in current context
         d3.select(this)
           .transition()
           .attr("x", function (d) { return -33; })
@@ -173,7 +152,6 @@ class ActorFrame {
           .attr("height", 100)
           .attr("width", 66);
       })
-      // set back
       .on('mouseleave', function () {
         d3.select(this)
           .transition()

@@ -108,11 +108,12 @@ input:focus {
 
 #links {
   display: flex;
+  align-items: center;
 }
 
-#links i {
-  font-size: 28px;
-  color: rgba(0, 0, 0, .6);
+#links img {
+  width: 28px;
+  opacity: .6;
   box-sizing: border-box;
   margin: 0;
 }
@@ -127,16 +128,16 @@ input:focus {
   margin: 0;
 }
 
-#links i:hover {
-  color: rgba(0, 0, 0, .85);
+#links img:hover {
+  opacity: 0.85;
   cursor: pointer;
 }
 
-#info-icon i {
+#info-icon img {
   margin: 0 5px;
 }
 
-#info-icon i:hover {
+#info-icon img:hover {
   cursor: initial;
 }
 
