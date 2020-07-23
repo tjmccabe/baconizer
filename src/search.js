@@ -83,6 +83,18 @@ const addSearchListeners = () => {
     let endActor = e.target[1].value;
 
     let id1, id2;
+
+    if (!nameToId.hasOwnProperty(startActor) || !nameToId.hasOwnProperty(endActor)) {
+      const reg1 = new RegExp(startActor, 'i')
+      const reg2 = new RegExp(endActor, 'i')
+  
+      for (let i = 0; i < allActorNames.length; i++) {
+        if (noAccents[i].match(reg1)) startActor = (allActorNames[i])
+        if (noAccents[i].match(reg2)) endActor = (allActorNames[i])
+      }
+    }
+
+
     if (nameToId.hasOwnProperty(startActor) && nameToId.hasOwnProperty(endActor)) {
       id1 = nameToId[startActor][0];
       id2 = nameToId[endActor][0];
