@@ -3,7 +3,8 @@ const axios = require('axios')
 import MovieFrame from './movie_frame'
 
 class ActorFrame {
-  constructor(center, zoom) {
+  constructor(center, zoom, endActorId) {
+    this.endActorId = endActorId
     this.zoom = zoom;
 
     this.center = Object.assign({}, center, {
@@ -57,12 +58,21 @@ class ActorFrame {
     this.height = window.innerHeight - 70;
 
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
+
+    axios.get(`/bestpath/${center.id}/${this.endActorId}`)
+      .then(res => {
+        console.log(res.data)
+        // this.bestPath = res.data[1]
+        // this.bestScore = res.data[0]
+        return res.data
+      })
   }
   
   render() {
     let lms = this.localMovies;
     const bound = d3.select("#thisg")
     const zoom = this.zoom
+    const endActorId = this.endActorId
 
     this.sim = d3.forceSimulation()
       // .force("x", d3.forceX(this.width / 2).strength(.05))
@@ -151,7 +161,7 @@ class ActorFrame {
           // .duration(750)
           // .call(zoom.transform, d3.zoomIdentity);
         bound.selectAll("*").remove()
-        new MovieFrame(lms[d.id], zoom)
+        new MovieFrame(lms[d.id], zoom, endActorId)
       })
 
       .on('mouseenter', function () {

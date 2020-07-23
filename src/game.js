@@ -36,11 +36,11 @@ class Game {
 
     d3.select("svg").call(this.zoom)
 
-    this.frame = new ActorFrame(this.center, this.zoom);
+    this.frame = new ActorFrame(this.center, this.zoom, this.endActor.id);
   }
 
   getBest() {
-    axios.get(`/bestscore/${this.startActor.id}/${this.endActor.id}`)
+    axios.get(`/bestpath/${this.startActor.id}/${this.endActor.id}`)
       .then(res => { 
         console.log(res.data)
         // this.bestPath = res.data[1]
