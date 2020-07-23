@@ -1,7 +1,5 @@
 import * as d3 from 'd3';
 const axios = require('axios')
-
-// const actors = require('../assets/actorz.json');
 const nameToId = require('../assets/new_name_to_id.json');
 const populars = require('../assets/populars.json');
 import Game from './game';
@@ -85,8 +83,8 @@ const addSearchListeners = () => {
     let id1, id2;
 
     if (!nameToId.hasOwnProperty(startActor) || !nameToId.hasOwnProperty(endActor)) {
-      const reg1 = new RegExp(startActor, 'i')
-      const reg2 = new RegExp(endActor, 'i')
+      const reg1 = new RegExp("^" + startActor + "$", 'i')
+      const reg2 = new RegExp("^" + endActor + "$", 'i')
   
       for (let i = 0; i < allActorNames.length; i++) {
         if (noAccents[i].match(reg1)) startActor = (allActorNames[i])
