@@ -11,7 +11,7 @@ class Game {
     this.center = startActor;
     this.path = [startActor];
     this.score = 0;
-    
+
     this.getBest(this.center.id)
     
     this.width = window.innerWidth;
@@ -37,18 +37,24 @@ class Game {
 
     d3.select("svg").call(this.zoom)
 
-    // this.gameOver = this.gameOver.bind(this)
+    // this.checkWin = this.checkWin.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove, this.zoom, this.endActor.id);
   }
 
   makeMove(center, type) {
-    if (this.gameOver()) {
-      // RETURN WIN CONDITION
-      // SEPARATE FUNCTION?
+    if (type === "movieToActor" && this.checkWin(center.id)) {
+      window.alert("YOU WIN!")
+      // Do some fun win stuff
+      // Pop up a modal telling them their progress
+      // Tell them the fastest they COULD have solved it
+      // Tell them if they used hints or not
+      // Offer to try again or put in 2 different actors
+      
+      // return
     }
-    d3.select("#thisg").selectAll("*").remove()
     this.center = center
+    d3.select("#thisg").selectAll("*").remove()
     if (type === "actorToMovie") {
       this.frame = new MovieFrame(center, this.makeMove);
       this.getBestFromMovie(center.id)
@@ -79,9 +85,9 @@ class Game {
       })
   }
 
-  gameOver() {
-    return false
-    // remove event listeners
+  checkWin(id) {
+    return id === this.endActor.id 
+    // remove event listeners?
   }
 }
 
