@@ -8,9 +8,85 @@
   <title>Baconizer</title>
 </head>
 <body>
-  <!-- <div id="modal">
+  <div id="start-modal" class="modal">
+    <div id="start-modal-child" class="modal-child">
+      <div id="start-heading">
+        <div id="start-heading-text">Welcome to Baconizer!</div>
+        <div>(KB pic)</div>
+        <div>(icons? info?)</div>
+      </div>
+
+      <form id="form">
+        <div>Try to find a path from</div>
+        <div id="inputs">
+          <div id="start-input">
+            <button type="button" class="bacon">
+              <div class="btn-filter">
+                KBP
+              </div>
+            </button>
+            <input
+              type="text"
+              name="start-actor"
+              id="start-actor"
+              class="actor-input"
+              placeholder="Enter start actor"
+              spellcheck="false"
+            >
+            <button type="button" id="randomize1" class="randomize">
+              <div class="btn-filter">
+                shuf
+              </div>
+            </button>
+            <ul class="input-dropdown" id="dd1"></ul>
+          </div>
+          <div id="input-1-pic" class="input-pic">
+
+          </div>
+          to
+          <div id="start-input">
+            <button type="button" class="bacon">
+              <div class="btn-filter">
+                KBP
+              </div>
+            </button>
+            <input
+              type="text"
+              name="end-actor"
+              id="end-actor"
+              class="actor-input hello"
+              placeholder="Enter end actor"
+              spellcheck="false"
+            >
+            <button type="button" id="randomize2" class="randomize">
+              <div class="btn-filter">
+                shuf
+              </div>
+            </button>
+            <ul class="input-dropdown" id="dd2"></ul>
+          </div>
+          <div id="input-1-pic" class="input-pic">
+          
+          </div>
+          
+          <button class="go-time" id="go-time" type='submit'>
+            <div class="btn-filter">
+              Baconize!
+            </div>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+  <div id="abandon-modal" class="modal inactive">
     <div class="modal-child">
-      <div id="modal-text">
+      Are you sure?
+    </div>
+  </div>
+  <div id="hint-modal" class="modal inactive">
+    <div class="modal-child">
+      Hint
+      <!-- <div class="modal-text">
         Loading lots of actors & movies
         <br>
         <br>
@@ -18,53 +94,20 @@
       </div>
       <div class="col-sm-2">
         <div id="nest1"></div>
-      </div>
+      </div> -->
     </div>
-  </div> -->
+  </div>
+  <div id="victory-modal" class="modal inactive">
+    <div class="modal-child">
+      You win!
+    </div>
+  </div>
   <div id="tooltip" class="tooltip"></div>
   <nav>
     <div id="title">
       <h1 id="title-text">Baconizer</h1>
       
     </div>
-    <form id="form">
-      <div>Try to find a path from</div>
-      <div id="inputs">
-        <div id="start-input">
-          <input
-          type="text"
-          name="start-actor"
-          id="start-actor"
-          class="actor-input"
-          placeholder="Enter start actor"
-          spellcheck="false"
-          >
-          <ul class="input-dropdown" id="dd1"></ul>
-        </div>
-        to
-        <div id="start-input">
-          <input
-          type="text"
-            name="end-actor"
-            id="end-actor"
-            class="actor-input hello"
-            placeholder="Enter end actor"
-            spellcheck="false"
-          >
-          <ul class="input-dropdown" id="dd2"></ul>
-        </div>
-        <button class="go-time" id="go-time" type='submit'>
-          <div class="btn-filter">
-            GO
-          </div>
-        </button>
-      </div>
-    </form>
-    <button type="button" id="randomize">
-      <div class="btn-filter">
-        Click here for</br>random actors
-      </div>
-    </button>
     <div id="links">
       <div id="git">
         <a target="_blank" href="https://github.com/tjmccabe/baconizer">
