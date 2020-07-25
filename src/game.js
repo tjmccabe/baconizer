@@ -44,13 +44,15 @@ class Game {
 
   makeMove(center, type) {
     if (type === "movieToActor" && this.checkWin(center.id)) {
+      // probably a separate function here
+      
       window.alert("YOU WIN!")
       // Do some fun win stuff
       // Pop up a modal telling them their progress
       // Tell them the fastest they COULD have solved it
       // Tell them if they used hints or not
       // Offer to try again or put in 2 different actors
-      
+
       // return
     }
     this.center = center
