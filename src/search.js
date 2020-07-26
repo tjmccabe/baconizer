@@ -10,6 +10,7 @@ const popularNames = Object.keys(populars);
 // let currentGame = null;
 
 const addSearchListeners = () => {
+  const startModal = document.getElementById('start-modal')
   const input1 = document.getElementById('start-actor')
   const input2 = document.getElementById('end-actor')
   const dd1 = document.getElementById('dd1')
@@ -154,6 +155,8 @@ const addSearchListeners = () => {
 
     input1.blur()
     input2.blur()
+
+    startModal.classList.add("inactive")
 
     // REMOVE ALL LISTENERS
   });
