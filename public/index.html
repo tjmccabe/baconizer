@@ -32,53 +32,70 @@
       <form id="form">
         <!-- <div>Try to find a path from</div> -->
         <div id="inputs">
-          <div id="start-input">
-            <div id="bacon-1" class="bacon">
-              <div class="bacon-filter">
-                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
+          <div class="input-chunk">
+            <div class="which-actor">
+              Start Actor
+            </div>
+            <div id="start-input">
+              <input
+                type="text"
+                name="start-actor"
+                id="start-actor"
+                class="actor-input"
+                placeholder="Enter start actor"
+                spellcheck="false"
+              >
+              <ul class="input-dropdown" id="dd1"></ul>
+            </div>
+            <div class="input-pic-frame">
+              <img id="input-1-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
+            </div>
+            <div class="input-buttons">
+              <div id="bacon-1" class="bacon">
+                <div class="bacon-filter">
+                  <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
+                </div>
+              </div>
+              <div id="randomize1" class="randomize">
+                <div class="randomize-filter">
+                  <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
+                </div>
               </div>
             </div>
-            <input
-              type="text"
-              name="start-actor"
-              id="start-actor"
-              class="actor-input"
-              placeholder="Enter start actor"
-              spellcheck="false"
-            >
-            <div id="randomize1" class="randomize">
-              <div class="randomize-filter">
-                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
-              </div>
-            </div>
-            <ul class="input-dropdown" id="dd1"></ul>
           </div>
-          <div class="input-pic-frame">
-            <img id="input-1-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
-          </div>
-          <div id="end-input">
-            <div id="bacon-2" class="bacon">
-              <div class="bacon-filter">
-                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
+          <img class="s-arrow" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/s-arrow+(1).png" alt="s arrow">
+          <!-- <img class="s-arrow flip" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/s-arrow+(1).png" alt="s arrow">
+          <img class="s-arrow" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/s-arrow+(1).png" alt="s arrow"> -->
+          <div class="input-chunk">
+            <div class="which-actor">
+              End Actor
+            </div>
+            <div id="end-input">
+              <input
+                type="text"
+                name="end-actor"
+                id="end-actor"
+                class="actor-input hello"
+                placeholder="Enter end actor"
+                spellcheck="false"
+              >
+              <ul class="input-dropdown" id="dd2"></ul>
+            </div>
+            <div class="input-pic-frame">
+              <img id="input-2-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
+            </div>
+            <div class="input-buttons">
+              <div id="bacon-2" class="bacon">
+                <div class="bacon-filter">
+                  <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
+                </div>
+              </div>
+              <div id="randomize2" class="randomize">
+                <div class="randomize-filter">
+                  <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
+                </div>
               </div>
             </div>
-            <input
-              type="text"
-              name="end-actor"
-              id="end-actor"
-              class="actor-input hello"
-              placeholder="Enter end actor"
-              spellcheck="false"
-            >
-            <div id="randomize2" class="randomize">
-              <div class="randomize-filter">
-                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
-              </div>
-            </div>
-            <ul class="input-dropdown" id="dd2"></ul>
-          </div>
-          <div class="input-pic-frame">
-            <img id="input-2-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
           </div>
         </div>
         <button class="go-time" id="go-time" type='submit'>

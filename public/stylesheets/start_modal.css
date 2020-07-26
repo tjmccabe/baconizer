@@ -3,16 +3,17 @@
   max-width: 900px;
   min-width: 300px;
   /* height: 100%; */
-  max-height: 750px;
-  min-height: 500px;
+  /* max-height: 750px; */
+  /* min-height: 500px; */
   margin: 50px 20px;
+  overflow: auto;
 }
 
 #start-heading {
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  font-size: 26px;
+  font-size: 32px;
   /* margin-bottom: 10px; */
   width: 100%;
 }
@@ -23,7 +24,8 @@
 }
 
 #start-heading img {
-  width: 90px;
+  width: 120px;
+  max-width: 20%;
   margin: 0;
 }
 
@@ -76,7 +78,7 @@
 }
 
 .bacon-filter {
-  width: 100%;
+  width: 40px;
   height: 100%;
   padding: 2px 6px;
   display: flex;
@@ -89,6 +91,11 @@
 .bacon-filter:hover {
   background-color: rgba(0, 0, 0, .2);
   cursor: pointer;
+}
+
+.which-actor {
+  font-weight: bold;
+  font-size: 20px;
 }
 
 input {
@@ -109,11 +116,31 @@ input:focus {
 
 #inputs {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+
+.input-chunk {
+  display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100%;
+  margin: 10px;
+}
+
+.s-arrow {
+  width: 80px;
+  /* margin: 2px; */
+}
+
+.flip {
+  transform: scaleY(-1);
+}
+
+.input-buttons {
+  display: flex;
   justify-content: space-between;
-  /* margin-top: 10px; */
+  width: 100px;
 }
 
 .input-pic-frame {
@@ -128,6 +155,7 @@ input:focus {
   height: 100%;
   width: 100%;
   border-radius: 3px;
+  object-fit: cover;
 }
 
 #buttons {
@@ -164,8 +192,7 @@ input:focus {
 }
 
 .randomize-filter {
-  width: 100%;
-  height: 100%;
+  width: 40px;
   padding: 5px 6px;
   display: flex;
   justify-content: center;
