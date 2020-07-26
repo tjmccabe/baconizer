@@ -111,7 +111,11 @@ input {
 
 input:focus {
   outline: none;
-  border: 2px solid rgba(0, 195, 255, 0.89);
+  border: 2px solid rgba(1, 174, 226, 0.89);
+}
+
+input.correct {
+  border: 2px solid rgba(94, 209, 0, 0.89);
 }
 
 #inputs {
@@ -128,9 +132,10 @@ input:focus {
   margin: 10px;
 }
 
-.s-arrow {
-  width: 80px;
-  /* margin: 2px; */
+.path-icon {
+  width: 100px;
+  height: 80px;
+  margin: 0 -30px;
 }
 
 .flip {
