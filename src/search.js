@@ -45,7 +45,7 @@ const addSearchListeners = () => {
     return sorted.slice(0,10)
   }
 
-  const checkAccuracy = (query, image, input) => {
+  const checkAccuracy = (query, image) => {
     let id = null;
 
     if (nameToId.hasOwnProperty(query)) {
@@ -61,14 +61,14 @@ const addSearchListeners = () => {
     }
 
     if (id) {
-      input.classList.add("correct")
+      image.parentElement.classList.add("correct")
       axios.get(`/actors/${id}`)
         .then(res => { 
           let link = res.data.profile_path
           image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
         })
     } else {
-      input.classList.remove("correct")
+      image.parentElement.classList.remove("correct")
       image.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
     }
 
@@ -78,7 +78,7 @@ const addSearchListeners = () => {
     e.stopPropagation()
     inp.value = val;
     buildResults(null, dd)
-    checkAccuracy(inp.value, img, inp)
+    checkAccuracy(inp.value, img)
   }
 
   const buildResults = (sorted, dd, inp, img) => {
@@ -104,12 +104,12 @@ const addSearchListeners = () => {
 
   input1.addEventListener('input', () => {
     buildResults(suggest(input1.value), dd1, input1, img1)
-    checkAccuracy(input1.value, img1, input1)
+    checkAccuracy(input1.value, img1)
   });
 
   input2.addEventListener('input', () => {
     buildResults(suggest(input2.value), dd2, input2, img2)
-    checkAccuracy(input2.value, img2, input2)
+    checkAccuracy(input2.value, img2)
   });
 
   document.getElementById('form').addEventListener("submit", (e) => {
@@ -171,26 +171,26 @@ const addSearchListeners = () => {
   randomButton1.addEventListener('click', () => {
     let idx = Math.floor(Math.random() * popularNames.length);
     input1.value = popularNames[idx]
-    checkAccuracy(input1.value, img1, input1)
+    checkAccuracy(input1.value, img1)
     document.getElementById('go-time').focus()
   })
 
   randomButton2.addEventListener('click', () => {
     let idx = Math.floor(Math.random() * popularNames.length);
     input2.value = popularNames[idx]
-    checkAccuracy(input2.value, img2, input2)
+    checkAccuracy(input2.value, img2)
     document.getElementById('go-time').focus()
   })
 
   baconButton1.addEventListener('click', () => {
     input1.value = "Kevin Bacon"
-    checkAccuracy(input1.value, img1, input1)
+    checkAccuracy(input1.value, img1)
     document.getElementById('go-time').focus()
   })
 
   baconButton2.addEventListener('click', () => {
     input2.value = "Kevin Bacon"
-    checkAccuracy(input2.value, img2, input2)
+    checkAccuracy(input2.value, img2)
     document.getElementById('go-time').focus()
   })
 };

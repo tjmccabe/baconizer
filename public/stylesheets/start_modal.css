@@ -116,10 +116,6 @@ input:focus {
   border: 2px solid rgba(1, 174, 226, 0.89);
 }
 
-input.correct {
-  border: 2px solid rgba(94, 209, 0, 0.89);
-}
-
 #inputs {
   display: flex;
   flex-wrap: wrap;
@@ -163,6 +159,10 @@ input.correct {
   width: 100%;
   border-radius: 3px;
   object-fit: cover;
+}
+
+.correct {
+  border: 3px solid rgb(80, 179, 0);
 }
 
 #buttons {
