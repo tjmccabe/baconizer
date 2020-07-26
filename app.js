@@ -2,8 +2,8 @@ const express = require('express')
 const app = express()
 const path = require('path')
 // const fetch = require('node-fetch')
-const keys = require('./config/keys')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
+const keys = PORT === 8000 ? require('./config/keys') : null
 
 const actors = require('./assets/smol_actors.json');
 const movies = require('./assets/smol_movies.json');

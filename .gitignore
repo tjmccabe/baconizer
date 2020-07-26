@@ -3,8 +3,6 @@ bundle.js
 bundle.js.map
 keys_dev.js
 assets/name_to_id_maker.js
-assets/new_name_to_id.js
 assets/shrinker.js
 assets/info.js
-assets/populars.json
 assets/README.txt
