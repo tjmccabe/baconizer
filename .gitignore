@@ -1,13 +1,10 @@
 node_modules/
-# bundle.js
-# bundle.js.map
+bundle.js
+bundle.js.map
 keys_dev.js
-assets/movie_ids_05_19_2020.json
-assets/person_ids_05_19_2020.json
-assets/person_output.json
-assets/popular_actors.json
+assets/name_to_id_maker.js
+assets/new_name_to_id.js
+assets/shrinker.js
+assets/info.js
 assets/populars.json
-assets/parser.js
-assets/actor_filterer.js
 assets/README.txt
-assets/movie_queries.js

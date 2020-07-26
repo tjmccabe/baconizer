@@ -140,8 +140,6 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
       return
     } else q2 = secondPass[1]
 
-    console.log("yeet")
-
     bestScore++
   }
 
