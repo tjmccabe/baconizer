@@ -11,20 +11,33 @@
   <div id="start-modal" class="modal">
     <div id="start-modal-child" class="modal-child">
       <div id="start-heading">
-        <div id="start-heading-text">Welcome to Baconizer!</div>
-        <div>(KB pic)</div>
-        <div>(icons? info?)</div>
+        <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon-circle-1.png" alt="kevin bacon">
+        <div>
+          <div id="start-heading-text">Welcome to Baconizer!</div>
+          <span id="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
+        </div>
+        <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon-circle-2.png" alt="kevin bacon">
+      </div>
+
+      <div id="game-rules">
+        <div class="rules">
+          How many degrees of separation are there between your favorite actors?
+        </div>
+        <div>
+          Goal: Try to find the shortest path between any two actors by jumping
+          between movies and actors.
+        </div>
       </div>
 
       <form id="form">
-        <div>Try to find a path from</div>
+        <!-- <div>Try to find a path from</div> -->
         <div id="inputs">
           <div id="start-input">
-            <button type="button" class="bacon">
-              <div class="btn-filter">
-                KBP
+            <div id="bacon-1" class="bacon">
+              <div class="bacon-filter">
+                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
               </div>
-            </button>
+            </div>
             <input
               type="text"
               name="start-actor"
@@ -33,23 +46,22 @@
               placeholder="Enter start actor"
               spellcheck="false"
             >
-            <button type="button" id="randomize1" class="randomize">
-              <div class="btn-filter">
-                shuf
+            <div id="randomize1" class="randomize">
+              <div class="randomize-filter">
+                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
               </div>
-            </button>
+            </div>
             <ul class="input-dropdown" id="dd1"></ul>
           </div>
-          <div id="input-1-pic" class="input-pic">
-
+          <div class="input-pic-frame">
+            <img id="input-1-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
           </div>
-          to
-          <div id="start-input">
-            <button type="button" class="bacon">
-              <div class="btn-filter">
-                KBP
+          <div id="end-input">
+            <div id="bacon-2" class="bacon">
+              <div class="bacon-filter">
+                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon.png" alt="kevin bacon">
               </div>
-            </button>
+            </div>
             <input
               type="text"
               name="end-actor"
@@ -58,24 +70,28 @@
               placeholder="Enter end actor"
               spellcheck="false"
             >
-            <button type="button" id="randomize2" class="randomize">
-              <div class="btn-filter">
-                shuf
+            <div id="randomize2" class="randomize">
+              <div class="randomize-filter">
+                <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/random-solid.svg" alt="random icon">
               </div>
-            </button>
+            </div>
             <ul class="input-dropdown" id="dd2"></ul>
           </div>
-          <div id="input-1-pic" class="input-pic">
-          
+          <div class="input-pic-frame">
+            <img id="input-2-pic" class="input-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
           </div>
-          
-          <button class="go-time" id="go-time" type='submit'>
-            <div class="btn-filter">
-              Baconize!
-            </div>
-          </button>
         </div>
+        <button class="go-time" id="go-time" type='submit'>
+          <div class="btn-filter">
+            Baconize!
+          </div>
+        </button>
       </form>
+      <div id="tagline">
+        Based on the
+        <a target="_blank" href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
+          Six Degrees of Kevin Bacon</a> parlor game
+      </div>
     </div>
   </div>
   <div id="abandon-modal" class="modal inactive">

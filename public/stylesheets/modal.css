@@ -11,6 +11,7 @@
   left: 0; */
   background: rgba(0, 0, 0, 0.65);
   z-index: 100;
+  overflow: auto;
 }
 
 .modal-child {
@@ -18,12 +19,12 @@
   /* top: 35%;
   left: 50%;
   transform: translate(-50%, -50%); */
-  background-color: white;
+  background-color: rgb(230, 230, 230);
   border-radius: 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-around;
+  justify-content: space-between;
   padding: 20px;
 }
 
