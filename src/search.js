@@ -16,7 +16,10 @@ const addSearchListeners = () => {
   const dd2 = document.getElementById('dd2')
   const img1 = document.getElementById('input-1-pic')
   const img2 = document.getElementById('input-2-pic')
-  const randomButton = document.getElementById('randomize')
+  const randomButton1 = document.getElementById('randomize1')
+  const randomButton2 = document.getElementById('randomize2')
+  const baconButton1 = document.getElementById('bacon-1')
+  const baconButton2 = document.getElementById('bacon-2')
 
   const suggest = (query) => {
     if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
@@ -146,6 +149,9 @@ const addSearchListeners = () => {
     input1.value = ""
     input2.value = ""
 
+    img1.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+    img2.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+
     input1.blur()
     input2.blur()
 
@@ -157,18 +163,31 @@ const addSearchListeners = () => {
     buildResults(null, dd2)
   })
 
-  // randomButton.addEventListener('click', () => {
-  //   let idx1 = Math.floor(Math.random() * popularNames.length);
-  //   let idx2 = Math.floor(Math.random() * popularNames.length);
+  randomButton1.addEventListener('click', () => {
+    let idx = Math.floor(Math.random() * popularNames.length);
+    input1.value = popularNames[idx]
+    checkForPic(input1.value, img1)
+    document.getElementById('go-time').focus()
+  })
 
-  //   while (idx1 === idx2) {
-  //     idx2 = Math.floor(Math.random() * popularNames.length);
-  //   }
+  randomButton2.addEventListener('click', () => {
+    let idx = Math.floor(Math.random() * popularNames.length);
+    input2.value = popularNames[idx]
+    checkForPic(input2.value, img2)
+    document.getElementById('go-time').focus()
+  })
 
-  //   input1.value = popularNames[idx1]
-  //   input2.value = popularNames[idx2]
-  //   document.getElementById('go-time').focus()
-  // })
+  baconButton1.addEventListener('click', () => {
+    input1.value = "Kevin Bacon"
+    checkForPic(input1.value, img1)
+    document.getElementById('go-time').focus()
+  })
+
+  baconButton2.addEventListener('click', () => {
+    input2.value = "Kevin Bacon"
+    checkForPic(input2.value, img2)
+    document.getElementById('go-time').focus()
+  })
 };
 
 export default addSearchListeners;
