@@ -7,17 +7,19 @@ import Game from './game';
 const allActorNames = Object.keys(nameToId)
 const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 const popularNames = Object.keys(populars);
-let currentGame = null;
+// let currentGame = null;
 
 const addSearchListeners = () => {
   const input1 = document.getElementById('start-actor')
   const input2 = document.getElementById('end-actor')
   const dd1 = document.getElementById('dd1')
   const dd2 = document.getElementById('dd2')
+  const img1 = document.getElementById('input-1-pic')
+  const img2 = document.getElementById('input-2-pic')
   const randomButton = document.getElementById('randomize')
 
   const suggest = (query) => {
-    if (query.length < 3 || nameToId.hasOwnProperty(query)) return null;
+    if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
 
     const reg = new RegExp(query, 'i')
 
@@ -39,20 +41,48 @@ const addSearchListeners = () => {
     return sorted.slice(0,10)
   }
 
-  const enterVal = (val, dd, inp, e) => {
+  const checkForPic = (query, image) => {
+    let id = null;
+
+    if (nameToId.hasOwnProperty(query)) {
+      id = (nameToId[query][0])
+    } else {
+      const reg = new RegExp("^" + query + "$", 'i')
+      for (let i = 0; i < allActorNames.length; i++) {
+        if (noAccents[i].match(reg)) {
+          id = (nameToId[allActorNames[i]][0])
+          break
+        }
+      }
+    }
+
+    if (id) {
+      axios.get(`/actors/${id}`)
+        .then(res => { 
+          let link = res.data.profile_path
+          image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+        })
+    } else {
+      image.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+    }
+
+  }
+
+  const enterVal = (val, dd, inp, img, e) => {
     e.stopPropagation()
     inp.value = val;
     buildResults(null, dd)
+    checkForPic(inp.value, img)
   }
 
-  const buildResults = (sorted, dd, inp) => {
+  const buildResults = (sorted, dd, inp, img) => {
     dd.innerHTML = '';
 
     if (sorted === null) {
       return;
     } else if (sorted.length === 0) {
       const nothin = document.createElement('li');
-      nothin.className = "list-item inactive"
+      nothin.className = "list-item no-matches"
       nothin.innerHTML = "No matches"
       dd.appendChild(nothin)
     } else {
@@ -60,18 +90,20 @@ const addSearchListeners = () => {
         const li = document.createElement('li');
         li.className = "list-item"
         li.innerHTML = actor
-        li.addEventListener('click', (e) => enterVal(actor, dd, inp, e))
+        li.addEventListener('click', (e) => enterVal(actor, dd, inp, img, e))
         dd.appendChild(li)
       });
     }
   }
 
   input1.addEventListener('input', () => {
-    buildResults(suggest(input1.value), dd1, input1)
+    buildResults(suggest(input1.value), dd1, input1, img1)
+    checkForPic(input1.value, img1)
   });
 
   input2.addEventListener('input', () => {
-    buildResults(suggest(input2.value), dd2, input2)
+    buildResults(suggest(input2.value), dd2, input2, img2)
+    checkForPic(input2.value, img2)
   });
 
   document.getElementById('form').addEventListener("submit", (e) => {
@@ -109,10 +141,15 @@ const addSearchListeners = () => {
     d3.select("svg").remove();
 
     axios.get(`/newgame/${id1}/${id2}`)
-      .then(res => { currentGame = new Game(res.data[0], res.data[1]) })
+      .then(res => { new Game(res.data[0], res.data[1]) })
+
+    input1.value = ""
+    input2.value = ""
 
     input1.blur()
     input2.blur()
+
+    // REMOVE ALL LISTENERS
   });
 
   window.addEventListener('click', () => {
@@ -120,18 +157,18 @@ const addSearchListeners = () => {
     buildResults(null, dd2)
   })
 
-  randomButton.addEventListener('click', () => {
-    let idx1 = Math.floor(Math.random() * popularNames.length);
-    let idx2 = Math.floor(Math.random() * popularNames.length);
+  // randomButton.addEventListener('click', () => {
+  //   let idx1 = Math.floor(Math.random() * popularNames.length);
+  //   let idx2 = Math.floor(Math.random() * popularNames.length);
 
-    while (idx1 === idx2) {
-      idx2 = Math.floor(Math.random() * popularNames.length);
-    }
+  //   while (idx1 === idx2) {
+  //     idx2 = Math.floor(Math.random() * popularNames.length);
+  //   }
 
-    input1.value = popularNames[idx1]
-    input2.value = popularNames[idx2]
-    document.getElementById('go-time').focus()
-  })
+  //   input1.value = popularNames[idx1]
+  //   input2.value = popularNames[idx2]
+  //   document.getElementById('go-time').focus()
+  // })
 };
 
 export default addSearchListeners;
