@@ -14,7 +14,7 @@
         <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon-circle-1.png" alt="kevin bacon">
         <div>
           <div id="start-heading-text">Welcome to Baconizer!</div>
-          <span id="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
+          <span class="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
         </div>
         <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bacon-circle-2.png" alt="kevin bacon">
       </div>
@@ -134,50 +134,49 @@
     </div>
   </div>
   <div id="tooltip" class="tooltip"></div>
-  <nav>
-    <div id="title">
-      <h1 id="title-text">Baconizer</h1>
-      
-    </div>
-    <div id="links">
-      <div id="git">
-        <a target="_blank" href="https://github.com/tjmccabe/baconizer">
-          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/github-brands.svg" alt="github logo">
-        </a>
+  <div id="sidebar">
+    <div id="sidebar-heading">
+      <div id="title">
+        <h1 id="title-text">Baconizer</h1>
+        <span class="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
       </div>
-      <div id="linkedin">
-        <a target="_blank" href="https://www.linkedin.com/in/tj-mccabe/">
-          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/linkedin-brands.svg" alt="linkedin logo">
-        </a>
-      </div>
-      <div id="info">
-        <div id="info-icon">
-          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/info-circle-solid.svg" alt="info circle">
+      <div id="links">
+        <div id="git">
+          <a target="_blank" href="https://github.com/tjmccabe/baconizer">
+            <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/github-brands.svg" alt="github logo">
+          </a>
         </div>
-        <div id="info-text">
-          Welcome to Baconizer, a web game based on
-          <a target="_blank" href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
-          The Six Degrees of Kevin Bacon</a>! Enter a start actor and an end actor 
-          and try to find the shortest path between them by jumping between movies 
-          and actors. Try starting with Kevin Bacon as a nod to the original game 
-          or randomize the actors for an extra challenge!
-          </br>
-          </br>
-          Try dragging and zooming the graph to help locate the next movie or actor
-          in the path.
-          </br>
-          </br>
-          There are over 100,000 actors in our database, all of whom have a base level 
-          of popularity and at least 2 movie credits to their name.
+        <div id="linkedin">
+          <a target="_blank" href="https://www.linkedin.com/in/tj-mccabe/">
+            <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/linkedin-brands.svg" alt="linkedin logo">
+          </a>
         </div>
+        <!-- <div id="info">
+          <div id="info-icon">
+            <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/info-circle-solid.svg" alt="info circle">
+          </div>
+          <div id="info-text">
+            Welcome to Baconizer, a web game based on
+            <a target="_blank" href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
+            The Six Degrees of Kevin Bacon</a>! Enter a start actor and an end actor 
+            and try to find the shortest path between them by jumping between movies 
+            and actors. Try starting with Kevin Bacon as a nod to the original game 
+            or randomize the actors for an extra challenge!
+            </br>
+            </br>
+            Try dragging and zooming the graph to help locate the next movie or actor
+            in the path.
+            </br>
+            </br>
+            There are over 100,000 actors in our database, all of whom have a base level 
+            of popularity and at least 2 movie credits to their name.
+          </div>
+        </div> -->
       </div>
+
     </div>
-  </nav>
-
-
-  <section id="degree"></section>
-
-  <!-- <div id="branch">Current Branch</div> -->
+  </div>
+  <div id="degree"></div>
   <script type="text/javascript" src="./bundle.js"></script>
 </body>
 </html>

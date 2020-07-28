@@ -7,10 +7,10 @@ document.addEventListener("DOMContentLoaded", () => {
   // const modal = document.getElementById("modal")
   // modal.classList.add("loaded");
 
-  const canvas = document.getElementById("degree");
+  // const canvas = document.getElementById("degree");
 
-  canvas.width = window.innerWidth - 20;
-  canvas.height = window.innerHeight - 200;
+  // canvas.width = window.innerWidth - 300;
+  // canvas.height = window.innerHeight;
 
   addSearchListeners()
   

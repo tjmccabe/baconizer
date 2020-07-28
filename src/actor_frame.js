@@ -1,6 +1,5 @@
 import * as d3 from 'd3';
 const axios = require('axios')
-import MovieFrame from './movie_frame'
 
 class ActorFrame {
   constructor(center, makeMove) {
@@ -49,8 +48,8 @@ class ActorFrame {
         this.render();
       })
       
-    this.width = window.innerWidth;
-    this.height = window.innerHeight - 70;
+    this.width = window.innerWidth - 300;
+    this.height = window.innerHeight;
   }
   
   render() {

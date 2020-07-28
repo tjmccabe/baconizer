@@ -14,8 +14,8 @@ class Game {
 
     this.getBest(this.center.id)
     
-    this.width = window.innerWidth;
-    this.height = window.innerHeight - 70;
+    this.width = window.innerWidth - 300;
+    this.height = window.innerHeight;
     
     this.svg = d3.select("#degree").append("svg")
       .attr("width", this.width)
@@ -45,7 +45,7 @@ class Game {
   makeMove(center, type) {
     if (type === "movieToActor" && this.checkWin(center.id)) {
       // probably a separate function here
-      
+
       window.alert("YOU WIN!")
       // Do some fun win stuff
       // Pop up a modal telling them their progress
