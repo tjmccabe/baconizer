@@ -112,6 +112,13 @@ const addSearchListeners = () => {
     checkAccuracy(input2.value, img2)
   });
 
+  const windowListen = () => {
+    buildResults(null, dd1)
+    buildResults(null, dd2)
+  }
+
+  window.addEventListener('click', windowListen)
+
   document.getElementById('form').addEventListener("submit", (e) => {
     e.preventDefault();
     
@@ -160,13 +167,11 @@ const addSearchListeners = () => {
 
     startModal.classList.add("inactive")
 
+    window.removeEventListener('click', windowListen)
+
     // REMOVE ALL LISTENERS
   });
 
-  window.addEventListener('click', () => {
-    buildResults(null, dd1)
-    buildResults(null, dd2)
-  })
 
   randomButton1.addEventListener('click', () => {
     let idx = Math.floor(Math.random() * popularNames.length);

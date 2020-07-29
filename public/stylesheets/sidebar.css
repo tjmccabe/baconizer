@@ -6,9 +6,9 @@
   width: 300px;
   align-items: center;
   background-color: rgba(0, 0, 0, .05);
-  -webkit-box-shadow: 1px 0px 7px 2px rgba(0,0,0,0.5);
-  -moz-box-shadow: 1px 0px 7px 2px rgba(0,0,0,0.5);
-  box-shadow: 1px 0px 7px 2px rgba(0,0,0,0.5);
+  -webkit-box-shadow: -5px 0px 10px 8px rgba(0,0,0,0.5);
+  -moz-box-shadow: -5px 0px 10px 8px rgba(0,0,0,0.5);
+  box-shadow: -5px 0px 10px 8px rgba(0,0,0,0.5);
   z-index: 3;
 }
 
