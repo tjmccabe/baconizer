@@ -2,6 +2,6 @@
 @import "./application.css";
 @import "./modal.css";
 @import "./start_modal.css";
-@import "./nav.css";
+@import "./sidebar.css";
+@import "./path.css";
 @import "./canvas.css";
-@import "./branch.css";
