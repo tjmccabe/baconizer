@@ -8,37 +8,19 @@ const ordinals = ["", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9
 
 
 class Game {
-  constructor (startActor, endActor) {
+  constructor (startActor, endActor, g, zoom) {
     this.startActor = startActor;
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
-    this.score = 0;
 
-    this.hint = this.getBest(this.center.id)
+    this.getBest(this.center.id, true)
     
     this.width = window.innerWidth - 300;
     this.height = window.innerHeight;
-    
-    this.svg = d3.select("#degree").append("svg")
-      .attr("width", this.width)
-      .attr("height", this.height)
 
-    let g
-
-    this.g = g = d3.select("svg")
-      .append("g")
-      .attr("id", "thisg")
-      .attr("width", this.width)
-      .attr("height", this.height)
-
-    this.zoom = d3.zoom()
-      .scaleExtent([0.6, 4])
-      .on("zoom", function () {
-        g.attr("transform", d3.event.transform)
-      })
-
-    d3.select("svg").call(this.zoom)
+    this.g = g
+    this.zoom = zoom
 
     this.beginPath()
 
@@ -47,55 +29,59 @@ class Game {
     // this.checkWin = this.checkWin.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove, this.zoom, this.endActor.id);
+
   }
 
   makeMove(center, type) {
     if (type === "movieToActor" && this.checkWin(center.id)) {
-      this.path.push(center)
+      this.appendStep(center, type)
+      document.getElementById("last-step").classList.add("inactive")
       this.showWinScreen()
       // remove event listeners?
 
-      // return
+      return
     }
     // if too many steps, offer to restart or go back
     this.center = center
     d3.select("#thisg").selectAll("*").remove()
     if (type === "actorToMovie") {
       this.frame = new MovieFrame(center, this.makeMove);
-      this.hint = this.getBestFromMovie(center.id)
+      this.getBestFromMovie(center.id)
     } else {
       this.frame = new ActorFrame(center, this.makeMove);
-      this.hint = this.getBest(center.id)
+      this.getBest(center.id)
     }
 
     if (this.path.length > 1 && center.id === this.path[this.path.length - 2].id) {
-      this.path.pop()
-      document.getElementById("steps").lastChild.remove()
+      this.goBack()
     } else {
-      this.path.push(center)
       this.appendStep(center, type)
     }
     // scroll to bottom of path
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
 
-  getBest(id) {
+  goBack() {
+    this.path.pop()
+    document.getElementById("steps").lastChild.remove()
+  }
+
+  getBest(id, firstTime) {
     axios.get(`/bestpath/${id}/${this.endActor.id}`)
       .then(res => { 
-        console.log(res.data)
-        // this.bestPath = res.data[1]
-        // this.bestScore = res.data[0]
-        return res.data
+        if (firstTime) {
+          this.bestScore = res.data[0]
+        }
+        this.hint = res.data[1][1]
+        console.log(this.hint)
       })
   }
 
   getBestFromMovie(id) {
     axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
-        console.log(res.data)
-        // this.bestPath = res.data[1]
-        // this.bestScore = res.data[0]
-        return res.data
+        this.hint = res.data[1][1]
+        console.log(this.hint)
       })
   }
 
@@ -113,9 +99,11 @@ class Game {
     lastPic.src = `https://image.tmdb.org/t/p/w185${this.endActor.profile_path}`
     lastPic.alt = this.endActor.name
     lastName.innerText = this.endActor.name
+    document.getElementById("last-step").classList.remove("inactive")
   }
   
   appendStep(center, type) {
+    this.path.push(center)
     let [stepClass, picClass, nameClass, nameText, sourcePath] = type === "movieToActor" ? (
       ["actor-step", "actor-pic", "actor-name", center.name, center.profile_path]
     ) : ["movie-step", "movie-pic", "movie-name", center.title, center.poster_path]

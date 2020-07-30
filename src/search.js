@@ -9,7 +9,7 @@ const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u03
 const popularNames = Object.keys(populars);
 // let currentGame = null;
 
-const addSearchListeners = () => {
+const addSearchListeners = (g, zoom) => {
   const startModal = document.getElementById('start-modal')
   const input1 = document.getElementById('start-actor')
   const input2 = document.getElementById('end-actor')
@@ -151,10 +151,8 @@ const addSearchListeners = () => {
       return
     }
 
-    d3.select("svg").remove();
-
     axios.get(`/newgame/${id1}/${id2}`)
-      .then(res => { new Game(res.data[0], res.data[1]) })
+      .then(res => { new Game(res.data[0], res.data[1], g, zoom) })
 
     input1.value = ""
     input2.value = ""
