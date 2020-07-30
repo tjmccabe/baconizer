@@ -15,7 +15,7 @@ class Game {
     this.path = [startActor];
     this.score = 0;
 
-    this.getBest(this.center.id)
+    this.hint = this.getBest(this.center.id)
     
     this.width = window.innerWidth - 300;
     this.height = window.innerHeight;
@@ -62,12 +62,19 @@ class Game {
     d3.select("#thisg").selectAll("*").remove()
     if (type === "actorToMovie") {
       this.frame = new MovieFrame(center, this.makeMove);
-      this.getBestFromMovie(center.id)
+      this.hint = this.getBestFromMovie(center.id)
     } else {
       this.frame = new ActorFrame(center, this.makeMove);
-      this.getBest(center.id)
+      this.hint = this.getBest(center.id)
     }
-    this.appendStep(center, type)
+
+    if (this.path.length > 1 && center.id === this.path[this.path.length - 2].id) {
+      this.path.pop()
+      document.getElementById("steps").lastChild.remove()
+    } else {
+      this.path.push(center)
+      this.appendStep(center, type)
+    }
     // scroll to bottom of path
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
@@ -109,7 +116,6 @@ class Game {
   }
   
   appendStep(center, type) {
-    this.path.push(center)
     let [stepClass, picClass, nameClass, nameText, sourcePath] = type === "movieToActor" ? (
       ["actor-step", "actor-pic", "actor-name", center.name, center.profile_path]
     ) : ["movie-step", "movie-pic", "movie-name", center.title, center.poster_path]
