@@ -105,7 +105,7 @@ class Game {
     const func = this.hint.title ? this.getBest : this.getBestFromMovie
 
     async function loop() {
-      for (let i = 0; i < 15; i++) {
+      for (let i = 0; i < 20; i++) {
         let hinty = await func(center.id)
         if (hinty.id !== origId) return true
       }
