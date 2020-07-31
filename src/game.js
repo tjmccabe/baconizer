@@ -63,9 +63,10 @@ class Game {
     } else {
       this.appendStep(center, type)
     }
-    // scroll to bottom of path
-    
-    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
+    let pathEle = document.getElementById("path-container")
+    pathEle.scrollTop = pathEle.scrollHeight
+
+    this.recenter()
   }
 
   goBack() {
@@ -161,7 +162,7 @@ class Game {
       degreeNum.innerText = `${degreeText} degree:`
       step.appendChild(degreeNum)
     }
-    
+
     let nameOrTitle = document.createElement('div')
     nameOrTitle.classList.add(nameClass)
     nameOrTitle.innerText = nameText
@@ -175,8 +176,11 @@ class Game {
     image.alt = nameText
     step.appendChild(image)
 
-
     steps.appendChild(step)
+  }
+
+  recenter() {
+    this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
 
   checkWin(id) {
