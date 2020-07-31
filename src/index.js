@@ -6,7 +6,7 @@ import addSearchListeners from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   
-  let width = window.innerWidth - 300;
+  let width = window.innerWidth - 320;
   let height = window.innerHeight;
   
   d3.select("#degree").append("svg")

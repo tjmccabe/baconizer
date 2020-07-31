@@ -21,7 +21,7 @@ class Game {
 
     this.getBest(this.center.id, true)
     
-    this.width = window.innerWidth - 300;
+    this.width = window.innerWidth - 320;
     this.height = window.innerHeight;
 
     this.g = g
