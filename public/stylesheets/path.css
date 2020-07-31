@@ -21,7 +21,7 @@
 
 
 #steps {
-  /* min-height: 100%; */
+  cursor: inherit;
 }
 
 .actor-name {

@@ -1,5 +1,7 @@
 import * as d3 from 'd3';
 const axios = require('axios')
+// import "core-js/stable";
+import "regenerator-runtime/runtime";
 import ActorFrame from './actor_frame';
 import MovieFrame from './movie_frame';
 
@@ -27,9 +29,10 @@ class Game {
     // add canvas event listeners
 
     // this.checkWin = this.checkWin.bind(this)
+    this.getBest = this.getBest.bind(this)
+    this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove, this.zoom, this.endActor.id);
-
   }
 
   makeMove(center, type) {
@@ -58,6 +61,7 @@ class Game {
       this.appendStep(center, type)
     }
     // scroll to bottom of path
+    
     this.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
   }
 
@@ -67,22 +71,45 @@ class Game {
   }
 
   getBest(id, firstTime) {
-    axios.get(`/bestpath/${id}/${this.endActor.id}`)
+    return axios.get(`/bestpath/${id}/${this.endActor.id}`)
       .then(res => { 
         if (firstTime) {
           this.bestScore = res.data[0]
         }
         this.hint = res.data[1][1]
         console.log(this.hint)
+        return this.hint
       })
   }
 
   getBestFromMovie(id) {
-    axios.get(`/moviepath/${id}/${this.endActor.id}`)
+    return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
         this.hint = res.data[1][1]
         console.log(this.hint)
+        return this.hint
       })
+  }
+
+  async rotateHint() {
+    if (this.rotating) return;
+    this.rotating = true
+
+    let origId = this.hint.id
+    let center = this.center
+    const func = this.hint.title ? this.getBest.bind(this) : this.getBestFromMovie.bind(this)
+
+    async function loop() {
+      for (let i = 0; i < 15; i++) {
+        let hinty = await func(center.id)
+        if (hinty.id !== origId) return true
+      }
+      return false
+    }
+
+    const ans = await loop()
+    this.rotating = false
+    return ans ? true : false
   }
 
   beginPath() {
@@ -139,6 +166,10 @@ class Game {
 
   checkWin(id) {
     return id === this.endActor.id
+  }
+
+  currentDegrees() {
+    return (this.path.length - 1) / 2
   }
 
   showWinScreen() {
