@@ -190,7 +190,29 @@
       </div>
     </div>
     <div id="filter-center" class="corner top-right">
-      
+      <div id="filter-text">Filter these movies by text:</div>
+      <form action="">
+        <input
+          type="text"
+          name="filter-input"
+          id="filter-input"
+          class="filter-input"
+          placeholder="Enter filter text"
+          spellcheck="false"
+        >
+        <div id="filter-buttons">
+          <button class="reset-filter" id="reset-filter" type='button'>
+            <div class="btn-filter">
+              Reset Filter
+            </div>
+          </button>
+          <button class="filter-nodes" id="filter-nodes" type='submit'>
+            <div class="btn-filter">
+              Filter by Text
+            </div>
+          </button>
+        </div>
+      </form>
     </div>
     <div id="degree"></div>
     <script type="text/javascript" src="./bundle.js"></script>

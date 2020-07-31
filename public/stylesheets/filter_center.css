@@ -1,0 +1,17 @@
+#filter-center {
+  padding: 0 5px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 250px;
+  height: 150px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 6;
+  background-color: rgb(255, 255, 255);
+  border-radius: 0 0 0 10px;
+  -webkit-box-shadow: 5px -5px 10px 8px rgba(0,0,0,0.5);
+  -moz-box-shadow: 5px -5px 10px 8px rgba(0,0,0,0.5);
+  box-shadow: 5px -5px 10px 8px rgba(0,0,0,0.5);
+}
