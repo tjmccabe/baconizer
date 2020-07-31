@@ -2,8 +2,9 @@ import * as d3 from 'd3';
 const axios = require('axios')
 
 class MovieFrame {
-  constructor(center, makeMove) {
+  constructor(center, makeMove, filterText) {
     this.makeMove = makeMove
+    this.filterText = filterText
 
     this.center = Object.assign({}, center, {
       text: center.title,
@@ -16,6 +17,16 @@ class MovieFrame {
     axios.get(`/actorsbymovie/${center.id}`)
       .then(res => {
         this.localActors = res.data
+
+        if (this.filterText) {
+          const reg = new RegExp(this.filterText, 'i')
+
+          for (let actorId in this.localActors) {
+            if (!this.localActors[actorId].name.match(reg)) {
+              delete this.localActors[actorId]
+            }
+          }
+        }
 
         this.nodes = [this.center]
           .concat(Object.keys(this.localActors).map(id => {

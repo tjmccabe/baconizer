@@ -9,7 +9,7 @@ const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u03
 const popularNames = Object.keys(populars);
 // let currentGame = null;
 
-const addSearchListeners = (g, zoom) => {
+export const addSearchListeners = (g, zoom) => {
   const startModal = document.getElementById('start-modal')
   const input1 = document.getElementById('start-actor')
   const input2 = document.getElementById('end-actor')
@@ -118,6 +118,7 @@ const addSearchListeners = (g, zoom) => {
   }
 
   window.addEventListener('click', windowListen)
+  // need to copy this to newgame function ^^^
 
   document.getElementById('form').addEventListener("submit", (e) => {
     e.preventDefault();
@@ -197,5 +198,3 @@ const addSearchListeners = (g, zoom) => {
     document.getElementById('go-time').focus()
   })
 };
-
-export default addSearchListeners;

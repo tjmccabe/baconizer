@@ -36,8 +36,13 @@ class Game {
     this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove);
+    this.filterText = "";
     window.filter = this.filter.bind(this)
     window.unfilter = this.unfilter.bind(this)
+
+    // add filter and recenter listeners
+    this.addGameListeners = this.addGameListeners.bind(this)
+    this.addGameListeners()
   }
 
   makeMove(center, type) {
@@ -46,6 +51,8 @@ class Game {
       document.getElementById("last-step").classList.add("inactive")
       this.showWinScreen()
       // remove event listeners?
+
+      //remove filter and recenter listeners
 
       return
     }
@@ -68,6 +75,9 @@ class Game {
     let pathEle = document.getElementById("path-container")
     pathEle.scrollTop = pathEle.scrollHeight
 
+    document.getElementById('filter-notifier').classList.add("inactive")
+    document.getElementById('filter-input').value = ""
+    this.filterText = ""
     this.recenter()
   }
 
@@ -77,11 +87,11 @@ class Game {
     document.getElementById("steps").lastChild.remove()
   }
 
-  filter(filterText) {
+  filter() {
     d3.select("#thisg").selectAll("*").remove()
     this.center.title ? (
-      this.frame = new MovieFrame(this.center, this.makeMove, filterText)
-    ) : this.frame = new ActorFrame(this.center, this.makeMove, filterText);
+      this.frame = new MovieFrame(this.center, this.makeMove, this.filterText)
+    ) : this.frame = new ActorFrame(this.center, this.makeMove, this.filterText);
   }
 
   unfilter() {
@@ -216,6 +226,45 @@ class Game {
     // Offer to try again or put in 2 different actors
 
     // return
+  }
+  
+  activateFilter(e) {
+    e.preventDefault();
+    const filterInput = document.getElementById('filter-input')
+    const notifier = document.getElementById('filter-notifier')
+    
+    if (this.filterText === filterInput.value) return;
+    this.filterText = filterInput.value
+    
+    if (this.filterText !== "") {
+      this.filter()
+      notifier.classList.remove("inactive")
+    } else {
+      this.unfilter()
+      notifier.classList.add("inactive")
+    }
+  }
+  
+  resetFilter(e) {
+    e.preventDefault();
+    const filterInput = document.getElementById('filter-input')
+    const notifier = document.getElementById('filter-notifier')
+
+    if (this.filterText === "") return;
+    this.filterText = ""
+    this.unfilter()
+    filterInput.value = ""
+    notifier.classList.add("inactive")
+  }
+
+  addGameListeners() {
+    const filterForm = document.getElementById('filter-form')
+    const resetFilter = document.getElementById('reset-filter')
+    const recenterButton = document.getElementById('recenter')
+
+    filterForm.addEventListener("submit", (e) => this.activateFilter(e))
+    resetFilter.addEventListener("click", (e) => this.resetFilter(e))
+    recenterButton.addEventListener("click", () => this.recenter())
   }
 }
 

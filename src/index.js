@@ -2,7 +2,7 @@ const axios = require('axios')
 import * as d3 from 'd3';
 
 // import {search} from './search'
-import addSearchListeners from './search';
+import {addSearchListeners, addFilterListeners} from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   

@@ -26,7 +26,6 @@ class ActorFrame {
               delete this.localMovies[movieId]
             }
           }
-          console.log(this.localMovies)
         }
 
         this.nodes = [this.center]
