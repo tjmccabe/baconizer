@@ -35,7 +35,7 @@ class Game {
     this.getBest = this.getBest.bind(this)
     this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
-    this.frame = new ActorFrame(this.center, this.makeMove, this.zoom, this.endActor.id);
+    this.frame = new ActorFrame(this.center, this.makeMove);
   }
 
   makeMove(center, type) {
@@ -51,10 +51,10 @@ class Game {
     this.center = center
     d3.select("#thisg").selectAll("*").remove()
     if (type === "actorToMovie") {
-      this.frame = new MovieFrame(center, this.makeMove);
+      this.frame = new MovieFrame(this.center, this.makeMove);
       this.getBestFromMovie(center.id)
     } else {
-      this.frame = new ActorFrame(center, this.makeMove);
+      this.frame = new ActorFrame(this.center, this.makeMove);
       this.getBest(center.id)
     }
 
@@ -73,6 +73,12 @@ class Game {
     this.path.pop()
     document.getElementById("steps").lastChild.remove()
     document.getElementById("steps").lastChild.remove()
+  }
+
+  filter(filterText) {
+    this.center.title ? (
+      this.frame = new MovieFrame(this.center, this.makeMove, filterText)
+    ) : this.frame = new ActorFrame(this.center, this.makeMove, filterText);
   }
 
   getBest(id, firstTime) {
