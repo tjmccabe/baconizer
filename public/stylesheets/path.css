@@ -17,13 +17,63 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  padding: 10px;
 }
 
-
 #steps {
-  cursor: inherit;
+  display: flex;
+  flex-direction: column;
+}
+
+.actor-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  align-self: flex-start;
+}
+
+#last-step {
+  display: flex;
+  flex-direction: column;
+}
+
+#last-step.inactive {
+  display: none;
+}
+
+.movie-step {
+  display: flex;
+  align-self: flex-end;
+  flex-direction: column;
+  align-items: center;
+}
+
+.arrow {
+  align-self: center;
+  width: 40px;
+  height: 40px;
+  margin: -50px 0;
+  margin-left: 10px;
+}
+
+.actor-pic {
+  width: 110px;
+  border-radius: 3px;
+}
+
+.movie-pic {
+  width: 80px;
+  border-radius: 3px;
 }
 
 .actor-name {
-  height: 30px;
+  width: 130px;
+  min-height: 20px;
+  text-align: center;
+}
+
+.movie-name {
+  width: 130px;
+  min-height: 20px;
+  text-align: center;
 }
