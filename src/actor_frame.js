@@ -21,9 +21,12 @@ class ActorFrame {
         if (this.filterText) {
           const reg = new RegExp(this.filterText, 'i')
 
-          this.localMovies = this.localMovies.map(movie => {
-            return movie.title.match(reg)
-          })
+          for (let movieId in this.localMovies) {
+            if (!this.localMovies[movieId].title.match(reg)) {
+              delete this.localMovies[movieId]
+            }
+          }
+          console.log(this.localMovies)
         }
 
         this.nodes = [this.center]

@@ -36,6 +36,8 @@ class Game {
     this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove);
+    window.filter = this.filter.bind(this)
+    window.unfilter = this.unfilter.bind(this)
   }
 
   makeMove(center, type) {
@@ -76,9 +78,17 @@ class Game {
   }
 
   filter(filterText) {
+    d3.select("#thisg").selectAll("*").remove()
     this.center.title ? (
       this.frame = new MovieFrame(this.center, this.makeMove, filterText)
     ) : this.frame = new ActorFrame(this.center, this.makeMove, filterText);
+  }
+
+  unfilter() {
+    d3.select("#thisg").selectAll("*").remove()
+    this.center.title ? (
+      this.frame = new MovieFrame(this.center, this.makeMove)
+    ) : this.frame = new ActorFrame(this.center, this.makeMove);
   }
 
   getBest(id, firstTime) {
