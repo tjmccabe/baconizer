@@ -71,6 +71,7 @@ class Game {
   goBack() {
     this.path.pop()
     document.getElementById("steps").lastChild.remove()
+    document.getElementById("steps").lastChild.remove()
   }
 
   getBest(id, firstTime) {
