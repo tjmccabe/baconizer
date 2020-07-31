@@ -161,6 +161,11 @@ class Game {
       degreeNum.innerText = `${degreeText} degree:`
       step.appendChild(degreeNum)
     }
+    
+    let nameOrTitle = document.createElement('div')
+    nameOrTitle.classList.add(nameClass)
+    nameOrTitle.innerText = nameText
+    step.appendChild(nameOrTitle)
 
     let image = document.createElement('img')
     image.classList.add(picClass)
@@ -170,10 +175,6 @@ class Game {
     image.alt = nameText
     step.appendChild(image)
 
-    let nameOrTitle = document.createElement('div')
-    nameOrTitle.classList.add(nameClass)
-    nameOrTitle.innerText = nameText
-    step.appendChild(nameOrTitle)
 
     steps.appendChild(step)
   }
