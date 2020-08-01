@@ -38,7 +38,19 @@
   font-size: 18px;
 }
 
+#abandon-child {
+  min-width: 400px;
+  height: fit-content;
+  margin-top: calc(25vh);
+}
 
+#abandon-text {
+  margin-bottom: 30px;
+}
+
+#abandon-child .options-button {
+  margin-top: 20px;
+}
 
 
 

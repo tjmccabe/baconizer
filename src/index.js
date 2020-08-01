@@ -2,7 +2,7 @@ const axios = require('axios')
 import * as d3 from 'd3';
 
 // import {search} from './search'
-import {addSearchListeners, addFilterListeners} from './search';
+import {addSearchListeners, addModalListeners} from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   
@@ -28,6 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
   d3.select("svg").call(zoom)
 
   addSearchListeners(g, zoom)
+
+  addModalListeners(g, zoom)
     
   // let movieId = 550
   // // let movieId = 252406

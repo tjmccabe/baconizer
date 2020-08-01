@@ -7,7 +7,7 @@ import Game from './game';
 const allActorNames = Object.keys(nameToId)
 const noAccents = allActorNames.map(name => name.normalize("NFD").replace(/[\u0300-\u036f]/g, ""));
 const popularNames = Object.keys(populars);
-// let currentGame = null;
+let currentGame = null;
 
 export const addSearchListeners = (g, zoom) => {
   const startModal = document.getElementById('start-modal')
@@ -114,8 +114,10 @@ export const addSearchListeners = (g, zoom) => {
   });
 
   const windowListen = () => {
-    buildResults(null, dd1)
-    buildResults(null, dd2)
+    if (!startModal.classList.contains("inactive")) {
+      buildResults(null, dd1)
+      buildResults(null, dd2)
+    }
   }
 
   window.addEventListener('click', windowListen)
@@ -157,7 +159,11 @@ export const addSearchListeners = (g, zoom) => {
     }
 
     axios.get(`/newgame/${id1}/${id2}`)
-      .then(res => { new Game(res.data[0], res.data[1], g, zoom) })
+      .then(res => {
+        if (currentGame) currentGame.cleanUp();
+        currentGame = new Game(res.data[0], res.data[1], g, zoom)
+        window.currentActors = [res.data[0], res.data[1]]
+      })
 
     input1.value = ""
     input2.value = ""
@@ -169,10 +175,6 @@ export const addSearchListeners = (g, zoom) => {
     input2.blur()
 
     startModal.classList.add("inactive")
-
-    window.removeEventListener('click', windowListen)
-
-    // REMOVE ALL LISTENERS
   });
 
 
@@ -202,3 +204,41 @@ export const addSearchListeners = (g, zoom) => {
     document.getElementById('go-time').focus()
   })
 };
+
+export const addModalListeners = (g, zoom) => {
+  const startModal = document.getElementById('start-modal')
+  const abandonModal = document.getElementById("abandon-modal")
+  const abandonChild = document.getElementById("abandon-child")
+  const restartButton = document.getElementById("restart-game-button")
+  const newGameButton = document.getElementById("new-game-button")
+  const cancelButton = document.getElementById("cancel-new-game")
+
+  const restart = () => {
+    let [actor1, actor2] = window.currentActors
+    if (currentGame) {
+      currentGame.cleanUp();
+      console.log("found current game")
+    }
+    currentGame = new Game(actor1, actor2, g, zoom)
+    abandonModal.classList.add("inactive")
+  }
+  
+  const newGame = () => {
+    abandonModal.classList.add("inactive")
+    startModal.classList.remove("inactive")
+  }
+  
+  const closeAbandonModal = () => {
+    abandonModal.classList.add("inactive")
+  }
+
+  const stopProp = (e) => {
+    e.stopPropagation()
+  }
+
+  abandonChild.addEventListener("click", (e) => stopProp(e))
+  abandonModal.addEventListener("click", () => closeAbandonModal())
+  cancelButton.addEventListener("click", () => closeAbandonModal())
+  newGameButton.addEventListener("click", () => newGame())
+  restartButton.addEventListener("click", () => restart())
+}

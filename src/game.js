@@ -11,7 +11,6 @@ const ordinals = [
   "20th", "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th"
 ]
 
-
 class Game {
   constructor (startActor, endActor, g, zoom) {
     this.startActor = startActor;
@@ -30,18 +29,13 @@ class Game {
 
     this.beginPath()
 
-    // add canvas event listeners
-
-    // this.checkWin = this.checkWin.bind(this)
+    this.cleanUp = this.cleanUp.bind(this)
     this.getBest = this.getBest.bind(this)
     this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove);
     this.filterText = "";
-    window.filter = this.filter.bind(this)
-    window.unfilter = this.unfilter.bind(this)
 
-    // add filter and recenter listeners
     this.addGameListeners = this.addGameListeners.bind(this)
     this.addHintListeners = this.addHintListeners.bind(this)
     this.addGameListeners()
@@ -53,9 +47,8 @@ class Game {
       this.appendStep(center, type)
       document.getElementById("last-step").classList.add("inactive")
       this.showWinScreen()
-      // remove event listeners?
-
-      //remove filter and recenter listeners
+      this.cleanUp()
+      this.gameOver = true
 
       return
     }
@@ -324,6 +317,24 @@ class Game {
     
     rotateHint.addEventListener("click", (e) => this.tryForNewHint(e))
     getHint.addEventListener("click", (e) => this.activateHint(e))
+  }
+  
+  cleanUp() {
+    d3.select("#thisg").selectAll("*").remove()
+    if (this.gameOver) return;
+    const filterForm = document.getElementById('filter-form')
+    const resetFilter = document.getElementById('reset-filter')
+    const recenterButton = document.getElementById('recenter')
+    const newGameButton = document.getElementById('new-game')
+    const getHint = document.getElementById('request-hint')
+    const rotateHint = document.getElementById('rotate-hint')
+    
+    rotateHint.removeEventListener("click", (e) => this.tryForNewHint(e))
+    getHint.removeEventListener("click", (e) => this.activateHint(e))
+    filterForm.removeEventListener("submit", (e) => this.activateFilter(e))
+    resetFilter.removeEventListener("click", (e) => this.resetFilter(e))
+    recenterButton.removeEventListener("click", () => this.recenter())
+    newGameButton.removeEventListener("click", () => this.askForNewGame())
   }
 }
 
