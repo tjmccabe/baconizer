@@ -167,63 +167,66 @@
           </a>
         </div>
         <!-- <div id="info">
-                <div id="info-icon">
+          <div id="info-icon">
                   <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/info-circle-solid.svg" alt="info circle">
                 </div>
                 <div id="info-text">
                   Welcome to Baconizer, a web game based on
                   <a target="_blank" href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon">
-                  The Six Degrees of Kevin Bacon</a>! Enter a start actor and an end actor 
-                  and try to find the shortest path between them by jumping between movies 
-                  and actors. Try starting with Kevin Bacon as a nod to the original game 
-                  or randomize the actors for an extra challenge!
+                    The Six Degrees of Kevin Bacon</a>! Enter a start actor and an end actor 
+                    and try to find the shortest path between them by jumping between movies 
+                    and actors. Try starting with Kevin Bacon as a nod to the original game 
+                    or randomize the actors for an extra challenge!
                   </br>
-                  </br>
-                  Try dragging and zooming the graph to help locate the next movie or actor
-                  in the path.
-                  </br>
-                  </br>
-                  There are over 100,000 actors in our database, all of whom have a base level 
+                </br>
+                Try dragging and zooming the graph to help locate the next movie or actor
+                in the path.
+              </br>
+            </br>
+            There are over 100,000 actors in our database, all of whom have a base level 
                   of popularity and at least 2 movie credits to their name.
                 </div>
               </div> -->
-      </div>
-    </div>
+            </div>
+          </div>
     <div id="filter-center" class="corner top-right">
       <div class="filter-text">Can't find what you're looking for?</div>
       <div class="filter-text">Filter these connections by text:</div>
       <form id="filter-form" action="">
         <input
-          type="text"
+        type="text"
           name="filter-input"
           id="filter-input"
           class="filter-input"
           placeholder="Enter filter text"
           spellcheck="false"
-        >
-        <button class="filter-button" id="filter-nodes" type='submit'>
-          <div class="filter-btn-filter">
-            Filter
+          >
+          <button class="filter-button" id="filter-nodes" type='submit'>
+            <div class="filter-btn-filter">
+              Filter
+            </div>
+          </button>
+        </form>
+        <div id="filter-notifier" class="inactive">
+          <div id="filter-notifier-text">
+            Filter is currently active
           </div>
-        </button>
-      </form>
-      <div id="filter-notifier" class="inactive">
-        <div id="filter-notifier-text">
-          Filter is currently active
+          <button class="filter-button" id="reset-filter" type='button'>
+            <div class="reset-btn-filter">
+              Reset
+            </div>
+          </button>
         </div>
-        <button class="filter-button" id="reset-filter" type='button'>
-          <div class="reset-btn-filter">
-            Reset
+        <hr>
+        <div id="recenter" class="recenter">
+          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/search-plus-solid.svg" alt="zoom in">
+          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/search-minus-solid.svg" alt="zoom out">
+          <div id="recenter-text">
+            Recenter Board
           </div>
-        </button>
-      </div>
-      <hr>
-      <div id="recenter" class="recenter">
-        <div class="recenter-filter">
-          Recenter Board
+          <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/arrows-alt-solid.svg" alt="pan">
         </div>
       </div>
-    </div>
     <div id="degree"></div>
     <script type="text/javascript" src="./bundle.js"></script>
   </body>
