@@ -1,4 +1,5 @@
 import * as d3 from 'd3';
+import "regenerator-runtime/runtime";
 const axios = require('axios')
 const nameToId = require('../assets/new_name_to_id.json');
 const populars = require('../assets/populars.json');
@@ -160,7 +161,10 @@ export const addSearchListeners = (g, zoom) => {
 
     axios.get(`/newgame/${id1}/${id2}`)
       .then(res => {
-        if (currentGame) currentGame.cleanUp();
+        if (currentGame) {
+          // console.log(currentGame)
+          currentGame.cleanUp();
+        }
         currentGame = new Game(res.data[0], res.data[1], g, zoom)
         window.currentActors = [res.data[0], res.data[1]]
       })
@@ -216,10 +220,13 @@ export const addModalListeners = (g, zoom) => {
   const restart = () => {
     let [actor1, actor2] = window.currentActors
     if (currentGame) {
-      currentGame.cleanUp();
+      console.log(currentGame)
       console.log("found current game")
+      currentGame.cleanUp();
+      console.log(currentGame)
     }
     currentGame = new Game(actor1, actor2, g, zoom)
+    console.log(currentGame)
     abandonModal.classList.add("inactive")
   }
   
@@ -241,4 +248,132 @@ export const addModalListeners = (g, zoom) => {
   cancelButton.addEventListener("click", () => closeAbandonModal())
   newGameButton.addEventListener("click", () => newGame())
   restartButton.addEventListener("click", () => restart())
+}
+
+const recenter = () => {
+  if (!currentGame) return;
+  currentGame.zoom.transform(d3.select("svg"), d3.zoomIdentity.scale(1))
+}
+
+const activateFilter = (e) => {
+  e.preventDefault();
+  if (!currentGame) return;
+
+  const filterInput = document.getElementById('filter-input')
+  const notifier = document.getElementById('filter-notifier')
+
+  if (currentGame.filterText === filterInput.value) return;
+  currentGame.filterText = filterInput.value
+
+  if (currentGame.filterText !== "") {
+    currentGame.filter()
+    notifier.classList.remove("inactive")
+  } else {
+    currentGame.unfilter()
+    notifier.classList.add("inactive")
+  }
+}
+
+const resetFilter = (e) => {
+  e.preventDefault();
+  if (!currentGame) return;
+
+  const filterInput = document.getElementById('filter-input')
+  const notifier = document.getElementById('filter-notifier')
+
+  if (currentGame.filterText === "") return;
+  currentGame.filterText = ""
+  currentGame.unfilter()
+  filterInput.value = ""
+  notifier.classList.add("inactive")
+}
+
+const applyHint = () => {
+  if (!currentGame) return;
+
+  const hintName = document.getElementById("hint-name")
+  const hintPic = document.getElementById("hint-pic")
+  if (currentGame.hint.title) {
+    hintName.innerText = currentGame.hint.title
+    hintPic.src = currentGame.hint.poster_path ? (
+      `https://image.tmdb.org/t/p/w185${currentGame.hint.poster_path}`
+    ) : (
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      )
+  } else {
+    hintName.innerText = currentGame.hint.name
+    hintPic.src = currentGame.hint.profile_path ? (
+      `https://image.tmdb.org/t/p/w185${currentGame.hint.profile_path}`
+    ) : (
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+      )
+  }
+}
+
+const rotateHint = async () => {
+  if (!currentGame || currentGame.rotating) return;
+  currentGame.rotating = true
+
+  let origId = currentGame.hint.id
+  let center = currentGame.center
+  const func = currentGame.hint.title ? currentGame.getBest : currentGame.getBestFromMovie
+
+  async function loop() {
+    for (let i = 0; i < 20; i++) {
+      let hinty = await func(center.id)
+      if (hinty.id !== origId) return true
+    }
+    return false
+  }
+
+  const ans = await loop()
+  currentGame.rotating = false
+  return ans ? true : false
+}
+
+const activateHint = (e) => {
+  e.preventDefault()
+  if (!currentGame) return;
+
+  applyHint()
+  document.getElementById('hint-error').classList.add("inactive")
+  document.getElementById('hint-display').classList.remove("inactive")
+  document.getElementById('hint-suggestion').classList.add("inactive")
+  document.getElementById('hint-counter').innerText = ++currentGame.hintsUsed
+}
+
+const tryForNewHint = async (e) => {
+  e.preventDefault()
+  if (!currentGame) return;
+
+  const rotated = await rotateHint()
+  if (rotated) {
+    applyHint()
+  } else {
+    document.getElementById('hint-error').classList.remove("inactive")
+  }
+}
+
+const askForNewGame = () => {
+  document.getElementById("abandon-modal").classList.remove("inactive")
+}
+
+export const addGameListeners = () => {
+  const filterForm = document.getElementById('filter-form')
+  const resetFilterButton = document.getElementById('reset-filter')
+  const recenterButton = document.getElementById('recenter')
+  const newGameButton = document.getElementById('new-game')
+
+  filterForm.addEventListener("submit", (e) => activateFilter(e))
+  resetFilterButton.addEventListener("click", (e) => resetFilter(e))
+  recenterButton.addEventListener("click", () => recenter())
+  newGameButton.addEventListener("click", () => askForNewGame())
+}
+
+export const addHintListeners = () => {
+  const getHint = document.getElementById('request-hint')
+  const rotateHint = document.getElementById('rotate-hint')
+
+  rotateHint.addEventListener("click", (e) => tryForNewHint(e))
+  getHint.addEventListener("click", (e) => activateHint(e))
 }

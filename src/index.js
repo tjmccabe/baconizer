@@ -2,7 +2,12 @@ const axios = require('axios')
 import * as d3 from 'd3';
 
 // import {search} from './search'
-import {addSearchListeners, addModalListeners} from './search';
+import { 
+  addSearchListeners, 
+  addModalListeners, 
+  addGameListeners,
+  addHintListeners
+} from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
   
@@ -30,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
   addSearchListeners(g, zoom)
 
   addModalListeners(g, zoom)
+
+  addGameListeners()
+  addHintListeners()
     
   // let movieId = 550
   // // let movieId = 252406

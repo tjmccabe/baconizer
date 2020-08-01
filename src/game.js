@@ -30,16 +30,24 @@ class Game {
     this.beginPath()
 
     this.cleanUp = this.cleanUp.bind(this)
+    this.beginPath = this.beginPath.bind(this)
     this.getBest = this.getBest.bind(this)
     this.getBestFromMovie = this.getBestFromMovie.bind(this)
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove);
     this.filterText = "";
 
-    this.addGameListeners = this.addGameListeners.bind(this)
-    this.addHintListeners = this.addHintListeners.bind(this)
-    this.addGameListeners()
-    this.addHintListeners()
+    // this.tryForNewHint = this.tryForNewHint.bind(this)
+    // this.activateHint = this.activateHint.bind(this)
+    // this.activateFilter = this.activateFilter.bind(this)
+    // this.resetFilter = this.resetFilter.bind(this)
+    // this.recenter = this.recenter.bind(this)
+    // this.askForNewGame = this.askForNewGame.bind(this)
+
+    // this.addGameListeners = this.addGameListeners.bind(this)
+    // this.addHintListeners = this.addHintListeners.bind(this)
+    // this.addGameListeners()
+    // this.addHintListeners()
   }
 
   makeMove(center, type) {
@@ -48,7 +56,6 @@ class Game {
       document.getElementById("last-step").classList.add("inactive")
       this.showWinScreen()
       this.cleanUp()
-      this.gameOver = true
 
       return
     }
@@ -106,7 +113,6 @@ class Game {
           this.bestScore = res.data[0]
         }
         this.hint = res.data[1][1]
-        // console.log(this.hint)
         return this.hint
       })
   }
@@ -115,30 +121,8 @@ class Game {
     return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
         this.hint = res.data[1][1]
-        // console.log(this.hint)
         return this.hint
       })
-  }
-
-  async rotateHint() {
-    if (this.rotating) return;
-    this.rotating = true
-
-    let origId = this.hint.id
-    let center = this.center
-    const func = this.hint.title ? this.getBest : this.getBestFromMovie
-
-    async function loop() {
-      for (let i = 0; i < 20; i++) {
-        let hinty = await func(center.id)
-        if (hinty.id !== origId) return true
-      }
-      return false
-    }
-
-    const ans = await loop()
-    this.rotating = false
-    return ans ? true : false
   }
 
   beginPath() {
@@ -147,6 +131,16 @@ class Game {
     let firstName = document.getElementById("first-actor-name")
     let lastPic = document.getElementById("last-actor-pic")
     let lastName = document.getElementById("last-actor-name")
+    let stepChildren = document.querySelectorAll("#steps > li")
+    let arrows = document.querySelectorAll("#steps > img")
+    
+    for (let i = 0; i < stepChildren.length; i++) {
+      let child = stepChildren[i]
+      if (!child.id || child.id !== "first-step") child.remove()
+    }
+    for (let i = 0; i < arrows.length; i++) {
+      arrows[i].remove()
+    }
 
     firstPic.src = `https://image.tmdb.org/t/p/w185${this.startActor.profile_path}`
     firstPic.alt = this.startActor.name
@@ -226,115 +220,14 @@ class Game {
     // return
   }
   
-  activateFilter(e) {
-    e.preventDefault();
-    const filterInput = document.getElementById('filter-input')
-    const notifier = document.getElementById('filter-notifier')
-    
-    if (this.filterText === filterInput.value) return;
-    this.filterText = filterInput.value
-    
-    if (this.filterText !== "") {
-      this.filter()
-      notifier.classList.remove("inactive")
-    } else {
-      this.unfilter()
-      notifier.classList.add("inactive")
-    }
-  }
-  
-  resetFilter(e) {
-    e.preventDefault();
-    const filterInput = document.getElementById('filter-input')
-    const notifier = document.getElementById('filter-notifier')
-
-    if (this.filterText === "") return;
-    this.filterText = ""
-    this.unfilter()
-    filterInput.value = ""
-    notifier.classList.add("inactive")
-  }
-
-  applyHint() {
-    const hintName = document.getElementById("hint-name")
-    const hintPic = document.getElementById("hint-pic")
-    if (this.hint.title) {
-      hintName.innerText = this.hint.title
-      hintPic.src = this.hint.poster_path ? (
-        `https://image.tmdb.org/t/p/w185${this.hint.poster_path}`
-      ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
-      )
-    } else {
-      hintName.innerText = this.hint.name
-      hintPic.src = this.hint.profile_path ? (
-        `https://image.tmdb.org/t/p/w185${this.hint.profile_path}`
-      ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
-      )
-    }
-  }
-
-  activateHint(e) {
-    e.preventDefault()
-    this.applyHint()
-    document.getElementById('hint-error').classList.add("inactive")
-    document.getElementById('hint-display').classList.remove("inactive")
-    document.getElementById('hint-suggestion').classList.add("inactive")
-    document.getElementById('hint-counter').innerText = ++this.hintsUsed
-  }
-
-  async tryForNewHint(e) {
-    e.preventDefault()
-
-    const rotated = await this.rotateHint()
-    if (rotated) {
-      this.applyHint()
-    } else {
-      document.getElementById('hint-error').classList.remove("inactive")
-    }
-  }
-
-  askForNewGame() {
-    document.getElementById("abandon-modal").classList.remove("inactive")
-  }
-
-  addGameListeners() {
-    const filterForm = document.getElementById('filter-form')
-    const resetFilter = document.getElementById('reset-filter')
-    const recenterButton = document.getElementById('recenter')
-    const newGameButton = document.getElementById('new-game')
-    
-    filterForm.addEventListener("submit", (e) => this.activateFilter(e))
-    resetFilter.addEventListener("click", (e) => this.resetFilter(e))
-    recenterButton.addEventListener("click", () => this.recenter())
-    newGameButton.addEventListener("click", () => this.askForNewGame())
-  }
-  
-  addHintListeners() {
-    const getHint = document.getElementById('request-hint')
-    const rotateHint = document.getElementById('rotate-hint')
-    
-    rotateHint.addEventListener("click", (e) => this.tryForNewHint(e))
-    getHint.addEventListener("click", (e) => this.activateHint(e))
-  }
-  
   cleanUp() {
     d3.select("#thisg").selectAll("*").remove()
-    if (this.gameOver) return;
-    const filterForm = document.getElementById('filter-form')
-    const resetFilter = document.getElementById('reset-filter')
-    const recenterButton = document.getElementById('recenter')
-    const newGameButton = document.getElementById('new-game')
-    const getHint = document.getElementById('request-hint')
-    const rotateHint = document.getElementById('rotate-hint')
-    
-    rotateHint.removeEventListener("click", (e) => this.tryForNewHint(e))
-    getHint.removeEventListener("click", (e) => this.activateHint(e))
-    filterForm.removeEventListener("submit", (e) => this.activateFilter(e))
-    resetFilter.removeEventListener("click", (e) => this.resetFilter(e))
-    recenterButton.removeEventListener("click", () => this.recenter())
-    newGameButton.removeEventListener("click", () => this.askForNewGame())
+    this.recenter()
+    document.getElementById('filter-notifier').classList.add("inactive")
+    document.getElementById('hint-display').classList.add("inactive")
+    document.getElementById('hint-suggestion').classList.remove("inactive")
+    document.getElementById('filter-input').value = ""
+    document.getElementById('hint-counter').innerText = "0"
   }
 }
 
