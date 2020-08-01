@@ -302,14 +302,20 @@ class Game {
     }
   }
 
+  askForNewGame() {
+    document.getElementById("abandon-modal").classList.remove("inactive")
+  }
+
   addGameListeners() {
     const filterForm = document.getElementById('filter-form')
     const resetFilter = document.getElementById('reset-filter')
     const recenterButton = document.getElementById('recenter')
+    const newGameButton = document.getElementById('new-game')
     
     filterForm.addEventListener("submit", (e) => this.activateFilter(e))
     resetFilter.addEventListener("click", (e) => this.resetFilter(e))
     recenterButton.addEventListener("click", () => this.recenter())
+    newGameButton.addEventListener("click", () => this.askForNewGame())
   }
   
   addHintListeners() {

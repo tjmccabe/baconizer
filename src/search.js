@@ -21,6 +21,7 @@ export const addSearchListeners = (g, zoom) => {
   const randomButton2 = document.getElementById('randomize2')
   const baconButton1 = document.getElementById('bacon-1')
   const baconButton2 = document.getElementById('bacon-2')
+  const errorMessage = document.getElementById('start-modal-error')
 
   const suggest = (query) => {
     if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
@@ -122,6 +123,7 @@ export const addSearchListeners = (g, zoom) => {
 
   document.getElementById('form').addEventListener("submit", (e) => {
     e.preventDefault();
+    errorMessage.classList.add("inactive")
     
     let startActor = e.target[0].value;
     let endActor = e.target[1].value;
@@ -143,12 +145,14 @@ export const addSearchListeners = (g, zoom) => {
       id1 = nameToId[startActor][0];
       id2 = nameToId[endActor][0];
     } else {
-      window.alert("Please make sure both of your actors are on the list")
+      errorMessage.innerText = "Please make sure both of your actors are on the list"
+      errorMessage.classList.remove("inactive")
       return
     }
-
+    
     if (id1 && id1 === id2) {
-      window.alert("We can't make it THAT easy")
+      errorMessage.innerText = "We can't make it THAT easy"
+      errorMessage.classList.remove("inactive")
       return
     }
 
