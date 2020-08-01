@@ -108,32 +108,3 @@
 .filter-btn-filter:hover {
   background-color: rgba(0, 0, 0, .15);
 }
-
-#recenter {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: rgb(126, 90, 155);
-  padding: 6px 8px;
-  border-radius: 4px;
-}
-
-#recenter:hover {
-  cursor: pointer;
-  background-color: rgb(102, 73, 126);
-}
-
-#recenter img {
-  width: 18px;
-  filter: invert(100%);
-}
-
-#recenter-text {
-  margin: 0 6px;
-  font-weight: bold;
-  color: white;
-}
-
-#compress {
-  margin-right: 2px;
-}

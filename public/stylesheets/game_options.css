@@ -1,0 +1,67 @@
+#game-options {
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  width: 285px;
+  position: absolute;
+  bottom: 0;
+  left: 320px;
+  z-index: 6;
+  background-color: rgb(235, 235, 235);
+  border-radius: 0 10px 0 0;
+  -webkit-box-shadow: 4px -4px 6px 0px rgba(0,0,0,0.35), 4px 89px 6px 0px rgba(0,0,0,0.35);
+  -moz-box-shadow: 4px -4px 6px 0px rgba(0,0,0,0.35), 4px 89px 6px 0px rgba(0,0,0,0.35);
+  box-shadow: 4px -4px 6px 0px rgba(0,0,0,0.35), 4px 89px 6px 0px rgba(0,0,0,0.35);
+}
+
+#game-options hr {
+  width: 100%;
+  color: rgb(150, 150, 150);
+  margin: 8px 0;
+}
+
+.options-button {
+  background-color: rgb(126, 90, 155);
+  border-radius: 4px;
+}
+
+.options-button-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 6px 8px;
+}
+
+.options-button-filter:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.15)
+}
+
+#recenter img {
+  width: 18px;
+  filter: invert(100%);
+}
+
+#recenter-text {
+  margin: 0 6px;
+}
+
+.game-options-text {
+  font-weight: bold;
+  color: white;
+}
+
+#compress {
+  margin-right: 2px;
+}
+
+#two-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}

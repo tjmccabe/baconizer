@@ -61,7 +61,9 @@
 }
 
 #hint-name {
+  width: 100%;
   font-weight: bold;
+  text-align: center;
 }
 
 #hint-pic {
@@ -71,6 +73,10 @@
 
 #hint-count {
   font-size: 18px;
+}
+
+#hint-counter {
+  font-weight: bold;
 }
 
 #recenter-text {
