@@ -39,17 +39,38 @@
 }
 
 #abandon-child {
-  min-width: 400px;
+  width: 350;
   height: fit-content;
-  margin-top: calc(25vh);
+  margin-top: calc(20vh);
+  padding-bottom: 30px;
 }
 
 #abandon-text {
-  margin-bottom: 30px;
+  margin: 10px 0;
+  width: 300px;
+  font-weight: bold;
+  line-height: 1.3em;
+  text-align: center;
 }
 
 #abandon-child .options-button {
   margin-top: 20px;
+  width: 220px;
+  height: 55px;
+}
+
+#abandon-child .game-options-text {
+  text-align: center;
+  padding: 10px 15px;
+  line-height: 1.2em;
+}
+
+/* #cancel-new-game {
+  background-color: rgb(138, 138, 138);
+} */
+
+#new-game-button, #restart-game-button {
+  background-color: rgba(230, 0, 0, 0.8);
 }
 
 

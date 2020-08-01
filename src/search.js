@@ -358,16 +358,26 @@ const askForNewGame = () => {
   document.getElementById("abandon-modal").classList.remove("inactive")
 }
 
+const tryGoingBack = () => {
+  if (!currentGame || currentGame.path.length < 2) return;
+
+  currentGame.center = currentGame.path[currentGame.path.length - 2]
+  currentGame.changeFrame()
+  currentGame.goBack()
+}
+
 export const addGameListeners = () => {
   const filterForm = document.getElementById('filter-form')
   const resetFilterButton = document.getElementById('reset-filter')
   const recenterButton = document.getElementById('recenter')
   const newGameButton = document.getElementById('new-game')
+  const goBackButton = document.getElementById('go-back')
 
   filterForm.addEventListener("submit", (e) => activateFilter(e))
   resetFilterButton.addEventListener("click", (e) => resetFilter(e))
   recenterButton.addEventListener("click", () => recenter())
   newGameButton.addEventListener("click", () => askForNewGame())
+  goBackButton.addEventListener("click", () => tryGoingBack())
 }
 
 export const addHintListeners = () => {

@@ -36,18 +36,6 @@ class Game {
     this.makeMove = this.makeMove.bind(this)
     this.frame = new ActorFrame(this.center, this.makeMove);
     this.filterText = "";
-
-    // this.tryForNewHint = this.tryForNewHint.bind(this)
-    // this.activateHint = this.activateHint.bind(this)
-    // this.activateFilter = this.activateFilter.bind(this)
-    // this.resetFilter = this.resetFilter.bind(this)
-    // this.recenter = this.recenter.bind(this)
-    // this.askForNewGame = this.askForNewGame.bind(this)
-
-    // this.addGameListeners = this.addGameListeners.bind(this)
-    // this.addHintListeners = this.addHintListeners.bind(this)
-    // this.addGameListeners()
-    // this.addHintListeners()
   }
 
   makeMove(center, type) {
@@ -86,10 +74,31 @@ class Game {
     this.recenter()
   }
 
+  changeFrame() {
+    d3.select("#thisg").selectAll("*").remove()
+    if (this.center.title) {
+      this.frame = new MovieFrame(this.center, this.makeMove);
+      this.getBestFromMovie(this.center.id)
+    } else {
+      this.frame = new ActorFrame(this.center, this.makeMove);
+      this.getBest(this.center.id)
+    }
+    let pathEle = document.getElementById("path-container")
+    pathEle.scrollTop = pathEle.scrollHeight
+
+    document.getElementById('filter-notifier').classList.add("inactive")
+    document.getElementById('filter-input').value = ""
+    this.filterText = ""
+    document.getElementById('hint-display').classList.add("inactive")
+    document.getElementById('hint-suggestion').classList.remove("inactive")
+    this.recenter()
+  }
+
   goBack() {
     this.path.pop()
-    document.getElementById("steps").lastChild.remove()
-    document.getElementById("steps").lastChild.remove()
+    let steps = document.getElementById("steps")
+    steps.lastChild.remove()
+    steps.lastChild.remove()
   }
 
   filter() {

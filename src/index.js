@@ -33,21 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
   d3.select("svg").call(zoom)
 
   addSearchListeners(g, zoom)
-
   addModalListeners(g, zoom)
-
   addGameListeners()
   addHintListeners()
-    
-  // let movieId = 550
-  // // let movieId = 252406
-  // axios.get(`/movies/${movieId}`)
-  // .then(res => console.log(res))
-  // .catch(err => console.log(err))
-  
-  // let actorId = 11157
-  // // let actorId = 287
-  // axios.get(`/actors/${actorId}`)
-  //   .then(res => console.log(res))
-  //   .catch(err => console.log(err))
 })
