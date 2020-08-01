@@ -4,7 +4,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-between;
-  width: 225px;
+  width: 235px;
   position: absolute;
   bottom: 0;
   right: 0;
@@ -30,7 +30,7 @@
 
 .hint-text {
   text-align: center;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 15px;
 }
 
@@ -60,12 +60,33 @@
   display: none;
 }
 
+#hint-name {
+  font-weight: bold;
+}
+
 #hint-pic {
-  height: 100px;
+  height: 180px;
+  margin: 10px 0;
+}
+
+#hint-count {
+  font-size: 18px;
 }
 
 #recenter-text {
   margin: 0 6px;
   font-weight: bold;
   color: white;
+}
+
+#hint-error {
+  width: 100%;
+  margin-bottom: 8px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: rgba(230, 0, 0, 0.8);
+  padding: 5px 0;
+  border-radius: 4px;
+  color: white;
+  text-align: center;
 }
