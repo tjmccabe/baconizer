@@ -113,14 +113,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgb(201, 164, 201);
+  background-color: rgb(126, 90, 155);
   padding: 6px 8px;
   border-radius: 4px;
 }
 
 #recenter:hover {
   cursor: pointer;
-  background-color: rgb(180, 145, 180);
+  background-color: rgb(102, 73, 126);
 }
 
 #recenter img {
