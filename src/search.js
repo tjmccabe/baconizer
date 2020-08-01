@@ -219,14 +219,8 @@ export const addModalListeners = (g, zoom) => {
 
   const restart = () => {
     let [actor1, actor2] = window.currentActors
-    if (currentGame) {
-      console.log(currentGame)
-      console.log("found current game")
-      currentGame.cleanUp();
-      console.log(currentGame)
-    }
+    if (currentGame) currentGame.cleanUp()
     currentGame = new Game(actor1, actor2, g, zoom)
-    console.log(currentGame)
     abandonModal.classList.add("inactive")
   }
   
