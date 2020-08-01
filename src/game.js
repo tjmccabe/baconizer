@@ -285,6 +285,7 @@ class Game {
   activateHint(e) {
     e.preventDefault()
     this.applyHint()
+    document.getElementById('hint-error').classList.add("inactive")
     document.getElementById('hint-display').classList.remove("inactive")
     document.getElementById('hint-suggestion').classList.add("inactive")
     document.getElementById('hint-counter').innerText = ++this.hintsUsed
@@ -297,7 +298,7 @@ class Game {
     if (rotated) {
       this.applyHint()
     } else {
-      //display error
+      document.getElementById('hint-error').classList.remove("inactive")
     }
   }
 
