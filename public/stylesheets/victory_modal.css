@@ -1,6 +1,6 @@
 #victory-modal-child {
   width: 100%;
-  max-width: 900px;
+  max-width: 1200px;
   min-width: 300px;
   /* height: 100%; */
   /* max-height: 750px; */
@@ -19,14 +19,26 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+  /* height: fit-content; */
 }
 
 #victory-heading img {
-  width: 150px;
+  width: 200px;
+  max-width: 20%;
   border-radius: 50%;
+}
+
+#victory-text {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
 }
 
 #victory-title {
   font-size: 40px;
   font-weight: bold;
+  margin-bottom: 25px;
 }
