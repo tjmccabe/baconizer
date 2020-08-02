@@ -1,7 +1,6 @@
 const axios = require('axios')
 import * as d3 from 'd3';
 
-// import {search} from './search'
 import { 
   addSearchListeners, 
   addModalListeners, 
@@ -36,4 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
   addModalListeners(g, zoom)
   addGameListeners()
   addHintListeners()
+
+  // if query line params exist, try to make a new game out of them
 })
