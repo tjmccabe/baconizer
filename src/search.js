@@ -212,9 +212,12 @@ export const addSearchListeners = (g, zoom) => {
 export const addModalListeners = (g, zoom) => {
   const startModal = document.getElementById('start-modal')
   const abandonModal = document.getElementById("abandon-modal")
+  const victoryModal = document.getElementById("victory-modal")
   const abandonChild = document.getElementById("abandon-child")
   const restartButton = document.getElementById("restart-game-button")
   const newGameButton = document.getElementById("new-game-button")
+  const winRestart = document.getElementById("victory-restart")
+  const winNewGame = document.getElementById("victory-new-game")
   const cancelButton = document.getElementById("cancel-new-game")
 
   const restart = () => {

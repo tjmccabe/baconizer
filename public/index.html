@@ -128,7 +128,7 @@
         </div>
       </div>
     </div>
-    <div id="victory-modal" class="modal">
+    <div id="victory-modal" class="modal inactive">
       <div id="victory-modal-child" class="modal-child">
         <div id="victory-heading">
           <img src="https://i.giphy.com/media/p4dO7CJCpBStMDp22V/source.gif" alt="bacon twirl">
@@ -136,18 +136,31 @@
             <div id="victory-title">
               You did it!
             </div>
-            <div>
+            <div id="victory-tag">
               Kevin Bacon and I are very proud of you.
             </div>
           </div>
-
           <img src="https://i.giphy.com/media/p4dO7CJCpBStMDp22V/source.gif" alt="bacon twirl">
         </div>
         <div class="recap">You got from X to Y in Z degrees. You used 2 hints along the way.</div>
         <div id="path-chunk">
-          <div>Check out your final path:</div>
+          <div id="check-it-out">Check out your path:</div>
           <div id="path-ele">
-  
+            <ul id="final-path">
+              <li class="f-actor-step">
+                <div class="f-degree-text">Start Actor</div>
+                <img class="f-actor-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
+                <div class="f-actor-name">Act Name thats . . . . . . . . pretty long</div>
+              </li>
+              <li class="f-arrow">
+                ("Was in")
+                <img src="" alt="">
+              </li>
+              <li class="f-movie-step">
+                <img class="f-movie-pic" src="https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png" alt="">
+                <div class="f-movie-name">Mov Name . . . . . . . . . . . . . . . . .</div>
+              </li>
+            </ul>
           </div>
         </div>
         <div class="smol-recap">Our algorithm says the shortest possible path between these actors is X degrees.</div>

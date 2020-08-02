@@ -12,6 +12,7 @@
   flex-direction: column;
   align-items: center;
   height: fit-content;
+  border-radius: 20px;
 }
 
 #victory-heading {
@@ -27,6 +28,9 @@
   width: 200px;
   max-width: 20%;
   border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
+  box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
 }
 
 #victory-text {
@@ -42,6 +46,10 @@
   font-size: 40px;
   font-weight: bold;
   margin-bottom: 25px;
+}
+
+#victory-tag {
+  font-style: italic;
 }
 
 .recap {
@@ -66,9 +74,13 @@
   width: 100%;
 }
 
+#check-it-out {
+  margin-left: 30px;
+}
+
 #path-ele {
   width: 100%;
-  height: 200px;
+  height: 230px;
   margin: 10px 0 25px;
   background-color: rgba(0, 0, 0, 0.1);
   background-image: linear-gradient(to right, 
@@ -83,7 +95,87 @@
   -webkit-box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.5);
   -moz-box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.5);
   box-shadow: inset 0px 0px 10px 2px rgba(0,0,0,0.5);
+}
+
+#final-path {
+  width: 100%;
+  height: 100%;
+  padding: 0;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.f-actor-step, .f-movie-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.f-degree-text {
+  width: 100%;
+  text-align: center;
+}
+
+.f-actor-pic {
+  margin: 5px 0;
+  height: 150px;
+}
+
+.f-actor-name {
+  width: 170px;
+  text-align: center;
+  font-weight: bold;
+}
+
+.f-movie-pic {
+  margin: 5px 0;
+  height: 120px;
+}
+
+.f-movie-name {
+  width: 160px;
+  font-size: 15px;
+  text-align: center;
+}
+
+.f-arrow {
+  margin: 0 -15px;
+}
+
+
+#victory-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  /* width: 350px; */
+  max-width: 75%;
+}
+
+.victory-button {
+  background-color: green;
+  border-radius: 4px;
+  margin: 0 20px 20px;
+}
+
+.victory-button-filter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 4px;
+  width: 100%;
+  height: 100%;
+  padding: 10px 14px;
+}
+
+.victory-button-filter:hover {
+  cursor: pointer;
+  background-color: rgba(0,0,0,0.15)
+}
+
+#victory-restart, #victory-new-game {
+  font-size: 20px;
 }
