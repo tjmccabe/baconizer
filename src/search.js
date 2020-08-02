@@ -225,10 +225,12 @@ export const addModalListeners = (g, zoom) => {
     if (currentGame) currentGame.cleanUp()
     currentGame = new Game(actor1, actor2, g, zoom)
     abandonModal.classList.add("inactive")
+    victoryModal.classList.add("inactive")
   }
   
   const newGame = () => {
     abandonModal.classList.add("inactive")
+    victoryModal.classList.add("inactive")
     startModal.classList.remove("inactive")
   }
   
@@ -245,6 +247,8 @@ export const addModalListeners = (g, zoom) => {
   cancelButton.addEventListener("click", () => closeAbandonModal())
   newGameButton.addEventListener("click", () => newGame())
   restartButton.addEventListener("click", () => restart())
+  winNewGame.addEventListener("click", () => newGame())
+  winRestart.addEventListener("click", () => restart())
 }
 
 const recenter = () => {

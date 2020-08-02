@@ -46,7 +46,6 @@ class Game {
       document.getElementById("last-step").classList.add("inactive")
       this.showWinScreen()
       this.cleanUp()
-
       return
     }
     // if too many steps, offer to restart or go back
