@@ -174,6 +174,8 @@ export const addSearchListeners = (g, zoom) => {
 
     img1.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
     img2.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+    img1.parentElement.classList.remove("correct")
+    img2.parentElement.classList.remove("correct")
 
     input1.blur()
     input2.blur()

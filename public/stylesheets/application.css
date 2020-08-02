@@ -13,3 +13,11 @@ body {
 button:focus {
   outline: none;
 }
+
+a {
+  color: black
+}
+
+a:visited {
+  color: black;
+}
