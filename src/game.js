@@ -300,17 +300,20 @@ class Game {
 
   insertVictoryText() {
     let scoreRecap = document.getElementById("score-recap")
+    let plur1 = this.hintsUsed === 1 ? "" : "s"
+    let plur2 = (this.path.length - 1) / 2 === 1 ? "" : "s"
+    let plur3 = this.bestScore === 1 ? "" : "s"
     let hintText = this.hintsUsed === 0 ? ", using no hints!" : (
-      `. You used ${this.hintsUsed} hints along the way.`
+      `
+      You used ${this.hintsUsed} hint${plur1} along the way`
     )
-    scoreRecap.innerText = `You got from ${this.startActor.name} to 
-    ${this.endActor.name} in ${(this.path.length-1)/2} degrees${hintText}`
+    scoreRecap.innerText = `You got from ${this.startActor.name} to ${this.endActor.name} in ${(this.path.length-1)/2} degree${plur2}${hintText}`
 
     let gitGud = document.getElementById("git-gud")
     gitGud.innerText = this.bestScore === (this.path.length - 1)/2 ? (
       "Our algorithm says that's the shortest possible path for these actors. Wow!"
     ) : (
-      `Our algorithm says the shortest possible path between these actors is ${this.bestScore} degrees.`
+      `Our algorithm says the shortest possible path between these actors is ${this.bestScore} degree${plur3}`
     )
   }
 
