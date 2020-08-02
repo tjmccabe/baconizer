@@ -20,7 +20,7 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-  margin-bottom: 20px;
+  margin: 10px 0 20px;
   /* height: fit-content; */
 }
 
@@ -28,7 +28,7 @@
   width: 200px;
   /* height: 200px; */
   max-width: 20%;
-  border-radius: 40%;
+  border-radius: 25%;
   -webkit-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
   box-shadow: 0px 0px 10px 2px rgba(0,0,0,0.5);
@@ -123,6 +123,7 @@
 .f-actor-pic {
   margin: 5px 0;
   height: 150px;
+  border-radius: 2px;
 }
 
 .f-actor-name {
@@ -134,6 +135,7 @@
 .f-movie-pic {
   margin: 5px 0;
   height: 120px;
+  border-radius: 2px;
 }
 
 .f-movie-name {
@@ -143,7 +145,12 @@
 }
 
 .f-arrow {
-  margin: 0 -15px;
+  margin: 0 -20px;
+  width: 80px;
+}
+
+.f-arrow img {
+  width: 100%;
 }
 
 

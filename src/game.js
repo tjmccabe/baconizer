@@ -44,8 +44,8 @@ class Game {
     if (type === "movieToActor" && this.checkWin(center.id)) {
       this.appendStep(center, type)
       document.getElementById("last-step").classList.add("inactive")
-      this.showWinScreen()
       this.cleanUp()
+      this.showWinScreen()
       return
     }
     // if too many steps, offer to restart or go back
@@ -187,7 +187,7 @@ class Game {
       let degreeText = ordinals[(this.path.length - 1)/2]
       let degreeNum = document.createElement('div')
       degreeNum.classList.add("degree-text")
-      degreeNum.innerText = `${degreeText} degree:`
+      degreeNum.innerText = `${degreeText} Degree`
       step.appendChild(degreeNum)
     }
 
@@ -219,11 +219,96 @@ class Game {
     return (this.path.length - 1) / 2
   }
 
+  makeFinalPath() {
+    const pathEle = document.getElementById("final-path")
+    pathEle.innerHTML = ''
+    const path = this.path
+
+    // put in first actor and wasin arrow
+    let firstActor = document.createElement("li")
+    firstActor.classList.add("f-actor-step")
+    let degText = document.createElement("div")
+    degText.classList.add("f-degree-text")
+    degText.innerText = "Start Actor"
+    let actPic = document.createElement("img")
+    actPic.classList.add("f-actor-pic")
+    actPic.src = path[0].profile_path ? (
+      `https://image.tmdb.org/t/p/w185${path[0].profile_path}`
+    ) : (
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+    )
+    actPic.alt = path[0].name
+    let actName = document.createElement("div")
+    actName.classList.add("f-actor-name")
+    actName.innerText = path[0].name
+    firstActor.appendChild(degText)
+    firstActor.appendChild(actPic)
+    firstActor.appendChild(actName)
+
+    let startArr = document.createElement("li")
+    startArr.classList.add("f-arrow")
+    let startArrPic = document.createElement("img")
+    startArrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/wasin.png`
+    startArrPic.alt = "was in"
+    startArr.appendChild(startArrPic)
+
+    pathEle.appendChild(firstActor)
+    pathEle.appendChild(startArr)
+
+    // map the rest of the path with their own arrows
+    for (let i = 1; i < path.length; i++) {
+      let ele = path[i]
+      let [stepClass, picClass, nameClass, nameText, sourcePath, arrowSource] = ele.name ? (
+        ["f-actor-step", "f-actor-pic", "f-actor-name", ele.name, ele.profile_path, "whowasin"]
+      ) : ["f-movie-step", "f-movie-pic", "f-movie-name", ele.title, ele.poster_path, "withright"]
+
+      let step = document.createElement("li")
+      step.classList.add(stepClass)
+      if (ele.name) {
+        let degText = document.createElement("div")
+        degText.classList.add("f-degree-text")
+        degText.innerText = `${ordinals[i/2]} Degree`
+        step.appendChild(degText)
+      }
+      let pic = document.createElement("img")
+      pic.classList.add(picClass)
+      pic.src = sourcePath ? (
+        `https://image.tmdb.org/t/p/w185${sourcePath}`
+      ) : ele.name ? (
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+      ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      pic.alt = nameText;
+
+      let name = document.createElement("div")
+      name.classList.add(nameClass)
+      name.innerText = nameText
+      
+      step.appendChild(pic)
+      step.appendChild(name)
+
+      let arr = document.createElement("li")
+      arr.classList.add("f-arrow")
+      let arrPic = document.createElement("img")
+      arrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowSource}.png`
+      arrPic.alt = arrowSource
+      arr.appendChild(arrPic)
+
+      pathEle.appendChild(step)
+      if (i < path.length - 1) pathEle.appendChild(arr)
+    }
+  }
+
+  insertVictoryText() {
+    let scoreRecap = document.getElementById("score-recap")
+    let hintText = 
+  }
+
   showWinScreen() {
     let victoryModal = document.getElementById("victory-modal")
-    victoryModal.classList.remove("inactive")
 
-    // return
+    this.makeFinalPath()
+    this.insertVictoryText()
+    victoryModal.classList.remove("inactive")
   }
   
   cleanUp() {
