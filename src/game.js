@@ -247,6 +247,7 @@ class Game {
 
     let startArr = document.createElement("li")
     startArr.classList.add("f-arrow")
+    startArr.classList.add("up-arrow")
     let startArrPic = document.createElement("img")
     startArrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/wasin.png`
     startArrPic.alt = "was in"
@@ -258,9 +259,9 @@ class Game {
     // map the rest of the path with their own arrows
     for (let i = 1; i < path.length; i++) {
       let ele = path[i]
-      let [stepClass, picClass, nameClass, nameText, sourcePath, arrowSource] = ele.name ? (
-        ["f-actor-step", "f-actor-pic", "f-actor-name", ele.name, ele.profile_path, "whowasin"]
-      ) : ["f-movie-step", "f-movie-pic", "f-movie-name", ele.title, ele.poster_path, "withright"]
+      let [stepClass, picClass, nameClass, nameText, sourcePath, arrowSource, tilty] = ele.name ? (
+        ["f-actor-step", "f-actor-pic", "f-actor-name", ele.name, ele.profile_path, "whowasin", "up-arrow"]
+      ) : ["f-movie-step", "f-movie-pic", "f-movie-name", ele.title, ele.poster_path, "withright", "down-arrow"]
 
       let step = document.createElement("li")
       step.classList.add(stepClass)
@@ -288,6 +289,7 @@ class Game {
 
       let arr = document.createElement("li")
       arr.classList.add("f-arrow")
+      arr.classList.add(tilty)
       let arrPic = document.createElement("img")
       arrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowSource}.png`
       arrPic.alt = arrowSource

@@ -150,6 +150,14 @@
   min-width: 80px;
 }
 
+.up-arrow {
+  transform: rotate(-20deg)
+}
+
+.down-arrow {
+  transform: rotate(20deg)
+}
+
 .f-arrow img {
   width: 100%;
 }
