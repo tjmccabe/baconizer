@@ -163,6 +163,7 @@ class Game {
   }
   
   appendStep(center, type) {
+    let firstStep = this.path.length < 2 ? true : false
     this.path.push(center)
     let [stepClass, picClass, nameClass, nameText, sourcePath, arrowClass] = type === "movieToActor" ? (
       ["actor-step", "actor-pic", "actor-name", center.name, center.profile_path, "left-arrow"]
@@ -174,10 +175,9 @@ class Game {
     let arrow = document.createElement("img")
     arrow.classList.add("arrow")
     arrow.classList.add(arrowClass)
-    arrow.src = type === "movieToActor" ? (
-      "https://baconizer-assets.s3-us-west-1.amazonaws.com/arrowleft.png"
-    ) : "https://baconizer-assets.s3-us-west-1.amazonaws.com/arrowright.png"
-    arrow.alt = arrowClass.split("-").join(" ")
+    let arrowClassText = firstStep ? "wasin" : center.name ? "withleft" : "whowasin"
+    arrow.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowClassText}.png`
+    arrow.alt = arrowClassText
     steps.append(arrow)
 
     let step = document.createElement('li')
