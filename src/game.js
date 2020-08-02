@@ -222,6 +222,8 @@ class Game {
     window.alert("YOU WIN!")
     // Do some fun win stuff
     // Pop up a modal telling them their progress
+    let victoryModal = document.getElementById("victory-modal")
+    victoryModal.classList.remove("inactive")
     // Tell them the fastest they COULD have solved it
     // Tell them if they used hints or not
     // Offer to try again or put in 2 different actors
