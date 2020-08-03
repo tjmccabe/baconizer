@@ -65,10 +65,6 @@
   margin-bottom: 15px;
 }
 
-.bold {
-  font-weight: bold;
-}
-
 #path-chunk {
   display: flex;
   flex-direction: column;
@@ -151,11 +147,11 @@
 }
 
 .up-arrow {
-  transform: rotate(-20deg)
+  transform: rotate(-10deg)
 }
 
 .down-arrow {
-  transform: rotate(20deg)
+  transform: rotate(10deg)
 }
 
 .f-arrow img {

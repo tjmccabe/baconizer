@@ -259,7 +259,7 @@ class Game {
     // map the rest of the path with their own arrows
     for (let i = 1; i < path.length; i++) {
       let ele = path[i]
-      let [stepClass, picClass, nameClass, nameText, sourcePath, arrowSource, tilty] = ele.name ? (
+      let [stepClass, picClass, nameClass, nameText, sourcePath, arrowSource, tilt] = ele.name ? (
         ["f-actor-step", "f-actor-pic", "f-actor-name", ele.name, ele.profile_path, "whowasin", "up-arrow"]
       ) : ["f-movie-step", "f-movie-pic", "f-movie-name", ele.title, ele.poster_path, "withright", "down-arrow"]
 
@@ -289,7 +289,7 @@ class Game {
 
       let arr = document.createElement("li")
       arr.classList.add("f-arrow")
-      arr.classList.add(tilty)
+      arr.classList.add(tilt)
       let arrPic = document.createElement("img")
       arrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowSource}.png`
       arrPic.alt = arrowSource
@@ -313,9 +313,9 @@ class Game {
 
     let gitGud = document.getElementById("git-gud")
     gitGud.innerText = this.bestScore === (this.path.length - 1)/2 ? (
-      "Our algorithm says that's the shortest possible path for these actors. Wow!"
+      "That's the shortest possible path for these actors. Wow!"
     ) : (
-      `Our algorithm says the shortest possible path between these actors is ${this.bestScore} degree${plur3}`
+      `The shortest possible path between these actors is ${this.bestScore} degree${plur3}`
     )
   }
 

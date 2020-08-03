@@ -314,7 +314,7 @@ const applyHint = () => {
 }
 
 const rotateHint = async () => {
-  if (!currentGame || currentGame.rotating) return;
+  if (!currentGame || currentGame.rotating) return 1;
   currentGame.rotating = true
 
   let origId = currentGame.hint.id
@@ -351,7 +351,7 @@ const tryForNewHint = async (e) => {
 
   const rotated = await rotateHint()
   if (rotated) {
-    applyHint()
+    if (rotated === true) applyHint()
   } else {
     document.getElementById('hint-error').classList.remove("inactive")
   }
