@@ -152,11 +152,17 @@ class Game {
       arrows[i].remove()
     }
 
-    firstPic.src = `https://image.tmdb.org/t/p/w185${this.startActor.profile_path}`
+    let defaultUrl = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+
+    firstPic.src = this.startActor.profile_path ? (
+      `https://image.tmdb.org/t/p/w185${this.startActor.profile_path}`
+    ) : defaultUrl;
     firstPic.alt = this.startActor.name
     firstName.innerText = this.startActor.name
 
-    lastPic.src = `https://image.tmdb.org/t/p/w185${this.endActor.profile_path}`
+    lastPic.src = this.endActor.profile_path ? (
+      `https://image.tmdb.org/t/p/w185${this.endActor.profile_path}`
+    ) : defaultUrl;
     lastPic.alt = this.endActor.name
     lastName.innerText = this.endActor.name
     document.getElementById("last-step").classList.remove("inactive")
