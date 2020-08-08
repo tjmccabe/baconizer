@@ -59,6 +59,10 @@
   margin-bottom: 20px;
 }
 
+#sr1 {
+  font-weight: bold;
+}
+
 .smol-recap {
   text-align: center;
   font-size: 20px;

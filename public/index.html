@@ -117,12 +117,12 @@
         </div>
         <div id="new-game-button" class="options-button">
           <div class="options-button-filter game-options-text">
-            Start a New Game
+            New Game
           </div>
         </div>
         <div id="restart-game-button" class="options-button">
           <div class="options-button-filter game-options-text">
-            Restart this Game
+            Restart Current Game
           </div>
         </div>
         <div id="cancel-new-game" class="options-button">
@@ -132,7 +132,8 @@
         </div>
       </div>
     </div>
-    <div id="victory-modal" class="modal inactive">
+    <!-- vvv MAKE INACTIVE vvv -->
+    <div id="victory-modal" class="modal"> 
       <div id="victory-modal-child" class="modal-child">
         <div id="victory-heading">
           <img src="https://i.giphy.com/media/p4dO7CJCpBStMDp22V/source.gif" alt="bacon twirl">
@@ -146,7 +147,18 @@
           </div>
           <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/kbtu.gif" alt="bacon twirl">
         </div>
-        <div id="score-recap" class="recap">You got from X to Y in Z degrees. You used 2 hints along the way.</div>
+        <div id="score-recap" class="recap">
+          You got from
+          <span id="sr1" class="bold">hello</span>
+          to
+          <span id="sr2" class="bold">goodbye</span>
+          in
+          <span class="bold"><span id="sr3">1</span> degree<span id="plur1"></span></span>
+          <br>
+          <span id="hint-recap-begin">You used</span>
+          <span class="bold"><span id="sr4">1</span> hint<span id="plur2"></span></span>
+          <span id="hint-recap-end">along the way</span>
+        </div>
         <div id="path-chunk">
           <div id="check-it-out">Check out your path:</div>
           <div id="path-ele">
@@ -169,7 +181,13 @@
             </ul>
           </div>
         </div>
-        <div id="git-gud" class="smol-recap">The shortest possible path between these actors is X degrees.</div>
+        <div id="git-gud" class="smol-recap">
+          The shortest possible path between these actors is 
+          <span class="bold"><span id="sr5">1</span> degree<span id="plur3"></span></span>
+        </div>
+        <div id="got-gud" class="smol-recap inactive">
+          That's the shortest possible path for these actors. Wow!
+        </div>
         <div class="smol-recap bold">Wanna play again?</div>
         <div id="victory-buttons">
           <div id="victory-new-game" class="victory-button">
