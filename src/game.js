@@ -5,14 +5,6 @@ import "regenerator-runtime/runtime";
 import ActorFrame from './actor_frame';
 import MovieFrame from './movie_frame';
 
-const ordinals = [
-  "", "1st", "2nd", "3rd", "4th", "5th", "6th", "7th", "8th", "9th",
-  "10th", "11th", "12th", "13th", "14th", "15th", "16th", "17th", "18th", "19th",
-  "20th", "21st", "22nd", "23rd", "24th", "25th", "26th", "27th", "28th", "29th",
-  "30th", "31st", "32nd", "33rd", "34th", "35th", "36th", "37th", "38th", "39th",
-  "40th", "41st", "42nd", "43rd", "44th", "45th", "46th", "47th", "48th", "49th"
-]
-
 class Game {
   constructor (startActor, endActor, g, zoom) {
     this.startActor = startActor;
@@ -167,6 +159,14 @@ class Game {
     lastName.innerText = this.endActor.name
     document.getElementById("last-step").classList.remove("inactive")
   }
+
+  getDegreeText(num) {
+    if (num % 100 === 11 || num % 100 === 12 || num % 100 === 13) return num + "th"
+    if (num % 10 === 1) return num + "st"
+    if (num % 10 === 2) return num + "nd"
+    if (num % 10 === 3) return num + "rd"
+    return num + "th"
+  }
   
   appendStep(center, type) {
     let firstStep = this.path.length < 2 ? true : false
@@ -190,7 +190,8 @@ class Game {
     step.classList.add(stepClass)
     
     if (type === "movieToActor") {
-      let degreeText = ordinals[(this.path.length - 1)/2]
+      let num = (this.path.length - 1) / 2
+      let degreeText = this.getDegreeText(num)
       let degreeNum = document.createElement('div')
       degreeNum.classList.add("degree-text")
       degreeNum.innerText = `${degreeText} Degree`
@@ -274,7 +275,7 @@ class Game {
       if (ele.name) {
         let degText = document.createElement("div")
         degText.classList.add("f-degree-text")
-        degText.innerText = `${ordinals[i/2]} Degree`
+        degText.innerText = `${this.getDegreeText(i/2)} Degree`
         step.appendChild(degText)
       }
       let pic = document.createElement("img")
