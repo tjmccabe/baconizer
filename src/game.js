@@ -307,22 +307,30 @@ class Game {
   }
 
   insertVictoryText() {
-    let scoreRecap = document.getElementById("score-recap")
-    let plur1 = this.hintsUsed === 1 ? "" : "s"
-    let plur2 = (this.path.length - 1) / 2 === 1 ? "" : "s"
-    let plur3 = this.bestScore === 1 ? "" : "s"
-    let hintText = this.hintsUsed === 0 ? ", using no hints!" : (
-      `
-      You used ${this.hintsUsed} hint${plur1} along the way`
-    )
-    scoreRecap.innerText = `You got from ${this.startActor.name} to ${this.endActor.name} in ${(this.path.length-1)/2} degree${plur2}${hintText}`
+    let finalScore = (this.path.length - 1) / 2
+    document.getElementById("sr1").innerText = this.startActor.name
+    document.getElementById("sr2").innerText = this.endActor.name
+    document.getElementById("sr3").innerText = finalScore
+    document.getElementById("sr4").innerText = this.hintsUsed 
+
+    document.getElementById("plur1").innerText = finalScore === 1 ? "" : "s"
+    document.getElementById("plur2").innerText = 
+      this.hintsUsed === 0 ? "s!" : this.hintsUsed === 0 ? "" : "s"
+
+    document.getElementById("hint-recap-end").innerText = 
+      this.hintsUsed === 0 ? "" : "along the way"
 
     let gitGud = document.getElementById("git-gud")
-    gitGud.innerText = this.bestScore === (this.path.length - 1)/2 ? (
-      "That's the shortest possible path for these actors. Wow!"
-    ) : (
-      `The shortest possible path between these actors is ${this.bestScore} degree${plur3}`
-    )
+    let gotGud = document.getElementById("got-gud")
+    if (this.bestScore === (this.path.length - 1) / 2) {
+      gitGud.classList.add("inactive")
+      gotGud.classList.remove("inactive")
+    } else {
+      gotGud.classList.add("inactive")
+      document.getElementById("sr5").innerText = this.bestScore
+      document.getElementById("plur3").innerText = this.bestScore === 1 ? "" : "s"
+      gitGud.classList.remove("inactive")
+    }
   }
 
   showWinScreen() {

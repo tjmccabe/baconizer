@@ -56,11 +56,12 @@
 .recap {
   text-align: center;
   font-size: 24px;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  line-height: 1.8em;
 }
 
-#sr1 {
-  font-weight: bold;
+.larger {
+  font-size: 26px;
 }
 
 .smol-recap {
