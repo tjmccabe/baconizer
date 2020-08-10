@@ -80,7 +80,7 @@
   font-weight: bold;
 }
 
-#hint-error {
+#hint-error, #bad-hint, #getting-hint {
   width: 100%;
   margin-bottom: 8px;
   font-size: 14px;
@@ -90,4 +90,8 @@
   border-radius: 4px;
   color: white;
   text-align: center;
+}
+
+#getting-hint {
+  background-color: orange;
 }

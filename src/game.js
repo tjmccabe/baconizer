@@ -4,6 +4,7 @@ const axios = require('axios')
 import "regenerator-runtime/runtime";
 import ActorFrame from './actor_frame';
 import MovieFrame from './movie_frame';
+import {activateHint} from './search';
 
 class Game {
   constructor (startActor, endActor, g, zoom) {
@@ -12,6 +13,7 @@ class Game {
     this.center = startActor;
     this.path = [startActor];
     this.hints = [];
+    this.prevHints = [];
     this.currentHintIndex = 0;
     this.hintsUsed = 0
 
@@ -67,6 +69,7 @@ class Game {
     this.filterText = ""
     document.getElementById('hint-display').classList.add("inactive")
     document.getElementById('hint-suggestion').classList.remove("inactive")
+    document.getElementById('bad-hint').classList.add("inactive")
     this.recenter()
   }
 
@@ -112,24 +115,40 @@ class Game {
   }
 
   getBest(id, firstTime) {
+    this.prevHints = this.hints
     return axios.get(`/bestpath/${id}/${this.endActor.id}`)
-      .then(res => { 
-        // PUT IN ALT PATH IF UNABLE TO GET
-        if (firstTime) {
-          this.bestScore = res.data[0]
-        }
+      .then(res => {
+        let gettingHint = document.getElementById('getting-hint')
+        let badHint = document.getElementById('bad-hint')
+        
         this.hints = res.data[1]
-        // console.log(this.hints)
+        if (firstTime) this.bestScore = res.data[0]
+
+        if (!res.data[1].length) badHint.classList.remove("inactive")
+
+        if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
+          activateHint()
+        }
+        gettingHint.classList.add("inactive")
         return this.hints
       })
     }
     
     getBestFromMovie(id) {
+      this.prevHints = this.hints
       return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
-        // PUT IN ALT PATH IF UNABLE TO GET
+        let gettingHint = document.getElementById('getting-hint')
+        let badHint = document.getElementById('bad-hint')
+
         this.hints = res.data[1]
-        // console.log(this.hints)
+
+        if (!res.data[1].length) badHint.classList.remove("inactive")
+
+        if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
+          activateHint()
+        }
+        gettingHint.classList.add("inactive")
         return this.hints
       })
   }
@@ -330,10 +349,17 @@ class Game {
 
     let gitGud = document.getElementById("git-gud")
     let gotGud = document.getElementById("got-gud")
-    if (this.bestScore === (this.path.length - 1) / 2) {
+    let uhOh = document.getElementById("no-best-score")
+    if (this.bestScore === 0) {
+      uhOh.classList.remove("inactive")
+      gitGud.classList.add("inactive")
+      gotGud.classList.add("inactive")
+    } else if (this.bestScore === (this.path.length - 1) / 2) {
+      uhOh.classList.add("inactive")
       gitGud.classList.add("inactive")
       gotGud.classList.remove("inactive")
     } else {
+      uhOh.classList.add("inactive")
       gotGud.classList.add("inactive")
       document.getElementById("sr5").innerText = this.bestScore
       document.getElementById("plur3").innerText = this.bestScore === 1 ? "" : "s"
@@ -354,6 +380,8 @@ class Game {
     this.recenter()
     document.getElementById('filter-notifier').classList.add("inactive")
     document.getElementById('hint-display').classList.add("inactive")
+    document.getElementById('bad-hint').classList.add("inactive")
+    document.getElementById('getting-hint').classList.add("inactive")
     document.getElementById('hint-suggestion').classList.remove("inactive")
     document.getElementById('filter-input').value = ""
     document.getElementById('hint-counter').innerText = "0"

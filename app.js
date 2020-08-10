@@ -237,8 +237,8 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
   let seenMovies2 = new Set()
   let bestScore = 1;
 
-  while (bestScore < 8) {
 
+  while (bestScore < 9.5) {
     let firstA2M = A2M(q1, seenMovies1, actorPaths1, moviePaths1, moviePaths2, true)
     if (firstA2M[0]) {
       res.send([bestScore, firstA2M[1]]);
@@ -313,7 +313,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
   }
   let q1 = newQ
 
-  while (bestScore < 8) {
+  while (bestScore < 8.5) {
 
     let firstA2M = A2M(q1, seenMovies1, actorPaths1, moviePaths1, moviePaths2, true, true)
     if (firstA2M[0]) {

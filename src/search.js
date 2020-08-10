@@ -303,21 +303,21 @@ const applyHint = () => {
     hintPic.src = hinty.poster_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.poster_path}`
     ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
-      )
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
+    )
   } else {
     hintName.innerText = hinty.name
     hintPic.src = hinty.profile_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.profile_path}`
     ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
-      )
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+    )
   }
 }
 
 const rotateHint = (e) => {
   e.preventDefault()
-  if (!currentGame) return;
+  if (!currentGame || !currentGame.hints.length) return;
   if (currentGame.hints.length === 1) {
     document.getElementById('hint-error').classList.remove("inactive")
   } else {
@@ -327,9 +327,14 @@ const rotateHint = (e) => {
   }
 }
 
-const activateHint = (e) => {
+export const activateHint = (e) => {
   e.preventDefault()
   if (!currentGame) return;
+  if (currentGame.prevHints === currentGame.hints) {
+    document.getElementById('getting-hint').classList.remove("inactive")
+    return
+  }
+  if (!currentGame.hints.length) return
 
   applyHint()
   document.getElementById('hint-error').classList.add("inactive")
