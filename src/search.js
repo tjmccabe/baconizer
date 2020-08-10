@@ -296,42 +296,35 @@ const applyHint = () => {
 
   const hintName = document.getElementById("hint-name")
   const hintPic = document.getElementById("hint-pic")
-  if (currentGame.hint.title) {
-    hintName.innerText = currentGame.hint.title
-    hintPic.src = currentGame.hint.poster_path ? (
-      `https://image.tmdb.org/t/p/w185${currentGame.hint.poster_path}`
+  let hintIdx = currentGame.currentHintIndex % currentGame.hints.length
+  let hinty = currentGame.hints[hintIdx]
+  if (currentGame.hints[0].title) {
+    hintName.innerText = hinty.title
+    hintPic.src = hinty.poster_path ? (
+      `https://image.tmdb.org/t/p/w185${hinty.poster_path}`
     ) : (
         "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
       )
   } else {
-    hintName.innerText = currentGame.hint.name
-    hintPic.src = currentGame.hint.profile_path ? (
-      `https://image.tmdb.org/t/p/w185${currentGame.hint.profile_path}`
+    hintName.innerText = hinty.name
+    hintPic.src = hinty.profile_path ? (
+      `https://image.tmdb.org/t/p/w185${hinty.profile_path}`
     ) : (
         "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
       )
   }
 }
 
-const rotateHint = async () => {
-  if (!currentGame || currentGame.rotating) return 1;
-  currentGame.rotating = true
-
-  let origId = currentGame.hint.id
-  let center = currentGame.center
-  const func = currentGame.hint.title ? currentGame.getBest : currentGame.getBestFromMovie
-
-  async function loop() {
-    for (let i = 0; i < 20; i++) {
-      let hinty = await func(center.id)
-      if (hinty.id !== origId) return true
-    }
-    return false
+const rotateHint = (e) => {
+  e.preventDefault()
+  if (!currentGame) return;
+  if (currentGame.hints.length === 1) {
+    document.getElementById('hint-error').classList.remove("inactive")
+  } else {
+    currentGame.currentHintIndex++
+    applyHint()
+    return true
   }
-
-  const ans = await loop()
-  currentGame.rotating = false
-  return ans ? true : false
 }
 
 const activateHint = (e) => {
@@ -345,17 +338,16 @@ const activateHint = (e) => {
   document.getElementById('hint-counter').innerText = ++currentGame.hintsUsed
 }
 
-const tryForNewHint = async (e) => {
-  e.preventDefault()
-  if (!currentGame) return;
+// const tryForNewHint = async (e) => {
+//   e.preventDefault()
+//   if (!currentGame) return;
 
-  const rotated = await rotateHint()
-  if (rotated) {
-    if (rotated === true) applyHint()
-  } else {
-    document.getElementById('hint-error').classList.remove("inactive")
-  }
-}
+//   if (rotateHint()) {
+//     if (rotated === true) applyHint()
+//   } else {
+//     document.getElementById('hint-error').classList.remove("inactive")
+//   }
+// }
 
 const askForNewGame = () => {
   document.getElementById("abandon-modal").classList.remove("inactive")
@@ -385,8 +377,8 @@ export const addGameListeners = () => {
 
 export const addHintListeners = () => {
   const getHint = document.getElementById('request-hint')
-  const rotateHint = document.getElementById('rotate-hint')
+  const rotateHintEle = document.getElementById('rotate-hint')
 
-  rotateHint.addEventListener("click", (e) => tryForNewHint(e))
+  rotateHintEle.addEventListener("click", (e) => rotateHint(e))
   getHint.addEventListener("click", (e) => activateHint(e))
 }

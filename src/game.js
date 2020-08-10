@@ -11,6 +11,8 @@ class Game {
     this.endActor = endActor;
     this.center = startActor;
     this.path = [startActor];
+    this.hints = [];
+    this.currentHintIndex = 0;
     this.hintsUsed = 0
 
     this.getBest(this.center.id, true)
@@ -50,6 +52,7 @@ class Game {
       this.frame = new ActorFrame(this.center, this.makeMove);
       this.getBest(center.id)
     }
+    this.currentHintIndex = 0
 
     if (this.path.length > 1 && center.id === this.path[this.path.length - 2].id) {
       this.goBack()
@@ -114,16 +117,18 @@ class Game {
         if (firstTime) {
           this.bestScore = res.data[0]
         }
-        this.hint = res.data[1][1]
-        return this.hint
+        this.hints = res.data[1]
+        console.log(this.hints)
+        return this.hints
       })
   }
 
   getBestFromMovie(id) {
     return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
-        this.hint = res.data[1][1]
-        return this.hint
+        this.hints = res.data[1]
+        console.log(this.hints)
+        return this.hints
       })
   }
 
@@ -316,7 +321,7 @@ class Game {
 
     document.getElementById("plur1").innerText = finalScore === 1 ? "" : "s"
     document.getElementById("plur2").innerText = 
-      this.hintsUsed === 0 ? "s!" : this.hintsUsed === 0 ? "" : "s"
+      this.hintsUsed === 0 ? "s!" : this.hintsUsed === 1 ? "" : "s"
 
     document.getElementById("hint-recap-end").innerText = 
       this.hintsUsed === 0 ? "" : "along the way"
