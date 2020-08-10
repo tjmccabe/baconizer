@@ -189,7 +189,7 @@ class Game {
     arrow.classList.add("arrow")
     arrow.classList.add(arrowClass)
     let arrowClassText = firstStep ? "wasin" : center.name ? "withleft" : "whowasin"
-    arrow.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowClassText}.png`
+    arrow.src = `assets/images/${arrowClassText}.png`
     arrow.alt = arrowClassText
     steps.append(arrow)
 
@@ -263,7 +263,7 @@ class Game {
     startArr.classList.add("f-arrow")
     startArr.classList.add("up-arrow")
     let startArrPic = document.createElement("img")
-    startArrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/wasin.png`
+    startArrPic.src = `assets/images/wasin.png`
     startArrPic.alt = "was in"
     startArr.appendChild(startArrPic)
 
@@ -305,7 +305,7 @@ class Game {
       arr.classList.add("f-arrow")
       arr.classList.add(tilt)
       let arrPic = document.createElement("img")
-      arrPic.src = `https://baconizer-assets.s3-us-west-1.amazonaws.com/${arrowSource}.png`
+      arrPic.src = `assets/images/${arrowSource}.png`
       arrPic.alt = arrowSource
       arr.appendChild(arrPic)
 

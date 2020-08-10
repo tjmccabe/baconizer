@@ -71,7 +71,7 @@ export const addSearchListeners = (g, zoom) => {
         })
     } else {
       image.parentElement.classList.remove("correct")
-      image.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+      image.src = "assets/images/unknown.png"
     }
 
   }
@@ -172,8 +172,8 @@ export const addSearchListeners = (g, zoom) => {
     input1.value = ""
     input2.value = ""
 
-    img1.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
-    img2.src = "https://baconizer-assets.s3-us-west-1.amazonaws.com/unnamed+(1).png"
+    img1.src = "assets/images/unknown.png"
+    img2.src = "assets/images/unknown.png"
     img1.parentElement.classList.remove("correct")
     img2.parentElement.classList.remove("correct")
 
