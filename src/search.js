@@ -305,6 +305,7 @@ const applyHint = () => {
     ) : (
       "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
     )
+    currentGame.hintTarget = { center: hinty, type: "actorToMovie" }
   } else {
     hintName.innerText = hinty.name
     hintPic.src = hinty.profile_path ? (
@@ -312,6 +313,7 @@ const applyHint = () => {
     ) : (
       "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
     )
+    currentGame.hintTarget = { center: hinty, type: "movieToActor" }
   }
 }
 
@@ -337,10 +339,19 @@ export const activateHint = (e) => {
   if (!currentGame.hints.length) return
 
   applyHint()
+  document.getElementById('getting-hint').classList.add("inactive")
   document.getElementById('hint-error').classList.add("inactive")
   document.getElementById('hint-display').classList.remove("inactive")
   document.getElementById('hint-suggestion').classList.add("inactive")
   document.getElementById('hint-counter').innerText = ++currentGame.hintsUsed
+}
+
+const hintLink = (e) => {
+  e.preventDefault()
+  if (!currentGame || !currentGame.hintTarget) return;
+  let { center, type } = currentGame.hintTarget
+
+  currentGame.makeMove(center, type)
 }
 
 // const tryForNewHint = async (e) => {
@@ -383,7 +394,11 @@ export const addGameListeners = () => {
 export const addHintListeners = () => {
   const getHint = document.getElementById('request-hint')
   const rotateHintEle = document.getElementById('rotate-hint')
+  const hintPic = document.getElementById('hint-pic')
+  const hintName = document.getElementById('hint-name')
 
   rotateHintEle.addEventListener("click", (e) => rotateHint(e))
   getHint.addEventListener("click", (e) => activateHint(e))
+  hintPic.addEventListener("click", (e) => hintLink(e))
+  hintName.addEventListener("click", (e) => hintLink(e))
 }

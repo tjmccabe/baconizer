@@ -129,7 +129,6 @@ class Game {
         if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
           activateHint()
         }
-        gettingHint.classList.add("inactive")
         return this.hints
       })
     }
@@ -148,7 +147,6 @@ class Game {
         if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
           activateHint()
         }
-        gettingHint.classList.add("inactive")
         return this.hints
       })
   }

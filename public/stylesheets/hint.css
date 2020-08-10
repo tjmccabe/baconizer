@@ -66,9 +66,15 @@
   text-align: center;
 }
 
+#hint-name:hover {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
 #hint-pic {
   height: 180px;
   margin: 10px 0;
+  cursor: pointer;
 }
 
 #hint-count {
