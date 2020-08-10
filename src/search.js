@@ -67,11 +67,11 @@ export const addSearchListeners = (g, zoom) => {
       axios.get(`/actors/${id}`)
         .then(res => { 
           let link = res.data.profile_path
-          image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+          image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
         })
     } else {
       image.parentElement.classList.remove("correct")
-      image.src = "assets/images/unknown.png"
+      image.src = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/unknown.png"
     }
 
   }
@@ -172,8 +172,8 @@ export const addSearchListeners = (g, zoom) => {
     input1.value = ""
     input2.value = ""
 
-    img1.src = "assets/images/unknown.png"
-    img2.src = "assets/images/unknown.png"
+    img1.src = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/unknown.png"
+    img2.src = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/unknown.png"
     img1.parentElement.classList.remove("correct")
     img2.parentElement.classList.remove("correct")
 
@@ -303,14 +303,14 @@ const applyHint = () => {
     hintPic.src = hinty.poster_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.poster_path}`
     ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
       )
   } else {
     hintName.innerText = hinty.name
     hintPic.src = hinty.profile_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.profile_path}`
     ) : (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
       )
   }
 }

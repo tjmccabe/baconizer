@@ -151,7 +151,7 @@ class Game {
       arrows[i].remove()
     }
 
-    let defaultUrl = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+    let defaultUrl = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
 
     firstPic.src = this.startActor.profile_path ? (
       `https://image.tmdb.org/t/p/w185${this.startActor.profile_path}`
@@ -189,7 +189,7 @@ class Game {
     arrow.classList.add("arrow")
     arrow.classList.add(arrowClass)
     let arrowClassText = firstStep ? "wasin" : center.name ? "withleft" : "whowasin"
-    arrow.src = `assets/images/${arrowClassText}.png`
+    arrow.src = `https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/${arrowClassText}.png`
     arrow.alt = arrowClassText
     steps.append(arrow)
 
@@ -213,8 +213,8 @@ class Game {
     let image = document.createElement('img')
     image.classList.add(picClass)
     image.src = sourcePath ? `https://image.tmdb.org/t/p/w185${sourcePath}` : type === "movieToActor" ? (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
-    ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+    ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
     image.alt = nameText
     step.appendChild(image)
 
@@ -249,7 +249,7 @@ class Game {
     actPic.src = path[0].profile_path ? (
       `https://image.tmdb.org/t/p/w185${path[0].profile_path}`
     ) : (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
     )
     actPic.alt = path[0].name
     let actName = document.createElement("div")
@@ -263,7 +263,7 @@ class Game {
     startArr.classList.add("f-arrow")
     startArr.classList.add("up-arrow")
     let startArrPic = document.createElement("img")
-    startArrPic.src = `assets/images/wasin.png`
+    startArrPic.src = `https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/wasin.png`
     startArrPic.alt = "was in"
     startArr.appendChild(startArrPic)
 
@@ -290,8 +290,8 @@ class Game {
       pic.src = sourcePath ? (
         `https://image.tmdb.org/t/p/w185${sourcePath}`
       ) : ele.name ? (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
-      ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+      ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
       pic.alt = nameText;
 
       let name = document.createElement("div")
@@ -305,7 +305,7 @@ class Game {
       arr.classList.add("f-arrow")
       arr.classList.add(tilt)
       let arrPic = document.createElement("img")
-      arrPic.src = `assets/images/${arrowSource}.png`
+      arrPic.src = `https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/${arrowSource}.png`
       arrPic.alt = arrowSource
       arr.appendChild(arrPic)
 

@@ -9,7 +9,7 @@ class MovieFrame {
     this.center = Object.assign({}, center, {
       text: center.title,
       frameId: `c${center.id}`,
-      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w185${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/camera.png"
+      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w185${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
     });
 
     this.localActors = null
@@ -37,7 +37,7 @@ class MovieFrame {
             return Object.assign({}, this.localActors[id], {
               text: text,
               frameId: id,
-              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w185${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/profile.png"
+              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w185${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
             })
           })
           .sort((a, b) => {
