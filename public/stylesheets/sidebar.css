@@ -111,3 +111,12 @@
   margin: 10px 0;
   transform: scaleX(-1)
 }
+
+.degree-text, .f-degree-text {
+  background-color: purple;
+  color: white;
+  font-weight: bold;
+  border-radius: 3px;
+  padding: 2px 4px;
+  width: fit-content;
+}

@@ -197,3 +197,11 @@
 #victory-restart, #victory-new-game {
   font-size: 20px;
 }
+
+.final-degree-count {
+  background-color: purple;
+  color: white;
+  border-radius: 3px;
+  padding: 2px 6px;
+  width: fit-content;
+}
