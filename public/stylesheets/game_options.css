@@ -46,6 +46,7 @@
   width: 16px;
   filter: invert(100%);
   margin-right: 6px;
+  color: white;
 }
 
 .game-options-text {
