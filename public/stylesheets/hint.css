@@ -73,6 +73,7 @@
 
 #hint-count {
   font-size: 18px;
+  /* margin-top: 10px; */
 }
 
 #hint-counter {
@@ -80,7 +81,6 @@
 }
 
 #recenter-text {
-  margin: 0 6px;
   font-weight: bold;
   color: white;
 }

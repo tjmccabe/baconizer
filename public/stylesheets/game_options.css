@@ -42,22 +42,15 @@
   background-color: rgba(0,0,0,0.15)
 }
 
-#recenter img {
-  width: 18px;
+.option-icon {
+  width: 16px;
   filter: invert(100%);
-}
-
-#recenter-text {
-  margin: 0 6px;
+  margin-right: 6px;
 }
 
 .game-options-text {
   font-weight: bold;
   color: white;
-}
-
-#compress {
-  margin-right: 2px;
 }
 
 #two-buttons {

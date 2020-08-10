@@ -1,10 +1,11 @@
 #site-heading {
-  padding: 0 5px;
+  padding: 0 10px 8px;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: space-around;
-  width: 250px;
-  height: 85px;
+  /* justify-content: space-around; */
+  width: 230px;
+  /* height: 85px; */
   position: absolute;
   top: 0;
   left: 320px;
@@ -16,13 +17,33 @@
   box-shadow: 4px 4px 6px 0px rgba(0,0,0,0.35), 4px -78px 6px 0px rgba(0,0,0,0.35);
 }
 
+#heading-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100%;
+  height: 65px;
+  padding: 10px 0 5px;
+}
+
+#site-heading hr {
+  width: 100%;
+  color: rgb(150, 150, 150);
+  margin: 8px 0 6px;
+}
+
+#site-heading hr.smoller {
+  width: 30%;
+  color: rgb(175, 175, 175);
+  margin: 4px 0 3px;
+}
+
 #title {
   display: flex;
   flex-direction: column;
   align-items: center;
   height: 100%;
   justify-content: space-between;
-  padding: 10px 0 15px;
 }
 
 #title-text {
@@ -32,7 +53,7 @@
 #links {
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   height: 100%;
   padding-top: 3px;
@@ -40,6 +61,7 @@
 
 #links img {
   width: 24px;
+  height: 24px;
   opacity: .6;
   box-sizing: border-box;
   margin: 0;
