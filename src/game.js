@@ -117,8 +117,9 @@ class Game {
         if (firstTime) {
           this.bestScore = res.data[0]
         }
+        // PUT IN ALT PATH IF UNABLE TO GET
         this.hints = res.data[1]
-        console.log(this.hints)
+        // console.log(this.hints)
         return this.hints
       })
   }
@@ -127,7 +128,7 @@ class Game {
     return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
         this.hints = res.data[1]
-        console.log(this.hints)
+        // console.log(this.hints)
         return this.hints
       })
   }
