@@ -44,6 +44,10 @@
   align-self: flex-start;
 }
 
+.actor-step.last-actor-step {
+  align-self: center;
+}
+
 #last-step {
   display: flex;
   flex-direction: column;

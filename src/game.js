@@ -314,6 +314,7 @@ class Game {
 
       let name = document.createElement("div")
       name.classList.add(nameClass)
+      name.classList.add("bold")
       name.innerText = nameText
       
       step.appendChild(pic)

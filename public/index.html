@@ -3,7 +3,7 @@
   <head>
     <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/baconemoji.png">
     <link rel="stylesheet" href="./stylesheets/master.css">
-    <meta charset="UTF-8">
+    <link href="https://fonts.googleapis.com/css2?family=Hammersmith+One&display=swap" rel="stylesheet">    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta property="og:title" content="Baconizer" />
     <meta property="og:description" content="Can you beat 6 degrees of separation? Try to find the shortest path between actors." />
@@ -17,7 +17,7 @@
         <div id="start-heading">
           <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/bacon-circle-1.png" alt="kevin bacon">
           <div>
-            <div id="start-heading-text">Welcome to Baconizer!</div>
+            <div id="start-heading-text">Welcome to <span class="alice">Baconizer</span>!</div>
             <span class="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
           </div>
           <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/bacon-circle-2.png" alt="kevin bacon">
@@ -99,7 +99,7 @@
             </div>
           </div>
           <button class="go-time" id="go-time" type='submit'>
-            <div class="btn-filter">
+            <div class="btn-filter alice">
               Baconize!
             </div>
           </button>
@@ -138,7 +138,7 @@
         <div id="victory-heading">
           <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/bacontwirl.gif" alt="bacon twirl">
           <div id="victory-text">
-            <div id="victory-title">
+            <div id="victory-title" class="">
               You did it!
             </div>
             <div id="victory-tag">
@@ -185,7 +185,7 @@
           The shortest possible path between these actors is 
           <span class="bold larger final-degree-count"><span id="sr5">1</span> degree<span id="plur3"></span></span>
         </div>
-        <div id="got-gud" class="recap inactive">
+        <div id="got-gud" class="recap rainbow-background inactive">
           That's the <span class="bold">shortest possible path</span> for these actors. Wow!
         </div>
         <div id="no-best-score" class="recap inactive">
@@ -222,7 +222,7 @@
         </ul>
         <div id="last-step">
           <img id="film-strip" src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/wavy-strip.png" alt="divider">
-          <div class="actor-step">
+          <div class="actor-step last-actor-step">
             <div class="degree-text">End Actor</div>
             <div id="last-actor-name" class="actor-name"></div>
             <img id="last-actor-pic" class="actor-pic" src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/unknown.png" alt="">
@@ -233,7 +233,7 @@
     <div id="site-heading" class="corner top-left">
       <div id="heading-top">
         <div id="title">
-          <h1 id="title-text">Baconizer</h1>
+          <h1 id="title-text" class="alice">Baconizer</h1>
           <span class="byline">Created by <a href="https://tjmccabe.me/" target="_blank">TJ McCabe</a></span>
         </div>
         <div id="links">

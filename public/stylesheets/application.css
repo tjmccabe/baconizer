@@ -25,3 +25,7 @@ a:visited {
 .bold {
   font-weight: bold;
 }
+
+.alice {
+  font-family: 'Hammersmith One', serif;
+}
