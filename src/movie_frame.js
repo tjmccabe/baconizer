@@ -9,7 +9,7 @@ class MovieFrame {
     this.center = Object.assign({}, center, {
       text: center.title,
       frameId: `c${center.id}`,
-      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w185${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
+      imgLink: center.poster_path ? `https://image.tmdb.org/t/p/w185${center.poster_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraiconbkg.jpg"
     });
 
     this.localActors = null
@@ -37,7 +37,7 @@ class MovieFrame {
             return Object.assign({}, this.localActors[id], {
               text: text,
               frameId: id,
-              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w185${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+              imgLink: this.localActors[id].profile_path ? `https://image.tmdb.org/t/p/w185${this.localActors[id].profile_path}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
             })
           })
           .sort((a, b) => {
@@ -100,7 +100,7 @@ class MovieFrame {
       .attr("y", -38)
       .attr("height", 75)
       .attr("width", 50)
-      .style("filter", "url(#shadow)")
+      // .style("filter", "url(#shadow)")
 
     var text = node
       .append("text")

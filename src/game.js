@@ -168,7 +168,7 @@ class Game {
       arrows[i].remove()
     }
 
-    let defaultUrl = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+    let defaultUrl = "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
 
     firstPic.src = this.startActor.profile_path ? (
       `https://image.tmdb.org/t/p/w185${this.startActor.profile_path}`
@@ -231,8 +231,8 @@ class Game {
     let image = document.createElement('img')
     image.classList.add(picClass)
     image.src = sourcePath ? `https://image.tmdb.org/t/p/w185${sourcePath}` : type === "movieToActor" ? (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
-    ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
+    ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraiconbkg.jpg"
     image.alt = nameText
     step.appendChild(image)
 
@@ -267,7 +267,7 @@ class Game {
     actPic.src = path[0].profile_path ? (
       `https://image.tmdb.org/t/p/w185${path[0].profile_path}`
     ) : (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
     )
     actPic.alt = path[0].name
     let actName = document.createElement("div")
@@ -308,8 +308,8 @@ class Game {
       pic.src = sourcePath ? (
         `https://image.tmdb.org/t/p/w185${sourcePath}`
       ) : ele.name ? (
-        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
-      ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
+        "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
+        ) : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraiconbkg.jpg"
       pic.alt = nameText;
 
       let name = document.createElement("div")

@@ -67,7 +67,7 @@ export const addSearchListeners = (g, zoom) => {
       axios.get(`/actors/${id}`)
         .then(res => { 
           let link = res.data.profile_path
-          image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+          image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
         })
     } else {
       image.parentElement.classList.remove("correct")
@@ -303,7 +303,7 @@ const applyHint = () => {
     hintPic.src = hinty.poster_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.poster_path}`
     ) : (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraicon.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/cameraiconbkg.jpg"
     )
     currentGame.hintTarget = { center: hinty, type: "actorToMovie" }
   } else {
@@ -311,7 +311,7 @@ const applyHint = () => {
     hintPic.src = hinty.profile_path ? (
       `https://image.tmdb.org/t/p/w185${hinty.profile_path}`
     ) : (
-      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoricon.png"
+      "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
     )
     currentGame.hintTarget = { center: hinty, type: "movieToActor" }
   }
