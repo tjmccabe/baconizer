@@ -29,3 +29,31 @@ a:visited {
 .alice {
   font-family: 'Hammersmith One', serif;
 }
+
+#path-container::-webkit-scrollbar {
+  width: 7px;
+}
+
+#path-container::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, .1);
+  border-radius: 2px;
+}
+
+#path-container::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, .2);
+  border-radius: 3px;
+}
+
+/* #final-path::-webkit-scrollbar {
+  height: 10px;
+}
+
+#final-path::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, .4);
+  border-radius: 3px;
+  border: 2px solid gray;
+}
+
+#final-path::-webkit-scrollbar-track {
+  background-color: rgba(0, 0, 0, .2);
+} */
