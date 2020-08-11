@@ -37,6 +37,7 @@ line {
 .nodetext {
   fill: rgb(100, 100, 100);
   font-size: 12;
+  font-weight: bold;
 }
 
 .tooltip {

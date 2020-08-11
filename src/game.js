@@ -224,6 +224,7 @@ class Game {
 
     let nameOrTitle = document.createElement('div')
     nameOrTitle.classList.add(nameClass)
+    nameOrTitle.classList.add("bold")
     nameOrTitle.innerText = nameText
     step.appendChild(nameOrTitle)
 
