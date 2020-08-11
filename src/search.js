@@ -23,6 +23,7 @@ export const addSearchListeners = (g, zoom) => {
   const baconButton1 = document.getElementById('bacon-1')
   const baconButton2 = document.getElementById('bacon-2')
   const errorMessage = document.getElementById('start-modal-error')
+  const directions = document.getElementById('canvas-directions')
 
   const suggest = (query) => {
     if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
@@ -181,6 +182,15 @@ export const addSearchListeners = (g, zoom) => {
     input2.blur()
 
     startModal.classList.add("inactive")
+    if (!window.seenDirections) {
+      setTimeout( () => {
+        directions.classList.add("shown")
+      }, 2000)
+      setTimeout( () => {
+        directions.classList.remove("shown")
+      }, 7000)
+      window.seenDirections = true
+    }
   });
 
 
