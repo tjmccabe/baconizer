@@ -1,5 +1,5 @@
 #site-heading {
-  padding: 0 10px 8px;
+  padding: 0 10px 10px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,7 +33,7 @@
 #site-heading hr.smoller {
   width: 30%;
   color: rgb(175, 175, 175);
-  margin: 4px 0 3px;
+  margin: 6px 0 5px;
 }
 
 #title {
