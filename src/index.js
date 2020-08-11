@@ -5,7 +5,8 @@ import {
   addSearchListeners, 
   addModalListeners, 
   addGameListeners,
-  addHintListeners
+  addHintListeners,
+  addScrollListeners
 } from './search';
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -46,6 +47,7 @@ document.addEventListener("DOMContentLoaded", () => {
   addModalListeners(g, zoom)
   addGameListeners()
   addHintListeners()
+  addScrollListeners()
 
   // if query line params exist, try to make a new game out of them
 })

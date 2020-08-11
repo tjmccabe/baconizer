@@ -412,3 +412,35 @@ export const addHintListeners = () => {
   hintPic.addEventListener("click", (e) => hintLink(e))
   hintName.addEventListener("click", (e) => hintLink(e))
 }
+
+let pos = { left: 0, x: 0 };
+let ele = document.getElementById("final-path")
+
+const mouseMoveHandler = function (e) {
+  // How far the mouse has been moved
+  const dx = e.clientX - pos.x;
+
+  // Scroll the element
+  ele.scrollLeft = pos.left - dx;
+};
+
+const mouseUpHandler = function () {
+  ele.removeEventListener('mousemove', mouseMoveHandler)
+  ele.removeEventListener('mouseup', mouseUpHandler)
+};
+
+const mouseDownHandler = function (e) {
+  e.preventDefault()
+  pos = {
+    // The current scroll 
+    left: ele.scrollLeft,
+    // Get the current mouse position
+    x: e.clientX,
+  };
+  ele.addEventListener('mousemove', mouseMoveHandler);
+  ele.addEventListener('mouseup', mouseUpHandler);
+};
+
+export const addScrollListeners = () => {
+  ele.addEventListener('mousedown', mouseDownHandler);
+}

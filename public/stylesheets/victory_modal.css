@@ -119,6 +119,7 @@
 .f-degree-text {
   width: 100%;
   text-align: center;
+  cursor: default;
 }
 
 .f-actor-pic {
@@ -134,6 +135,7 @@
   width: 170px;
   text-align: center;
   font-weight: bold;
+  cursor: default;
 }
 
 .f-movie-pic {
@@ -149,6 +151,7 @@
   width: 160px;
   font-size: 14px;
   text-align: center;
+  cursor: default;
 }
 
 .f-arrow {
