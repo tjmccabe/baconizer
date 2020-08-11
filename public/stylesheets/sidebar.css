@@ -111,9 +111,9 @@
 
 #film-strip {
   width: 100%;
-  height: 25px;
-  margin: 10px 0;
-  transform: scaleX(-1)
+  /* height: 30px; */
+  margin: 10px auto;
+  /* transform: scaleX(-1) */
 }
 
 .degree-text, .f-degree-text {
