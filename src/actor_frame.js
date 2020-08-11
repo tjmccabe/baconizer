@@ -100,6 +100,7 @@ class ActorFrame {
       .attr("y", -38)
       .attr("width", 50)
       .attr("height", 75)
+      .style("filter", "url(#shadow)")
 
     var text = node
       .append("text")

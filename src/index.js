@@ -12,12 +12,23 @@ document.addEventListener("DOMContentLoaded", () => {
   
   let width = window.innerWidth - 320;
   let height = window.innerHeight;
+
+  const degree = d3.select("#degree")
   
-  d3.select("#degree").append("svg")
+  const svg = degree.append("svg")
     .attr("width", width)
     .attr("height", height)
+
+  svg.append("defs")
+    .append("filter")
+    .attr("id", "shadow")
+    .append("feDropShadow")
+    .attr("dx", 0)
+    .attr("dy", 0)
+    .attr("stdDeviation", 2)
+    .attr("flood-color", "black")
   
-  let g = d3.select("svg")
+  let g = svg
     .append("g")
     .attr("id", "thisg")
     .attr("width", width)

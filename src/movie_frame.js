@@ -100,6 +100,7 @@ class MovieFrame {
       .attr("y", -38)
       .attr("height", 75)
       .attr("width", 50)
+      .style("filter", "url(#shadow)")
 
     var text = node
       .append("text")

@@ -117,6 +117,7 @@
 
 #film-strip {
   width: 90%;
+  opacity: 0.7;
   /* height: 30px; */
   margin: 10px auto;
   /* transform: scaleX(-1) */
