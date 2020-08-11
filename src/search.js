@@ -185,10 +185,10 @@ export const addSearchListeners = (g, zoom) => {
     if (!window.seenDirections) {
       setTimeout( () => {
         directions.classList.add("shown")
-      }, 2000)
+      }, 2300)
       setTimeout( () => {
         directions.classList.remove("shown")
-      }, 7000)
+      }, 7300)
       window.seenDirections = true
     }
   });

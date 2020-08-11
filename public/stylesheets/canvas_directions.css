@@ -1,14 +1,14 @@
 #canvas-directions {
   padding: 10px;
   display: flex;
-  /* flex-direction: column; */
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 350px;
+  width: 220px;
   position: absolute;
-  bottom: -55px;
-  right: calc(50% - 350px);
-  height: 50px;
+  bottom: -90px;
+  right: calc(50% - 270px);
+  height: 80px;
   z-index: 10;
   background-color: rgb(157, 255, 250);
   border-radius: 10px;
@@ -19,5 +19,17 @@
 }
 
 #canvas-directions.shown {
-  bottom: calc(100vh - 85%);
+  bottom: calc(100vh - 80%);
+}
+
+#canvas-directions>div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 5px;
+}
+
+.dir-icon {
+  width: 22px;
+  margin-left: 10px;
 }
