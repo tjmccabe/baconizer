@@ -450,8 +450,8 @@ const mouseMoveHandler = function (e) {
 };
 
 const mouseUpHandler = function () {
-  ele.removeEventListener('mousemove', mouseMoveHandler)
-  ele.removeEventListener('mouseup', mouseUpHandler)
+  document.removeEventListener('mousemove', mouseMoveHandler)
+  document.removeEventListener('mouseup', mouseUpHandler)
 };
 
 const mouseDownHandler = function (e) {
@@ -462,8 +462,8 @@ const mouseDownHandler = function (e) {
     // Get the current mouse position
     x: e.clientX,
   };
-  ele.addEventListener('mousemove', mouseMoveHandler);
-  ele.addEventListener('mouseup', mouseUpHandler);
+  document.addEventListener('mousemove', mouseMoveHandler);
+  document.addEventListener('mouseup', mouseUpHandler);
 };
 
 export const addScrollListeners = () => {
