@@ -284,7 +284,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     bestScore++
     let timeElapsed2 = new Date() - start
     // console.log(bestScore + ": " + timeElapsed2)
-    if (!q1.length || !q2.length || bestScore > 6 || timeElapsed > 800) break
+    if (!q1.length || !q2.length || bestScore > 6 || timeElapsed2 > 800) break
   }
 
   res.send([0, []])
@@ -367,7 +367,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     bestScore++
     let timeElapsed2 = new Date() - start
     // console.log("m" + bestScore + ": " + timeElapsed2)
-    if (!q1.length || !q2.length || bestScore > 6 || timeElapsed > 800) break
+    if (!q1.length || !q2.length || bestScore > 6 || timeElapsed2 > 800) break
   }
 
   res.send([0, []])
