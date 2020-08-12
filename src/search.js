@@ -364,16 +364,17 @@ const rotateHint = (e) => {
 }
 
 export const activateHint = (e) => {
-  e.preventDefault()
+  if (e) e.preventDefault()
   if (!currentGame) return;
+  let gettingHint = document.getElementById('getting-hint')
   if (currentGame.prevHints === currentGame.hints) {
-    document.getElementById('getting-hint').classList.remove("inactive")
+    gettingHint.classList.remove("inactive")
     return
   }
+  gettingHint.classList.add("inactive")
   if (!currentGame.hints.length) return
 
   applyHint()
-  document.getElementById('getting-hint').classList.add("inactive")
   document.getElementById('hint-error').classList.add("inactive")
   document.getElementById('hint-display').classList.remove("inactive")
   document.getElementById('hint-suggestion').classList.add("inactive")

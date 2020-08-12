@@ -70,6 +70,7 @@ class Game {
     document.getElementById('hint-display').classList.add("inactive")
     document.getElementById('hint-suggestion').classList.remove("inactive")
     document.getElementById('bad-hint').classList.add("inactive")
+    document.getElementById('getting-hint').classList.add("inactive")
     this.recenter()
   }
 
@@ -89,6 +90,7 @@ class Game {
     document.getElementById('filter-input').value = ""
     this.filterText = ""
     document.getElementById('hint-display').classList.add("inactive")
+    document.getElementById('bad-hint').classList.add("inactive")
     document.getElementById('hint-suggestion').classList.remove("inactive")
     this.recenter()
   }
@@ -123,28 +125,32 @@ class Game {
         
         this.hints = res.data[1]
         if (firstTime) this.bestScore = res.data[0]
-
-        if (!res.data[1].length) badHint.classList.remove("inactive")
-
-        if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
+        
+        if (!this.hints.length) {
+          badHint.classList.remove("inactive")
+        }
+        
+        if (badHint.classList.contains("inactive") && !gettingHint.classList.contains("inactive")) {
+          gettingHint.classList.add("inactive")
           activateHint()
         }
         return this.hints
       })
-    }
+  }
     
-    getBestFromMovie(id) {
-      this.prevHints = this.hints
-      return axios.get(`/moviepath/${id}/${this.endActor.id}`)
+  getBestFromMovie(id) {
+    this.prevHints = this.hints
+    return axios.get(`/moviepath/${id}/${this.endActor.id}`)
       .then(res => {
         let gettingHint = document.getElementById('getting-hint')
         let badHint = document.getElementById('bad-hint')
-
+        
         this.hints = res.data[1]
-
+        
         if (!res.data[1].length) badHint.classList.remove("inactive")
-
-        if (!gettingHint.classList.contains("inactive") && badHint.classList.contains("inactive")) {
+        
+        if (badHint.classList.contains("inactive") && !gettingHint.classList.contains("inactive")) {
+          gettingHint.classList.add("inactive")
           activateHint()
         }
         return this.hints
