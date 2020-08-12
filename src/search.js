@@ -301,6 +301,27 @@ const resetFilter = (e) => {
   notifier.classList.add("inactive")
 }
 
+const growImage = (id) => {
+  if (!currentGame) return
+
+  let image = d3.select(`#image-${id}`)
+  if (!image) return
+
+  image.transition()
+    .attr("x", function (d) { return -33; })
+    .attr("y", function (d) { return -60; })
+    .attr("height", 100)
+    .attr("width", 66);
+
+  setTimeout(() => {
+    image.transition()
+      .attr("x", function (d) { return -25; })
+      .attr("y", function (d) { return -38; })
+      .attr("height", 75)
+      .attr("width", 50);
+  }, 500)
+}
+
 const applyHint = () => {
   if (!currentGame) return;
 
@@ -325,6 +346,8 @@ const applyHint = () => {
     )
     currentGame.hintTarget = { center: hinty, type: "movieToActor" }
   }
+  // take the new hint id and grow the associated image
+  growImage(hinty.id)
 }
 
 const rotateHint = (e) => {
@@ -332,6 +355,7 @@ const rotateHint = (e) => {
   if (!currentGame || !currentGame.hints.length) return;
   if (currentGame.hints.length === 1) {
     document.getElementById('hint-error').classList.remove("inactive")
+    growImage(currentGame.hintTarget.center.id)
   } else {
     currentGame.currentHintIndex++
     applyHint()

@@ -39,7 +39,7 @@ line {
 }
 
 .c.nodeimage:hover {
-  cursor: inherit;
+  cursor: default;
 }
 
 .nodetext {

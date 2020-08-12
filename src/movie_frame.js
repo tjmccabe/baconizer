@@ -95,7 +95,8 @@ class MovieFrame {
     var images = node
       .append("image")
       .attr("xlink:href", d => d.imgLink)
-      .attr("class", d => d.frameId[0] + " nodeimage")
+      .attr("class", d => `${d.frameId[0]} nodeimage`)
+      .attr("id", d => `image-${d.frameId}`)
       .attr("x", -25)
       .attr("y", -38)
       .attr("height", 75)
