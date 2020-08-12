@@ -438,34 +438,52 @@ export const addHintListeners = () => {
   hintName.addEventListener("click", (e) => hintLink(e))
 }
 
-let pos = { left: 0, x: 0 };
-let ele = document.getElementById("final-path")
+let pos1 = { left: 0, x: 0 };
+let pos2 = { top: 0, y: 0 };
+let finalPath = document.getElementById("final-path")
+let sidebar = document.getElementById("path-container")
 
-const mouseMoveHandler = function (e) {
-  // How far the mouse has been moved
-  const dx = e.clientX - pos.x;
-
-  // Scroll the element
-  ele.scrollLeft = pos.left - dx;
+const mouseMoveHandlerFP = function (e) {
+  const dx = e.clientX - pos1.x;
+  finalPath.scrollLeft = pos1.left - dx;
 };
 
-const mouseUpHandler = function () {
-  document.removeEventListener('mousemove', mouseMoveHandler)
-  document.removeEventListener('mouseup', mouseUpHandler)
+const mouseMoveHandlerSB = function (e) {
+  const dy = e.clientY - pos2.y;
+  sidebar.scrollTop = pos2.top - dy;
 };
 
-const mouseDownHandler = function (e) {
+const mouseUpHandlerFP = function () {
+  document.removeEventListener('mousemove', mouseMoveHandlerFP)
+  document.removeEventListener('mouseup', mouseUpHandlerFP)
+};
+
+const mouseUpHandlerSB = function () {
+  document.removeEventListener('mousemove', mouseMoveHandlerSB)
+  document.removeEventListener('mouseup', mouseUpHandlerSB)
+};
+
+const mouseDownHandlerFP = function (e) {
   e.preventDefault()
-  pos = {
-    // The current scroll 
-    left: ele.scrollLeft,
-    // Get the current mouse position
+  pos1 = {
+    left: finalPath.scrollLeft,
     x: e.clientX,
   };
-  document.addEventListener('mousemove', mouseMoveHandler);
-  document.addEventListener('mouseup', mouseUpHandler);
+  document.addEventListener('mousemove', mouseMoveHandlerFP);
+  document.addEventListener('mouseup', mouseUpHandlerFP);
+};
+
+const mouseDownHandlerSB = function (e) {
+  e.preventDefault()
+  pos2 = {
+    top: sidebar.scrollTop,
+    y: e.clientY,
+  };
+  document.addEventListener('mousemove', mouseMoveHandlerSB);
+  document.addEventListener('mouseup', mouseUpHandlerSB);
 };
 
 export const addScrollListeners = () => {
-  ele.addEventListener('mousedown', mouseDownHandler);
+  finalPath.addEventListener('mousedown', mouseDownHandlerFP);
+  sidebar.addEventListener('mousedown', mouseDownHandlerSB);
 }
