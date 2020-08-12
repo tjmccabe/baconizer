@@ -63,163 +63,75 @@ const shuffle = (arr) => {
   }
 }
 
-// const actorToactors = (q, seenMovies, thisPaths, thatPaths, firstPass) => {
-//   shuffle(q)
-//   let newQ = [];
-//   for (let i = 0; i < q.length; i++) {
-//     let origActorId = q[i]
-//     let mIds = actors[origActorId].movie_ids
-//     shuffle(mIds)
-//     for (let j = 0; j < mIds.length; j++) {
-//       let movieId = mIds[j]
-//       if (seenMovies.has(movieId)) continue
-//       seenMovies.add(movieId)
-//       if (!movies[movieId]) continue
-//       let actorIds = movies[movieId].actor_ids
-//       shuffle(actorIds)
-//       for (let k = 0; k < actorIds.length; k++) {
-//         let newActorId = actorIds[k]
-//         if (thisPaths.hasOwnProperty(newActorId)) continue
-//         let concatted = firstPass ? [movieId, newActorId] : [origActorId, movieId]
-//         let path = thisPaths[origActorId].concat(concatted)
-//         if (thatPaths.hasOwnProperty(newActorId)) {
-//           // SOLVE CONDITION
-//           let revved = firstPass ? thatPaths[newActorId].reverse() : path.reverse()
-//           let ans = firstPass ? path.concat(revved) : thatPaths[newActorId].concat(revved)
-//           let full = ans.map((id, idx) => idx % 2 === 0 ? actors[id] : movies[id])
-//           return [true, full]
-//         }
-//         thisPaths[newActorId] = path
-//         newQ.push(newActorId)
-//       }
-//     }
-//   }
-//   return [false, newQ]
-// }
-
-const actorToactors = (q, seenMovies, thisPaths, thatPaths, firstPass, mta) => {
-  shuffle(q)
-  let newQ = [];
-  let results = [];
-  let resultIds = new Set()
-  for (let i = 0; i < q.length; i++) {
-    let origActorId = q[i]
-    let mIds = actors[origActorId].movie_ids
-    shuffle(mIds)
-    for (let j = 0; j < mIds.length; j++) {
-      let movieId = mIds[j]
-      if (seenMovies.has(movieId)) continue
-      seenMovies.add(movieId)
-      if (!movies[movieId]) continue
-      let actorIds = movies[movieId].actor_ids
-      shuffle(actorIds)
-      for (let k = 0; k < actorIds.length; k++) {
-        let newActorId = actorIds[k]
-        if (thisPaths.hasOwnProperty(newActorId)) {
-          continue
-        }
-        let concatted = firstPass ? [movieId, newActorId] : [origActorId, movieId]
-        let path = thisPaths[origActorId].concat(concatted)
-        if (thatPaths.hasOwnProperty(newActorId)) {
-          // ADD THE MOVIE TO RESULTS
-          let revved = firstPass ? thatPaths[newActorId].reverse() : path.reverse()
-          let ans = firstPass ? path.concat(revved) : thatPaths[newActorId].concat(revved)
-          let [resId, res] = mta ? [ans[0], actors[ans[0]]] : [ans[1], movies[ans[1]]]
-          if (!resultIds.has(resId)) results.push(res)
-          resultIds.add(resId)
-        }
-        thisPaths[newActorId] = path
-        newQ.push(newActorId)
-      }
-    }
-  }
-  return results.length ? [true, results] : [false, newQ]
-}
-
-const A2M = (q, seenMovies, thisAPaths, thisMPaths, thatMPaths, firstPass, mCenter) => {
+const A2M = (q, thisSeenMovies, thatSeenMovies, firstSteps, firstPass, mCenter) => {
   shuffle(q)
   let newQ = new Set();
-  let results = [];
-  let resultIds = new Set()
+  let winnerIds = new Set()
   for (let i = 0; i < q.length; i++) {
     let origActorId = q[i]
     let mIds = actors[origActorId].movie_ids
     shuffle(mIds)
     for (let j = 0; j < mIds.length; j++) {
       let movieId = mIds[j]
-      if (!movies[movieId] || seenMovies.has(movieId)) continue
-      let newPaths = []
-      thisAPaths[origActorId].forEach(origPath => {
-        newPaths.push(origPath.concat([movieId]))
-      })
-      thisMPaths[movieId] = thisMPaths[movieId] ? 
-        thisMPaths[movieId].concat(newPaths) : newPaths 
-
-      if (thatMPaths.hasOwnProperty(movieId)) {
-        let ansPaths = firstPass ? thisMPaths[movieId] : thatMPaths[movieId]
-        ansPaths.forEach(path => {
-          if (!resultIds.has(path[1])) {
-            let target = mCenter ? actors[path[1]] : movies[path[1]]
-            results.push(target)
-            resultIds.add(path[1])
-          }
+      if (!movies[movieId] || thisSeenMovies.has(movieId)) continue
+      if (firstPass) {
+        if (!firstSteps.movies[movieId]) firstSteps.movies[movieId] = new Set()
+        firstSteps.actors[origActorId].forEach(origFirstStep => {
+          firstSteps.movies[movieId].add(origFirstStep)
         })
       }
+
+      if (thatSeenMovies.has(movieId)) winnerIds.add(movieId)
       newQ.add(movieId)
     }
   }
-  return results.length ? [true, results] : [false, Array.from(newQ.keys())]
+
+  if (winnerIds.size) {
+    let answerIds = new Set()
+    winnerIds.forEach(winId => {
+      firstSteps.movies[winId].forEach(firstStep => answerIds.add(firstStep))
+    })
+    let res = Array.from(answerIds.keys()).map(id => mCenter ? actors[id] : movies[id])
+    return [true, res]
+  } else {
+    return [false, Array.from(newQ.keys())]
+  }
 }
 
-const M2A = (q, seenActors, thisMPaths, thisAPaths, thatAPaths, firstPass, mCenter) => {
+const M2A = (q, thisSeenActors, thatSeenActors, firstSteps, firstPass, mCenter) => {
   shuffle(q)
   let newQ = new Set();
-  let results = [];
-  let resultIds = new Set()
+  let winnerIds = new Set()
   for (let i = 0; i < q.length; i++) {
     let origMovieId = q[i]
     let aIds = movies[origMovieId].actor_ids
     shuffle(aIds)
     for (let j = 0; j < aIds.length; j++) {
       let actorId = aIds[j]
-      if (!actors[actorId] || seenActors.has(actorId)) continue
-      let newPaths = []
-      thisMPaths[origMovieId].forEach(origPath => {
-        newPaths.push(origPath.concat([actorId]))
-      })
-      thisAPaths[actorId] = thisAPaths[actorId] ? 
-        thisAPaths[actorId].concat(newPaths) : newPaths 
-
-      if (thatAPaths.hasOwnProperty(actorId)) {
-        let ansPaths = firstPass ? thisAPaths[actorId] : thatAPaths[actorId]
-        ansPaths.forEach(path => {
-          if (!resultIds.has(path[1])) {
-            let target = mCenter ? actors[path[1]] : movies[path[1]]
-            results.push(target)
-            resultIds.add(path[1])
-          }
+      if (!actors[actorId] || thisSeenActors.has(actorId)) continue
+      if (firstPass) {
+        if (!firstSteps.actors[actorId]) firstSteps.actors[actorId] = new Set()
+        firstSteps.movies[origMovieId].forEach(origFirstStep => {
+          firstSteps.actors[actorId].add(origFirstStep)
         })
       }
+
+      if (thatSeenActors.has(actorId)) winnerIds.add(actorId)
       newQ.add(actorId)
     }
   }
-  return results.length ? [true, results] : [false, Array.from(newQ.keys())]
-}
 
-// const movieToActors = (movieId, endActorId, thisPaths) => {
-//   let newQ = [];
-//   let actorIds = movies[movieId].actor_ids
-//   shuffle(actorIds)
-//   for (let k = 0; k < actorIds.length; k++) {
-//     let newActorId = actorIds[k]
-//     if (newActorId === endActorId) {
-//       return [true, [movies[movieId], actors[newActorId]]]
-//     }
-//     thisPaths[newActorId] = [newActorId]
-//     newQ.push(newActorId)
-//   }
-//   return [false, newQ]
-// }
+  if (winnerIds.size) {
+    let answerIds = new Set()
+    winnerIds.forEach(winId => {
+      firstSteps.actors[winId].forEach(firstStep => answerIds.add(firstStep))
+    })
+    let res = Array.from(answerIds.keys()).map(id => mCenter ? actors[id] : movies[id])
+    return [true, res]
+  } else {
+    return [false, Array.from(newQ.keys())]
+  }
+}
 
 app.get('/bestpath/:act1/:act2', (req, res) => {
   let [startId, endId] = [parseInt(req.params.act1), parseInt(req.params.act2)]
@@ -227,10 +139,9 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
   let q1 = [startId]
   let q2 = [endId]
 
-  let actorPaths1 = {[startId]: [[startId]]};
-  let actorPaths2 = {[endId]: [[endId]]};
-  let moviePaths1 = {}
-  let moviePaths2 = {}
+  let firstSteps = {movies: {}, actors: {}}
+  firstSteps.actors[startId] = new Set()
+
   let seenActors1 = new Set([startId])
   let seenActors2 = new Set([endId])
   let seenMovies1 = new Set()
@@ -238,9 +149,11 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
   let bestScore = 1;
   let start = new Date()
 
+  let movieIds = actors[startId].movie_ids
+  movieIds.forEach(movieId => firstSteps.movies[movieId] = new Set([movieId]))
 
   while (bestScore < 7) {
-    let firstA2M = A2M(q1, seenMovies1, actorPaths1, moviePaths1, moviePaths2, true)
+    let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, false)
     if (firstA2M[0]) {
       res.send([bestScore, firstA2M[1]]);
       return
@@ -249,7 +162,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
       q1.forEach(movieId => seenMovies1.add(movieId))
     }
 
-    let secondA2M = A2M(q2, seenMovies2, actorPaths2, moviePaths2, moviePaths1, false)
+    let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, false)
     if (secondA2M[0]) {
       res.send([bestScore, secondA2M[1]]);
       return
@@ -263,7 +176,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     // console.log(bestScore + ": " + timeElapsed)
     if (!q1.length || !q2.length || bestScore > 6 || timeElapsed > 800) break
 
-    let firstM2A = M2A(q1, seenActors1, moviePaths1, actorPaths1, actorPaths2, true)
+    let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, false)
     if (firstM2A[0]) {
       res.send([bestScore, firstM2A[1]]);
       return
@@ -272,7 +185,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
       q1.forEach(actorId => seenActors1.add(actorId))
     }
 
-    let secondM2A = M2A(q2, seenActors2, moviePaths2, actorPaths2, actorPaths1, false)
+    let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, false)
     if (secondM2A[0]) {
       res.send([bestScore, secondM2A[1]]);
       return
@@ -293,20 +206,19 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
 app.get('/moviepath/:mov1/:act2', (req, res) => {
   let [startId, endId] = [parseInt(req.params.mov1), parseInt(req.params.act2)]
 
+  let q1 = []
   let q2 = [endId]
 
-  let actorPaths1 = {};
-  let actorPaths2 = { [endId]: [[endId]] };
-  let moviePaths1 = { [startId]: [[startId]] }
-  let moviePaths2 = {}
+  let firstSteps = { movies: {}, actors: {} }
+  firstSteps.movies[startId] = new Set()
+
   let seenActors1 = new Set()
   let seenActors2 = new Set([endId])
   let seenMovies1 = new Set([startId])
   let seenMovies2 = new Set()
-  let bestScore = 2;
+  let bestScore = 1;
   let start = new Date()
 
-  let newQ = [];
   let actorIds = movies[startId].actor_ids
   shuffle(actorIds)
   for (let k = 0; k < actorIds.length; k++) {
@@ -315,15 +227,14 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
       res.send([bestScore, [actors[newActorId]]])
       return 
     }
-    actorPaths1[newActorId] = [[startId, newActorId]]
+    firstSteps.actors[newActorId] = new Set([newActorId])
     seenActors1.add(newActorId)
-    newQ.push(newActorId)
+    q1.push(newActorId)
   }
-  let q1 = newQ
 
   while (bestScore < 7) {
 
-    let firstA2M = A2M(q1, seenMovies1, actorPaths1, moviePaths1, moviePaths2, true, true)
+    let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, true)
     if (firstA2M[0]) {
       res.send([bestScore, firstA2M[1]]);
       return
@@ -332,7 +243,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
       q1.forEach(movieId => seenMovies1.add(movieId))
     }
 
-    let secondA2M = A2M(q2, seenMovies2, actorPaths2, moviePaths2, moviePaths1, false, true)
+    let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, true)
     if (secondA2M[0]) {
       res.send([bestScore, secondA2M[1]]);
       return
@@ -346,7 +257,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     // console.log("m" + bestScore + ": " + timeElapsed)
     if (!q1.length || !q2.length || bestScore > 6 || timeElapsed > 800) break
 
-    let firstM2A = M2A(q1, seenActors1, moviePaths1, actorPaths1, actorPaths2, true, true)
+    let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, true)
     if (firstM2A[0]) {
       res.send([bestScore, firstM2A[1]]);
       return
@@ -355,7 +266,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
       q1.forEach(actorId => seenActors1.add(actorId))
     }
 
-    let secondM2A = M2A(q2, seenActors2, moviePaths2, actorPaths2, actorPaths1, false, true)
+    let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, true)
     if (secondM2A[0]) {
       res.send([bestScore, secondM2A[1]]);
       return
