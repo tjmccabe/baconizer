@@ -61,16 +61,15 @@ const shuffle = (arr) => {
     arr[i] = arr[j]
     arr[j] = temp
   }
+  return arr
 }
 
 const A2M = (q, thisSeenMovies, thatSeenMovies, firstSteps, firstPass, mCenter) => {
-  shuffle(q)
   let newQ = new Set();
   let winnerIds = new Set()
   for (let i = 0; i < q.length; i++) {
     let origActorId = q[i]
     let mIds = actors[origActorId].movie_ids
-    shuffle(mIds)
     for (let j = 0; j < mIds.length; j++) {
       let movieId = mIds[j]
       if (!movies[movieId] || thisSeenMovies.has(movieId)) continue
@@ -99,13 +98,11 @@ const A2M = (q, thisSeenMovies, thatSeenMovies, firstSteps, firstPass, mCenter) 
 }
 
 const M2A = (q, thisSeenActors, thatSeenActors, firstSteps, firstPass, mCenter) => {
-  shuffle(q)
   let newQ = new Set();
   let winnerIds = new Set()
   for (let i = 0; i < q.length; i++) {
     let origMovieId = q[i]
     let aIds = movies[origMovieId].actor_ids
-    shuffle(aIds)
     for (let j = 0; j < aIds.length; j++) {
       let actorId = aIds[j]
       if (!actors[actorId] || thisSeenActors.has(actorId)) continue
@@ -155,7 +152,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
   while (bestScore < 7) {
     let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, false)
     if (firstA2M[0]) {
-      res.send([bestScore, firstA2M[1]]);
+      res.send([bestScore, shuffle(firstA2M[1])]);
       return
     } else {
       q1 = firstA2M[1]
@@ -164,7 +161,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
 
     let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, false)
     if (secondA2M[0]) {
-      res.send([bestScore, secondA2M[1]]);
+      res.send([bestScore, shuffle(secondA2M[1])]);
       return
     } else {
       q2 = secondA2M[1]
@@ -178,7 +175,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
 
     let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, false)
     if (firstM2A[0]) {
-      res.send([bestScore, firstM2A[1]]);
+      res.send([bestScore, shuffle(firstM2A[1])]);
       return
     } else {
       q1 = firstM2A[1]
@@ -187,7 +184,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
 
     let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, false)
     if (secondM2A[0]) {
-      res.send([bestScore, secondM2A[1]]);
+      res.send([bestScore, shuffle(secondM2A[1])]);
       return
     } else {
       q2 = secondM2A[1]
@@ -236,7 +233,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
 
     let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, true)
     if (firstA2M[0]) {
-      res.send([bestScore, firstA2M[1]]);
+      res.send([bestScore, shuffle(firstA2M[1])]);
       return
     } else {
       q1 = firstA2M[1]
@@ -245,7 +242,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
 
     let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, true)
     if (secondA2M[0]) {
-      res.send([bestScore, secondA2M[1]]);
+      res.send([bestScore, shuffle(secondA2M[1])]);
       return
     } else {
       q2 = secondA2M[1]
@@ -259,7 +256,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
 
     let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, true)
     if (firstM2A[0]) {
-      res.send([bestScore, firstM2A[1]]);
+      res.send([bestScore, shuffle(firstM2A[1])]);
       return
     } else {
       q1 = firstM2A[1]
@@ -268,7 +265,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
 
     let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, true)
     if (secondM2A[0]) {
-      res.send([bestScore, secondM2A[1]]);
+      res.send([bestScore, shuffle(secondM2A[1])]);
       return
     } else {
       q2 = secondM2A[1]
