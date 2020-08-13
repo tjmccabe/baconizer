@@ -81,22 +81,55 @@ Using our data structure and this type of algorithm, we can return all possible 
 
 ### D3.js Force-Directed Graph
 
-General info about this title thing
+To display all your next choices at any point, I used D3.js to make a force-directed graph with the center representing your current position and all surrounding nodes representing the next options.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/fdg.gif" width="700" alt="force directed graph">
 </p>
 
+D3 uses svg or canvas elements instead of normal javascript DOM manipulation to render a lot at once with comparatively better performance. It allows us to set different types of forces on our force-directed graphs to choose the best way to display our data:
 
 ```javascript
-const codeSnippet = (snippet1, snippet2) => {};
+const sim = d3.forceSimulation()
+    .force("y", d3.forceY(this.height / 2).strength(.2))
+    .force("charge", d3.forceManyBody().strength(-3000))
+    .force("link", d3.forceLink().id(d => d.frameId))
+    .force("collide", d3.forceCollide().radius(55))
+```
+
+You can also set d3-specific event handlers on your svg elements. These ones grow & shrink images on hover:
+
+```javascript
+d3.select(".images")
+    .on('mouseenter', function () {
+        d3.select(this)
+            .transition()
+            .attr("x", function (d) { return -33; })
+            .attr("y", function (d) { return -60; })
+            .attr("height", 100)
+            .attr("width", 66);
+    })
+    .on('mouseleave', function () {
+        d3.select(this)
+            .transition()
+            .attr("x", function (d) { return -25; })
+            .attr("y", function (d) { return -38; })
+            .attr("height", 75)
+            .attr("width", 50);
+    });
 ```
 
 ### Actor Search and Validation
 
-Baconizer uses "input" event handlers on \<input\> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric. Sorting by popularity comes in handy when you're searching through 100,000 names.
+Baconizer uses "input" event handlers on \<input\> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric.
 
-Here's some of the regex matching function: 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
+</p>
+
+Sorting by popularity comes in handy when you're searching through 100,000 names.
+
+Here's the bulk of the regex matching function: 
 
 ```javascript
 const suggest = (query) => {
@@ -128,18 +161,13 @@ const suggest = (query) => {
 
 As soon as the site recognizes an actor's full name in the input, that individual's photo appears in the box below the input and the border turns green to confirm that this actor is ready to go.
 
-<p align="center">
-  <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
-</p>
-
-
 ### Node filtering
 
 If you're ever overwhelmed by the amount of choices on the screen, you can use the filter feature to limit the nodes that show up on any page.
 
-Just like the actor validation function, filtering uses regex to match the names or titles of the nodes on the screen
-
 <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="filter demo">
+
+Just like the actor validation function, filtering uses regex to match the names or titles of the nodes on the screen
 
 ## Future Updates
 
