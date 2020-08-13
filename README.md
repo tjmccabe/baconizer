@@ -88,19 +88,46 @@ const codeSnippet = (snippet1, snippet2) => {};
 
 ### Actor Search and Validation
 
-Basic info about the mystery thing
+Baconizer uses "input" event handlers on <input> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric. Sorting by popularity comes in handy when you're searching through 100,000 names.
 
-when they're validated, a picture comes up if their picture is in TMDb's database, and the border turns green for good measure
+Here's some of the regex matching function: 
 
-Controlled-width pic:
+```javascript
+const suggest = (query) => {
+    // Don't bother searching for exact matches or for anything matching only one-character
+    if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
 
-<img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/baconstill.png" width="350">
+    // The 'i' tag makes the search case-insensitive
+    const reg = new RegExp(query, 'i')
 
-<img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/baconize.gif" width="350">
+    const results = [];
+    for (let i = 0; i < noAccents.length; i++) {
+        // noAccents is a collection of all names with any diacritical markings removed for easier comparison
+        // For example, 'Malin Akerman' would now successfully match the actress 'Malin Åkerman'
+        if (noAccents[i].match(reg)) results.push(allActorNames[i])
+    }
+
+    if (results.length === 0) return [];
+    
+    const sorted = results.sort((a,b) => {
+        // Sort all matching results by our stored popularity metric
+        if (nameToId[a].popularity > nameToId[b].popularity) return -1;
+        return 1;
+    })
+
+    // Finally, return the 10 most popular actors matching the original query
+    return sorted.slice(0,10)
+}
+```
+
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
+
+As soon as the site recognizes an actor's full name in the input, that individual's photo appears in the box below the input and the border turns green to confirm that this actor is ready to go.
+
 
 ### Node filtering
 
-<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="ffilter demo">
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="filter demo">
 
 ## Future Updates
 
