@@ -27,7 +27,7 @@ Manufacturing a proprietary database and ensuring that kind of speed and perform
 
 ### Guided Gameplay through Hints
 
-This game would be much less fun without hints. But in order to get hints in the first place, we need to know all possible shortest paths to get from our start actor to our end actor, which seems like a massive undertaking.
+Hints are key to the Baconizer gameplay experience: they provide . But in order to get hints in the first place, we need to know all possible shortest paths to get from our start actor to our end actor, which seems like a massive undertaking.
 
 Baconizer is able to gather these paths every time a player makes a move, recalculating the best paths based on the player's new position.
 
@@ -77,7 +77,7 @@ const actors2Movies = (queue, BFS1SeenMovies, BFS2SeenMovies, firstSteps) => {
 }
 ```
 
-Using our data structure and this type of algorithm, we can return all possible hints in just milliseconds over 99% of the time. (Side note: It's so fast that if we let it run wild without an end goal, Heroku's working memory typically runs out before the algorithm has run for 5 seconds 😬 )
+Using our data structure and this type of algorithm, we can return all possible hints in just milliseconds over 99% of the time. (Side note: It's so fast that if we let it run wild without an end goal, the low-end tier of Heroku's working memory typically runs out before the algorithm has run for 5 seconds 😬 )
 
 ### D3.js Force-Directed Graph
 
@@ -172,5 +172,6 @@ Just like the actor validation function, filtering uses regex to match the names
 ## Future Updates
 
 Baconizer's roadmap includes the following:
-* Revamping the database to exclude certain "cheaty" entries ("And the Oscar Goes To..." is a good example of a "cheaty" movie: It's basically a giant compilation of famous actors and how they won some Academy Award. It makes for a very effective link, but it doesn't stand on its own as a legitimate movie.)
+* Revamping the database to exclude certain "cheaty" entries 
+  * "And the Oscar Goes To..." is a good example of a "cheaty" movie: It's basically a giant compilation of famous actors and how they won some Academy Award. It makes for a very effective link, but it doesn't stand on its own as a legitimate movie.
 * Alternate carousel or list view of all the center options with variable ordering
