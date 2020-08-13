@@ -4,7 +4,7 @@ Can you beat 6 degrees of separation? The goal of this game is to find the short
 
 ### [Live Link](https://baconizer.herokuapp.com/)
 
-<img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/baconstill.png" alt="Baconizer basics">
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/feature.png" alt="Baconizer basics">
 
 Baconizer is based on the <a href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon" target="_blank">6 Degrees of Kevin Bacon</a> parlor game.
 
