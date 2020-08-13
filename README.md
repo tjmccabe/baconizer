@@ -88,13 +88,13 @@ const codeSnippet = (snippet1, snippet2) => {};
 
 ### Actor Search and Validation
 
-Baconizer uses "input" event handlers on <input> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric. Sorting by popularity comes in handy when you're searching through 100,000 names.
+Baconizer uses "input" event handlers on \<input\> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric. Sorting by popularity comes in handy when you're searching through 100,000 names.
 
 Here's some of the regex matching function: 
 
 ```javascript
 const suggest = (query) => {
-    // Don't bother searching for exact matches or for anything matching only one-character
+    // Don't bother searching for exact matches or for anything matching only one character
     if (query.length < 2 || nameToId.hasOwnProperty(query)) return null;
 
     // The 'i' tag makes the search case-insensitive
@@ -120,17 +120,21 @@ const suggest = (query) => {
 }
 ```
 
-<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
-
 As soon as the site recognizes an actor's full name in the input, that individual's photo appears in the box below the input and the border turns green to confirm that this actor is ready to go.
+
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
 
 
 ### Node filtering
+
+If you're ever overwhelmed by the amount of choices on the screen, you can use the filter feature to limit the nodes that show up on any page.
+
+Just like the actor validation function, filtering uses regex to match the names or titles of the nodes on the screen
 
 <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="filter demo">
 
 ## Future Updates
 
 Baconizer's roadmap includes the following:
-* Revamping the database to exclude certain "cheat" entries ()
-* Alternate carousel or list view of all your options with variable ordering
+* Revamping the database to exclude certain "cheaty" entries ("And the Oscar Goes To..." is a good example of a "cheaty" movie: It's basically a giant compilation of famous actors and how they won some Academy Award. It makes for a very effective link, but it doesn't stand on its own as a legitimate movie.)
+* Alternate carousel or list view of all the center options with variable ordering
