@@ -79,6 +79,9 @@ Using our data structure and this type of algorithm, we can return all possible 
 
 General info about this title thing
 
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/fdg.gif" width="700" alt="force directed graph">
+
+
 ```javascript
 const codeSnippet = (snippet1, snippet2) => {};
 ```
@@ -94,6 +97,10 @@ Controlled-width pic:
 <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/baconstill.png" width="350">
 
 <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/baconize.gif" width="350">
+
+### Node filtering
+
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="ffilter demo">
 
 ## Future Updates
 
