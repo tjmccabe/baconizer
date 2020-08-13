@@ -27,7 +27,11 @@ Manufacturing a proprietary database and ensuring that kind of speed and perform
 
 ### Guided Gameplay through Hints
 
-Hints are key to the Baconizer gameplay experience: they provide . But in order to get hints in the first place, we need to know all possible shortest paths to get from our start actor to our end actor, which seems like a massive undertaking.
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/hintloop.gif" width="700" alt="hint process">
+</p>
+
+Hints are key to the Baconizer gameplay experience: they provide help when you get stuck and make the game playable for those who may not know a lot about movies and actors. But in order to get hints in the first place, we need to know all possible shortest paths to get from our start actor to our end actor, which seems like a massive undertaking.
 
 Baconizer is able to gather these paths every time a player makes a move, recalculating the best paths based on the player's new position.
 
@@ -167,7 +171,7 @@ If you're ever overwhelmed by the amount of choices on the screen, you can use t
 
 <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="filter demo">
 
-Just like the actor validation function, filtering uses regex to match the names or titles of the nodes on the screen
+Just like the actor validation functionality, filtering uses regex to match the names or titles of the nodes on the screen
 
 ## Future Updates
 
