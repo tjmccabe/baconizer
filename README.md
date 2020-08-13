@@ -8,6 +8,8 @@ Can you beat 6 degrees of separation? The goal of this game is to find the short
 
 Baconizer is based on the <a href="https://en.wikipedia.org/wiki/Six_Degrees_of_Kevin_Bacon" target="_blank">6 Degrees of Kevin Bacon</a> parlor game.
 
+<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/feature_path.png" alt="Baconizer win">
+
 ## Technologies
 
 * Backend: Node.JS, Express
@@ -35,7 +37,9 @@ Here's how:
 
 We need to work our way into the data starting from our center node and branching out one step at a time. We can improve upon the basic strategy by starting the same search from our endpoint as well and working both sides of the problem. The images below both represent the same graph. Notice how if we start from both sides, we waste a lot fewer resources checking dead ends before getting to the answer.
 
-<img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bdbfs.png" alt="Bi-directional BFS">
+<p align="center">
+  <img src="https://baconizer-assets.s3-us-west-1.amazonaws.com/bdbfs.png" alt="Bi-directional BFS">
+</p>
 
 Here's simplified part of the BFS function we call when we have a current search rung of actors and we're trying to get to a new level of movies:
 
@@ -79,7 +83,9 @@ Using our data structure and this type of algorithm, we can return all possible 
 
 General info about this title thing
 
-<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/fdg.gif" width="700" alt="force directed graph">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/fdg.gif" width="700" alt="force directed graph">
+</p>
 
 
 ```javascript
@@ -122,7 +128,9 @@ const suggest = (query) => {
 
 As soon as the site recognizes an actor's full name in the input, that individual's photo appears in the box below the input and the border turns green to confirm that this actor is ready to go.
 
-<img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
+<p align="center">
+  <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
+</p>
 
 
 ### Node filtering
