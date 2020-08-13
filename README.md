@@ -125,7 +125,7 @@ d3.select(".images")
 
 ### Actor Search and Validation
 
-Baconizer uses "input" event handlers on \<input\> elements and regex matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric.
+Baconizer uses "input" event handlers on \<input\> elements and Regular Expression matching to search for and validate actor names in the database. As you type, it checks whether your entry matches any part of any actor's name and then returns the top 10 matching actors, sorted by TMDB's "popularity" metric.
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actor_search.png" width="600" alt="actor search">
@@ -171,7 +171,7 @@ If you're ever overwhelmed by the amount of choices on the screen, you can use t
 
 <img src="https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/filter.jpg" alt="filter demo">
 
-Just like the actor validation functionality, filtering uses regex to match the names or titles of the nodes on the screen
+Just like the actor validation functionality, filtering uses Regular Expressions to match the names or titles of the nodes on the screen
 
 ## Future Updates
 
