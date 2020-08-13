@@ -15,9 +15,11 @@ Baconizer is based on the [6 Degrees of Kevin Bacon](https://en.wikipedia.org/wi
 * Hosting: Heroku
 
 ## Features
-### Mystery first thing
+### Massive Database
 
-Basic info about the mystery thing
+Baconizer has a local database of over 100,000 actors and over 200,000 movies, comprising about 100MB of raw data. This database was obtained by making millions of API calls to <a href="https://www.themoviedb.org/" target="_blank">TMDb</a> (not to be confused with IMDb) and then pruning and cleaning the responses after writing them all to local files. Every time the backend server starts up, it reads through this local database and holds references to every actor and movie as nodes in a large graph. This allows for highly responsive performance when dealing with the large-scale operations described below.
+
+Manufacturing a proprietary database was necessary based on the scope of the guided gameplay operations described below. 
 
 ### Guided Gameplay through Hints
 
@@ -51,7 +53,9 @@ const codeSnippet = (snippet1, snippet2) => {};
 
 General info about this title thing
 
-### Massive Database
+### Mystery thing
+
+Basic info about the mystery thing
 
 Controlled-width pic:
 
