@@ -57,6 +57,7 @@ class MovieFrame {
         this.nodes[0].fy = this.currCenterY;
         
         this.render();
+        return
       })
       
     this.width = window.innerWidth - 320;

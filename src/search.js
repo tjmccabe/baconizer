@@ -69,6 +69,7 @@ export const addSearchListeners = (g, zoom) => {
         .then(res => { 
           let link = res.data.profile_path
           image.src = link ? `https://image.tmdb.org/t/p/w185${link}` : "https://raw.githubusercontent.com/tjmccabe/Baconizer/master/assets/images/actoriconbkg.jpg"
+          return
         })
     } else {
       image.parentElement.classList.remove("correct")
@@ -168,6 +169,7 @@ export const addSearchListeners = (g, zoom) => {
         }
         currentGame = new Game(res.data[0], res.data[1], g, zoom)
         window.currentActors = [res.data[0], res.data[1]]
+        return
       })
 
     input1.value = ""
