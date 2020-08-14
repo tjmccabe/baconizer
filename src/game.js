@@ -379,6 +379,7 @@ class Game {
     this.makeFinalPath()
     this.insertVictoryText()
     victoryModal.classList.remove("inactive")
+    document.getElementById("final-path").scrollLeft = 0
   }
   
   cleanUp() {
