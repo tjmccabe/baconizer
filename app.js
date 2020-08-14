@@ -7,19 +7,21 @@ const keys = PORT === 8000 ? require('./config/keys') : null
 
 const actors = require('./assets/smol_actors.json');
 const movies = require('./assets/smol_movies.json');
-console.log(Object.keys(actors).length + " actors")
-console.log(Object.keys(movies).length + " movies")
+// console.log(Object.keys(actors).length + " actors")
+// console.log(Object.keys(movies).length + " movies")
 
 app.use(express.static('public'))
 
 app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '/index.html'))
+  return true
 })
 
 app.get('/actors/:actorId', (req, res) => {
   let id = req.params.actorId
   let actor = actors[id]
   res.send(actor)
+  return true
 });
 
 app.get('/actorsbymovie/:movieId', (req, res) => {
@@ -29,6 +31,7 @@ app.get('/actorsbymovie/:movieId', (req, res) => {
   let actorsByMovie = {}
   ids.forEach(id => actorsByMovie[id] = actors[id])
   res.send(actorsByMovie)
+  return true
 });
 
 app.get('/newgame/:act1/:act2', (req, res) => {
@@ -37,12 +40,14 @@ app.get('/newgame/:act1/:act2', (req, res) => {
   let actor1 = actors[id1]
   let actor2 = actors[id2]
   res.send([actor1, actor2])
+  return true
 });
 
 app.get('/movies/:movieId', (req, res) => {
   let id = req.params.movieId
   let movie = movies[id]
   res.send(movie)
+  return true
 });
 
 app.get('/moviesbyactor/:actorId', (req, res) => {
@@ -52,6 +57,7 @@ app.get('/moviesbyactor/:actorId', (req, res) => {
   let moviesByActor = {}
   ids.forEach(id => moviesByActor[id] = movies[id])
   res.send(moviesByActor)
+  return true
 });
 
 const shuffle = (arr) => {
@@ -153,7 +159,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, false)
     if (firstA2M[0]) {
       res.send([bestScore, shuffle(firstA2M[1])]);
-      return
+      return true
     } else {
       q1 = firstA2M[1]
       q1.forEach(movieId => seenMovies1.add(movieId))
@@ -162,7 +168,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, false)
     if (secondA2M[0]) {
       res.send([bestScore, shuffle(secondA2M[1])]);
-      return
+      return true
     } else {
       q2 = secondA2M[1]
       q2.forEach(movieId => seenMovies2.add(movieId))
@@ -176,7 +182,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, false)
     if (firstM2A[0]) {
       res.send([bestScore, shuffle(firstM2A[1])]);
-      return
+      return true
     } else {
       q1 = firstM2A[1]
       q1.forEach(actorId => seenActors1.add(actorId))
@@ -185,7 +191,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
     let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, false)
     if (secondM2A[0]) {
       res.send([bestScore, shuffle(secondM2A[1])]);
-      return
+      return true
     } else {
       q2 = secondM2A[1]
       q2.forEach(actorId => seenActors2.add(actorId))
@@ -198,6 +204,7 @@ app.get('/bestpath/:act1/:act2', (req, res) => {
   }
 
   res.send([0, []])
+  return true
 });
 
 app.get('/moviepath/:mov1/:act2', (req, res) => {
@@ -222,7 +229,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     let newActorId = actorIds[k]
     if (newActorId === endId) {
       res.send([bestScore, [actors[newActorId]]])
-      return 
+      return true
     }
     firstSteps.actors[newActorId] = new Set([newActorId])
     seenActors1.add(newActorId)
@@ -234,7 +241,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     let firstA2M = A2M(q1, seenMovies1, seenMovies2, firstSteps, true, true)
     if (firstA2M[0]) {
       res.send([bestScore, shuffle(firstA2M[1])]);
-      return
+      return true
     } else {
       q1 = firstA2M[1]
       q1.forEach(movieId => seenMovies1.add(movieId))
@@ -243,7 +250,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     let secondA2M = A2M(q2, seenMovies2, seenMovies1, firstSteps, false, true)
     if (secondA2M[0]) {
       res.send([bestScore, shuffle(secondA2M[1])]);
-      return
+      return true
     } else {
       q2 = secondA2M[1]
       q2.forEach(movieId => seenMovies2.add(movieId))
@@ -257,7 +264,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     let firstM2A = M2A(q1, seenActors1, seenActors2, firstSteps, true, true)
     if (firstM2A[0]) {
       res.send([bestScore, shuffle(firstM2A[1])]);
-      return
+      return true
     } else {
       q1 = firstM2A[1]
       q1.forEach(actorId => seenActors1.add(actorId))
@@ -266,7 +273,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
     let secondM2A = M2A(q2, seenActors2, seenActors1, firstSteps, false, true)
     if (secondM2A[0]) {
       res.send([bestScore, shuffle(secondM2A[1])]);
-      return
+      return true
     } else {
       q2 = secondM2A[1]
       q2.forEach(actorId => seenActors2.add(actorId))
@@ -279,6 +286,7 @@ app.get('/moviepath/:mov1/:act2', (req, res) => {
   }
 
   res.send([0, []])
+  return true
 });
 
 // EXAMPLE OF FULL API REQ:
