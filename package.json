@@ -20,6 +20,9 @@
   "bugs": {
     "url": "https://github.com/tjmccabe/Baconizer/issues"
   },
+  "engines": {
+    "node": "19.x"
+  },
   "homepage": "https://tjmccabe.github.io/Baconizer/",
   "dependencies": {
     "axios": "^0.21.4",
