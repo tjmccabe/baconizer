@@ -8,7 +8,7 @@
     "start": "node app.js",
     "build": "webpack --watch --mode=development",
     "server": "nodemon app.js",
-    "heroku-postbuild": "webpack -p"
+    "heroku-postbuild": "webpack --mode production"
   },
   "repository": {
     "type": "git",
