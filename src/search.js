@@ -124,7 +124,6 @@ export const addSearchListeners = (g, zoom) => {
   }
 
   window.addEventListener('click', windowListen)
-  // need to copy this to newgame function ^^^
 
   document.getElementById('form').addEventListener("submit", (e) => {
     e.preventDefault();
@@ -310,15 +309,15 @@ const growImage = (id) => {
   if (!image) return
 
   image.transition()
-    .attr("x", function (d) { return -33; })
-    .attr("y", function (d) { return -60; })
+    .attr("x", (_) => -33)
+    .attr("y", (_) => -60)
     .attr("height", 100)
     .attr("width", 66);
 
   setTimeout(() => {
     image.transition()
-      .attr("x", function (d) { return -25; })
-      .attr("y", function (d) { return -38; })
+      .attr("x", (_) => -25)
+      .attr("y", (_) => -38)
       .attr("height", 75)
       .attr("width", 50);
   }, 500)

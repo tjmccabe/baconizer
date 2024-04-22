@@ -130,17 +130,17 @@ class ActorFrame {
       .links(this.links);
 
     node
-      .on('mouseenter', function (d) {
+      .on('mouseenter', function (event, d) {
         tt.transition()
           .duration(200)
           .style("opacity", .95);
-        tt.html(d.name ? d.name : d.title)
-          .style("left", (d3.event.pageX + 15) + "px")
-          .style("top", (d3.event.pageY + 15) + "px");
+        tt.html(d.name ?? d.title)
+          .style("left", (event.pageX + 15) + "px")
+          .style("top", (event.pageY + 15) + "px");
       })
-      .on('mousemove', function () {
-        tt.style('left', (d3.event.pageX + 15) + 'px')
-          .style('top', (d3.event.pageY + 15) + 'px')
+      .on('mousemove', function (event) {
+        tt.style('left', (event.pageX + 15) + 'px')
+          .style('top', (event.pageY + 15) + 'px')
       })
       .on("mouseleave", function () {
         tt.transition()
@@ -153,23 +153,23 @@ class ActorFrame {
 
     var setNodeEvents = images.filter((img, idx) => idx !== 0)
       // go to Movie Frame
-      .on('click', function (d) {
+      .on('click', function (event, d) {
         makeMove(lms[d.id], "actorToMovie")
       })
 
       .on('mouseenter', function () {
         d3.select(this)
           .transition()
-          .attr("x", function (d) { return -33; })
-          .attr("y", function (d) { return -60; })
+          .attr("x", (_) => -33)
+          .attr("y", (_) => -60)
           .attr("height", 100)
           .attr("width", 66);
       })
       .on('mouseleave', function () {
         d3.select(this)
           .transition()
-          .attr("x", function (d) { return -25; })
-          .attr("y", function (d) { return -38; })
+          .attr("x", (_) => -25)
+          .attr("y", (_) => -38)
           .attr("height", 75)
           .attr("width", 50);
       });

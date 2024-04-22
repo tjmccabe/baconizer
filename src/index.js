@@ -37,8 +37,8 @@ document.addEventListener("DOMContentLoaded", () => {
     
   let zoom = d3.zoom()
     .scaleExtent([0.6, 4])
-    .on("zoom", function () {
-      g.attr("transform", d3.event.transform)
+    .on("zoom", function (event) {
+      g.attr("transform", event.transform)
     })
     
   d3.select("svg").call(zoom)
